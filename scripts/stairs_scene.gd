@@ -11,4 +11,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	camera.position.y = body_torso.position.y + 2
+	camera.position.y = body_torso.position.y + 35
+	camera.position.x = body_torso.position.x - 2.5
+	camera.position.z = body_torso.position.z - 30
