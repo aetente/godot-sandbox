@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://332gccsl36ls"]
+
+[ext_resource type="Shader" path="res://shaders/tree_branch.gdshader" id="1_qx0hn"]
+[ext_resource type="Texture2D" uid="uid://xiyy7vwtubga" path="res://assets/trees/trees1.png" id="2_hhinb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qgsrx"]
+render_priority = 0
+shader = ExtResource("1_qx0hn")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/point_size = null
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/scale_animation = 0.1
+shader_parameter/force_albedo = false
+shader_parameter/texture_albedo = ExtResource("2_hhinb")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f2b6n"]
+material = SubResource("ShaderMaterial_qgsrx")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, -1, 0, 1, 2.98023e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_f2b6n")

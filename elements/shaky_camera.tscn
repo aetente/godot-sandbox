@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxbp5i2t02mrr"]
+
+[ext_resource type="Script" path="res://scripts/shaky_camera_control.gd" id="1_aj65p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0w5dh"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6k6fl"]
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qc8rj"]
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="PrismMesh" id="PrismMesh_niukt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pk014"]
+size = Vector3(1, 1, 0.2)
+
+[node name="shaky_camera" type="Node3D"]
+script = ExtResource("1_aj65p")
+
+[node name="rigids" type="Node3D" parent="."]
+
+[node name="torso" type="RigidBody3D" parent="rigids"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12936, -0.0241065)
+gravity_scale = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torso"]
+transform = Transform3D(0.0150099, 0, 0.999887, 0, 1, 0, -0.999887, 0, 0.0150099, 0, 0.0529421, 0.0330942)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torso/CollisionShape3D"]
+transform = Transform3D(0.162045, 2.36469e-10, 1.44355e-08, 0, 0.0998797, -0.00162803, -5.30854e-08, 0.000836758, 0.19433, 1.86265e-09, 0.00317536, 0.00275966)
+visible = false
+mesh = SubResource("CylinderMesh_6k6fl")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="rigids/torso/CollisionShape3D"]
+transform = Transform3D(-0.99777, 1.28117e-09, -0.0667536, -1.70974e-14, 1, 1.91927e-08, 0.0667536, 1.91499e-08, -0.99777, 0.0818117, -0.720653, 0.0101023)
+current = true
+fov = 134.1
+
+[node name="torsoEnd" type="RigidBody3D" parent="rigids"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)
+gravity_scale = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd"]
+transform = Transform3D(0.0150099, 0, 0.999887, 0, 1, 0, -0.999887, 0, 0.0150099, 0, -0.0010286, 0.0330942)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/CollisionShape3D"]
+transform = Transform3D(0.162045, 2.36469e-10, 1.42027e-08, 0, 0.0998797, -0.00162803, -5.26197e-08, 0.000836758, 0.19433, 1.86265e-09, 0.00317538, 0.00275966)
+visible = false
+mesh = SubResource("CylinderMesh_qc8rj")
+skeleton = NodePath("")
+
+[node name="base" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0518943, 0.133174, -0.000151575)
+
+[node name="static_base" type="StaticBody3D" parent="base"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, -2.02761, -0.0089556, -0.00370169)
+
+[node name="MeshInstance" type="MeshInstance3D" parent="base/static_base"]
+transform = Transform3D(1, 5.96046e-08, -1.49012e-09, 0, 1, -1.49012e-09, -1.49012e-08, 1.49012e-08, 0.1, -1.39698e-09, 2, -2.21209)
+visible = false
+mesh = SubResource("PrismMesh_niukt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="base/static_base"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, -3.25963e-09, 1.91999, -2.21347)
+shape = SubResource("BoxShape3D_pk014")
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0602636, 0)
+node_a = NodePath("../rigids/torso")
+node_b = NodePath("../rigids/torsoEnd")
+angular_limit/enable = true
+angular_limit/upper = 0.349066
+angular_limit/lower = -0.349066
+angular_limit/softness = 0.1
+motor/enable = true
+
+[node name="HingeJoint3D2" type="HingeJoint3D" parent="."]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0, -1.4793, 0)
+node_a = NodePath("../rigids/torsoEnd")
+node_b = NodePath("../base/static_base")
+angular_limit/enable = true
+angular_limit/upper = 0.0174533
+angular_limit/lower = -0.0174533

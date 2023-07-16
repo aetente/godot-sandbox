@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://wn3m41a1r7qf"]
+
+[ext_resource type="Shader" path="res://cloud_particles.gdshader" id="1_036a8"]
+[ext_resource type="Shader" path="res://elements/cloud_particles_process.gdshader" id="1_ftoc8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v81w5"]
+shader = ExtResource("1_ftoc8")
+shader_parameter/angular_spacing = 0.5
+shader_parameter/outward_amt = 3.0
+shader_parameter/min_cloud_size = 0.03
+shader_parameter/max_cloud_size = 1.0
+
+[sub_resource type="Gradient" id="Gradient_pl8bt"]
+colors = PackedColorArray(0.0431373, 0.0784314, 0.141176, 0.286275, 0.0368346, 0.0855415, 0.129132, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_okbtg"]
+gradient = SubResource("Gradient_pl8bt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4ngr"]
+render_priority = 0
+shader = ExtResource("1_036a8")
+shader_parameter/diameter = 100.0
+shader_parameter/band_size = 0.1
+shader_parameter/interpolation_val = 0.0
+shader_parameter/sky_gradient = SubResource("GradientTexture2D_okbtg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jnj7j"]
+material = SubResource("ShaderMaterial_a4ngr")
+radial_segments = 4
+rings = 4
+
+[node name="cloud_particles" type="GPUParticles3D"]
+amount = 100
+visibility_aabb = AABB(-21.4094, -17.8946, -4, 42.8189, 35.7891, 8)
+process_material = SubResource("ShaderMaterial_v81w5")
+draw_pass_1 = SubResource("SphereMesh_jnj7j")

@@ -1,0 +1,184 @@
+[gd_scene load_steps=23 format=3 uid="uid://cq71q4blu7jpq"]
+
+[ext_resource type="Texture2D" uid="uid://cbme1088gqv72" path="res://assets/trees/tree1.png" id="1_fc0qp"]
+[ext_resource type="Shader" path="res://shaders/tree_branch.gdshader" id="1_ssovl"]
+[ext_resource type="Texture2D" uid="uid://dgt6nwgmmbsr2" path="res://assets/leaves/blot2_strech.png" id="2_gsfnh"]
+[ext_resource type="Shader" path="res://shaders/tree_leafs.gdshader" id="3_5thap"]
+[ext_resource type="Texture2D" uid="uid://dkouae4utfvrg" path="res://assets/leaves/leaves_pattern2.png" id="4_2n2s5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnmab"]
+render_priority = 0
+shader = ExtResource("1_ssovl")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("1_fc0qp")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ck16s"]
+material = SubResource("ShaderMaterial_bnmab")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h54m6"]
+load_path = "res://.godot/imported/romb.png-842f9fef0cf986245dd5130eb0a76bf0.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wxfj2"]
+load_path = "res://.godot/imported/blot2_strech.png-d9a63fe715c991b2c63e416a1a0eca05.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjtg0"]
+render_priority = 0
+shader = ExtResource("3_5thap")
+shader_parameter/albedo = Color(0.921569, 0.4, 0.105882, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/transparancy = 0.911
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_shape_scale = null
+shader_parameter/noise_shape_offset = null
+shader_parameter/texture_albedo = SubResource("CompressedTexture2D_wxfj2")
+shader_parameter/noise_shape = SubResource("CompressedTexture2D_h54m6")
+shader_parameter/leaves_pattern = ExtResource("4_2n2s5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x7w6e"]
+material = SubResource("ShaderMaterial_bjtg0")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aeijk"]
+load_path = "res://.godot/imported/romb.png-842f9fef0cf986245dd5130eb0a76bf0.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rsmfh"]
+load_path = "res://.godot/imported/blot2_strech.png-d9a63fe715c991b2c63e416a1a0eca05.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwa5q"]
+render_priority = 0
+shader = ExtResource("3_5thap")
+shader_parameter/albedo = Color(0.921569, 0.101961, 0.105882, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/transparancy = 0.911
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_shape_scale = null
+shader_parameter/noise_shape_offset = null
+shader_parameter/texture_albedo = SubResource("CompressedTexture2D_rsmfh")
+shader_parameter/noise_shape = SubResource("CompressedTexture2D_aeijk")
+shader_parameter/leaves_pattern = ExtResource("4_2n2s5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pc285"]
+material = SubResource("ShaderMaterial_dwa5q")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tvrv5"]
+load_path = "res://.godot/imported/romb.png-842f9fef0cf986245dd5130eb0a76bf0.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4lg8y"]
+render_priority = 0
+shader = ExtResource("3_5thap")
+shader_parameter/albedo = Color(0.713726, 0.556863, 0.231373, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/transparancy = 0.911
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_shape_scale = null
+shader_parameter/noise_shape_offset = null
+shader_parameter/texture_albedo = ExtResource("2_gsfnh")
+shader_parameter/noise_shape = SubResource("CompressedTexture2D_tvrv5")
+shader_parameter/leaves_pattern = ExtResource("4_2n2s5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wem6r"]
+material = SubResource("ShaderMaterial_4lg8y")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_imid5"]
+load_path = "res://.godot/imported/romb.png-842f9fef0cf986245dd5130eb0a76bf0.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dhwsp"]
+load_path = "res://.godot/imported/blot2_strech.png-d9a63fe715c991b2c63e416a1a0eca05.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yd7nn"]
+render_priority = 0
+shader = ExtResource("3_5thap")
+shader_parameter/albedo = Color(0.564706, 0.556863, 0.231373, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/transparancy = 0.911
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_shape_scale = null
+shader_parameter/noise_shape_offset = null
+shader_parameter/texture_albedo = SubResource("CompressedTexture2D_dhwsp")
+shader_parameter/noise_shape = SubResource("CompressedTexture2D_imid5")
+shader_parameter/leaves_pattern = ExtResource("4_2n2s5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6hc3e"]
+material = SubResource("ShaderMaterial_yd7nn")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="branches" type="Node3D" parent="."]
+
+[node name="tree1_1" type="MeshInstance3D" parent="branches"]
+transform = Transform3D(0.994207, -0.107479, 4.69805e-09, 0, -4.37114e-08, -1, 0.107479, 0.994207, -4.34582e-08, 0, 0.931191, 0)
+mesh = SubResource("PlaneMesh_ck16s")
+skeleton = NodePath("../../..")
+
+[node name="tree1_2" type="MeshInstance3D" parent="branches"]
+transform = Transform3D(-0.433013, 0.4585, -3.52213e-08, 0.109, 0.346248, -0.481471, -0.224987, -0.714688, -0.23326, 0, 1.32833, 0.228126)
+mesh = SubResource("PlaneMesh_ck16s")
+skeleton = NodePath("../../..")
+
+[node name="tree1_4" type="MeshInstance3D" parent="branches"]
+transform = Transform3D(0.0557152, -0.678746, -0.151616, 0.230094, 0.269188, -0.31294, 0.322417, -0.0748159, 0.24953, 0.133687, 1.32833, -0.227732)
+mesh = SubResource("PlaneMesh_ck16s")
+skeleton = NodePath("../../..")
+
+[node name="tree1_3" type="MeshInstance3D" parent="branches"]
+transform = Transform3D(0.227024, 0.0734103, 0.181854, 0.0963211, 0.200584, -0.201217, -0.170828, 0.210658, 0.128222, -0.199349, 1.32833, -0.134958)
+mesh = SubResource("PlaneMesh_ck16s")
+skeleton = NodePath("../../..")
+
+[node name="leafs" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="leafs"]
+transform = Transform3D(0.895399, 0.189766, 0.402802, 0.410278, -0.000123049, -0.911961, -0.173009, 0.981829, -0.0779669, -0.152306, 1.62043, -0.00357796)
+mesh = SubResource("PlaneMesh_x7w6e")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="leafs"]
+transform = Transform3D(0.366392, -0.426249, 0.417215, 0.195815, -0.376544, -0.55666, 0.563394, 0.408076, -0.0778526, -0.148854, 1.11119, 0.303501)
+mesh = SubResource("PlaneMesh_pc285")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="leafs"]
+transform = Transform3D(0.355473, -0.500479, -0.346409, -0.341946, -0.261566, -0.462596, 0.102623, 0.862042, -0.341479, 0.266646, 0.929782, 0.102598)
+mesh = SubResource("PlaneMesh_wem6r")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="leafs"]
+transform = Transform3D(-0.0113141, 0.813778, -0.411576, -0.387486, -0.417839, -0.331623, -0.321785, 0.47454, 0.413804, 0.264435, 1.35005, -0.232473)
+mesh = SubResource("PlaneMesh_6hc3e")
+skeleton = NodePath("../..")

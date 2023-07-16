@@ -1,0 +1,148 @@
+[gd_scene load_steps=21 format=3 uid="uid://cg0xe3nd5gmba"]
+
+[ext_resource type="PackedScene" uid="uid://d4kcesc808uqj" path="res://elements/buildings.tscn" id="1_g6t2r"]
+[ext_resource type="Texture2D" uid="uid://bs4c03f5tllgr" path="res://assets/buildings/window2.png" id="3_2182a"]
+[ext_resource type="PackedScene" uid="uid://cacgjt6nag06e" path="res://elements/cloud_particles2.tscn" id="3_p7tjd"]
+[ext_resource type="PackedScene" uid="uid://6l6x5pj8ij5s" path="res://elements/fake_skybox.tscn" id="4_rdfva"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5giil"]
+albedo_color = Color(0.172549, 0.337255, 0.129412, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_veigs"]
+material = SubResource("StandardMaterial3D_5giil")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0dvdt"]
+
+[sub_resource type="Sky" id="Sky_16fn1"]
+sky_material = SubResource("PanoramaSkyMaterial_0dvdt")
+
+[sub_resource type="Environment" id="Environment_uucrc"]
+background_mode = 2
+background_color = Color(0.0588235, 0, 0.152941, 1)
+background_energy_multiplier = 0.24
+sky = SubResource("Sky_16fn1")
+ambient_light_color = Color(0.254902, 0.227451, 0.305882, 1)
+ambient_light_sky_contribution = 0.0
+glow_intensity = 3.35
+glow_strength = 0.52
+glow_bloom = 0.12
+glow_hdr_threshold = 2.52
+fog_enabled = true
+fog_light_color = Color(0.223529, 0.2, 0.243137, 1)
+fog_density = 0.1898
+fog_sky_affect = 0.0
+volumetric_fog_albedo = Color(0.219608, 0.215686, 0.266667, 1)
+volumetric_fog_emission = Color(0.215686, 0.215686, 0.25098, 1)
+volumetric_fog_sky_affect = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hebqn"]
+viewport_path = NodePath("Node3D3/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnv4v"]
+resource_local_to_scene = true
+transparency = 4
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.960784, 0.270588, 0.262745, 1)
+albedo_texture = SubResource("ViewportTexture_hebqn")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cjkfm"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_pnv4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05wfb"]
+transparency = 1
+albedo_texture = ExtResource("3_2182a")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x83px"]
+material = SubResource("StandardMaterial3D_05wfb")
+
+[sub_resource type="Gradient" id="Gradient_2lobu"]
+offsets = PackedFloat32Array(0.436326, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.443137)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a7onh"]
+gradient = SubResource("Gradient_2lobu")
+fill_from = Vector2(0, 0.00569801)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_04jhn"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.913725, 0.164706, 0.329412, 1)
+albedo_texture = SubResource("GradientTexture2D_a7onh")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6xun4"]
+material = SubResource("ORMMaterial3D_04jhn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyb3o"]
+shading_mode = 0
+albedo_color = Color(0.12549, 0.172549, 0.231373, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w5nj6"]
+material = SubResource("StandardMaterial3D_pyb3o")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.33505, 0, 0, 0, 2.33505, 0, 0, 0, 2.33505, 0, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_veigs")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uucrc")
+
+[node name="Node3D3" type="Node3D" parent="."]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, 6.9017, 0, -0.773829)
+
+[node name="SubViewport" type="SubViewport" parent="Node3D3"]
+transparent_bg = true
+
+[node name="Sprite" parent="Node3D3/SubViewport" instance=ExtResource("3_p7tjd")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 0.258819, -1.13133e-08, 0.965926, -0.965926, 4.2222e-08, 0.258819, -0.405185, 0.236218, 0)
+mesh = SubResource("PlaneMesh_cjkfm")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.36762e-08, -0.0401492, -0.999194, -1.75498e-09, 0.999194, -0.0401492, 1, 0, -4.37114e-08, -6.06539, 0.47993, 0.0641555)
+fov = 12.4
+
+[node name="window" type="Node3D" parent="Camera3D"]
+transform = Transform3D(-1.44329e-15, 4.37114e-08, 1, 1, -4.47035e-08, 0, 4.47035e-08, 1, -4.37114e-08, 0.0113536, -0.11387, 0.0718908)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Camera3D/window"]
+transform = Transform3D(-6.60935e-10, 6.60935e-10, -0.0151204, 6.60935e-10, 0.0151204, 6.60935e-10, 0.0151204, -6.60935e-10, -6.60935e-10, 0.113125, -0.132465, -0.0123384)
+mesh = SubResource("PlaneMesh_x83px")
+skeleton = NodePath("../../..")
+
+[node name="ray" type="MeshInstance3D" parent="Camera3D/window"]
+transform = Transform3D(-0.00186283, 0.0939018, -1.63209, 0.00725009, 0.802352, 0.190996, 1.53934, -0.00366545, -0.00287464, -0.137163, -5.21383, -0.153644)
+mesh = SubResource("PlaneMesh_6xun4")
+skeleton = NodePath("../../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, -1.32349e-23, 7.10543e-15, 2.22045e-16, 1, -3.72529e-09, -1.06581e-14, 4.85294e-24, 1, 0, 0.0491595, -0.00197411)
+light_color = Color(0.980392, 0.478431, 0, 1)
+light_energy = 0.096
+
+[node name="fake_sea" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.09989, 0, 0, 0, 4.09988, 0, 0, 0, 4.09988, 1.97547, -0.00553977, 0.225743)
+mesh = SubResource("PlaneMesh_w5nj6")
+
+[node name="buildings" type="Node3D" parent="."]
+transform = Transform3D(0.608914, 0, -0.793236, 0, 1, 0, 0.793236, 0, 0.608914, 0, 0, -0.256282)
+
+[node name="Node3D2" parent="buildings" instance=ExtResource("1_g6t2r")]
+transform = Transform3D(-0.252402, 0, 0.162151, 0, 0.3, 0, 0.162151, 0, 0.252402, -0.56604, -0.0346435, -0.344127)
+
+[node name="Node3D" parent="buildings" instance=ExtResource("1_g6t2r")]
+transform = Transform3D(0.26698, 0, 0.0134078, 0, 0.267317, 0, -0.0134078, 0, 0.26698, 0.181486, -0.0165224, -0.930467)
+
+[node name="Node3D3" parent="buildings" instance=ExtResource("1_g6t2r")]
+transform = Transform3D(0.199075, -1.39698e-09, -0.0724299, -0.000532197, 0.211837, -0.00146276, 0.0724279, 0.00155657, 0.19907, 0.974758, -0.00949986, -1.25651)
+
+[node name="Node3D4" parent="buildings" instance=ExtResource("1_g6t2r")]
+transform = Transform3D(-0.156765, -4.36447e-05, -0.0298991, -0.00026241, 0.159587, 0.00114291, -0.0298979, -0.00117183, 0.156761, 1.44273, -0.0226257, -1.24906)
+
+[node name="fake_skybox" parent="." instance=ExtResource("4_rdfva")]
+transform = Transform3D(5.80605, 5.80605, 0, -5.80605, 5.80605, 0, 0, 0, 8.211, 0, 0, 0)

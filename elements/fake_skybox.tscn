@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://6l6x5pj8ij5s"]
+
+[ext_resource type="Shader" uid="uid://cgimgpabtuetg" path="res://fake_skybox.tres" id="1_dtb7s"]
+[ext_resource type="Texture2D" uid="uid://diltxfwvmwbe" path="res://assets/skybox/fog1_better.png" id="2_t78aw"]
+[ext_resource type="Texture2D" uid="uid://cdicfduxxncrf" path="res://assets/skybox/sunset1.png" id="2_wfy1n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1qoj"]
+render_priority = 0
+shader = ExtResource("1_dtb7s")
+shader_parameter/albedo = Color(0.784314, 0.858824, 0.937255, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/emission_energy = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 0.4, 1)
+shader_parameter/uv1_offset = Vector3(-0.1, 0.1, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_t78aw")
+shader_parameter/sunset_texture = ExtResource("2_wfy1n")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_egbst"]
+material = SubResource("ShaderMaterial_x1qoj")
+subdivide_width = 2
+subdivide_depth = 2
+
+[node name="fake_skybox" type="MeshInstance3D"]
+transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0)
+mesh = SubResource("PlaneMesh_egbst")

@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3naicikx7c61"]
+
+[ext_resource type="PackedScene" uid="uid://0jnsml4n18p0" path="res://elements/sea_noise_foam.tscn" id="1_kuehj"]
+[ext_resource type="PackedScene" uid="uid://6l6x5pj8ij5s" path="res://elements/fake_skybox.tscn" id="3_kc5a8"]
+[ext_resource type="PackedScene" uid="uid://cxbp5i2t02mrr" path="res://elements/shaky_camera.tscn" id="4_ncui6"]
+[ext_resource type="PackedScene" uid="uid://cacgjt6nag06e" path="res://elements/cloud_particles2.tscn" id="5_jx5qt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwsfx"]
+albedo_color = Color(1, 0.701961, 0.490196, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jhn32"]
+material = SubResource("StandardMaterial3D_hwsfx")
+
+[sub_resource type="Environment" id="Environment_y2qpc"]
+background_mode = 1
+background_color = Color(0.0862745, 0.160784, 0.227451, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.0862745, 0.160784, 0.227451, 1)
+ambient_light_energy = 0.0
+fog_enabled = true
+fog_light_color = Color(0.0862745, 0.160784, 0.227451, 1)
+fog_density = 0.003
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_crmq3"]
+viewport_path = NodePath("Node3D2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtywj"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+albedo_texture = SubResource("ViewportTexture_crmq3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ehf7b"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_gtywj")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(228.904, 0, 0, 0, 22.01, 0, 0, 0, 203.372, -57.0014, 0.911936, 0)
+mesh = SubResource("PlaneMesh_jhn32")
+
+[node name="sea" parent="." instance=ExtResource("1_kuehj")]
+transform = Transform3D(4.92004, -0.0120704, 1.31842, 0.0636558, 0.999922, -2.14917e-09, -1.31832, 0.00323426, 4.92043, 178.449, 4.4, -66.311)
+
+[node name="fake_skybox" parent="." instance=ExtResource("3_kc5a8")]
+transform = Transform3D(-87.917, 28.0936, 694.447, -370.95, 590.044, -70.8315, -587.744, -376.606, -59.1715, 105.629, 0, 398.734)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y2qpc")
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1.33641, 0.163899, -0.967254, 0.454458, 1.34515, 0.855835, 0.869431, -0.955051, 1.03942, 80.6985, 26.8863, 161.471)
+
+[node name="SubViewport" type="SubViewport" parent="Node3D2"]
+disable_3d = true
+transparent_bg = true
+scaling_3d_mode = 0
+scaling_3d_scale = 0.25
+canvas_item_default_texture_filter = 0
+sdf_oversize = 0
+sdf_scale = 2
+
+[node name="Sprite" parent="Node3D2/SubViewport" instance=ExtResource("5_jx5qt")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(55.4265, 182.843, 25.1938, 154.739, -10.8254, -151.74, -172.899, 48.926, -127.726, -19.5875, -19.8047, 19.3626)
+mesh = SubResource("PlaneMesh_ehf7b")
+
+[node name="Node3D3" type="Node3D" parent="."]
+transform = Transform3D(0.55097, 0.59106, -1.44759, 1.50584, 0.212746, 0.660006, 0.421075, -1.53421, -0.466163, 80.6985, 293.341, 246.288)
+
+[node name="SubViewport" type="SubViewport" parent="Node3D3"]
+disable_3d = true
+transparent_bg = true
+scaling_3d_mode = 0
+scaling_3d_scale = 0.25
+canvas_item_default_texture_filter = 0
+sdf_oversize = 0
+sdf_scale = 2
+
+[node name="Sprite" parent="Node3D3/SubViewport" instance=ExtResource("5_jx5qt")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D3"]
+transform = Transform3D(55.4265, 182.843, 25.1938, 154.739, -10.8254, -151.74, -172.899, 48.926, -127.726, -19.5875, -19.8047, 19.3626)
+mesh = SubResource("PlaneMesh_ehf7b")
+
+[node name="shaky_camera" parent="." instance=ExtResource("4_ncui6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.9302, 5.93445, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 39.9971, -95.023)
+light_color = Color(0.0862745, 0.160784, 0.227451, 1)
+light_energy = 16.0
+light_specular = 0.0
+omni_range = 313.507
+omni_attenuation = 0.574349

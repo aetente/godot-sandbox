@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cacgjt6nag06e"]
+
+[ext_resource type="Material" uid="uid://b15hngl8heuh3" path="res://elements/cloud_particles_material_1.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://doa1knsm2r2vs" path="res://assets/particles/whitePuff00.png" id="2_l7wnb"]
+
+[sub_resource type="CanvasItemMaterial" id="1"]
+light_mode = 1
+
+[node name="Sprite" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.588235)
+self_modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+light_mask = 0
+material = SubResource("1")
+use_parent_material = true
+region_rect = Rect2(0, 0, 1000, 1000)
+
+[node name="Particles2D" type="GPUParticles2D" parent="."]
+position = Vector2(398, 269)
+rotation = 1.5708
+amount = 16
+process_material = ExtResource("2")
+texture = ExtResource("2_l7wnb")
+lifetime = 4.0
+speed_scale = 0.2
+visibility_rect = Rect2(-100, -100, 0, 0)
+
+[node name="Particles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(346, 233)
+rotation = 1.5708
+amount = 16
+process_material = ExtResource("2")
+texture = ExtResource("2_l7wnb")
+lifetime = 4.0
+speed_scale = 0.2
+visibility_rect = Rect2(-100, -100, 0, 0)
+
+[node name="Particles2D3" type="GPUParticles2D" parent="."]
+position = Vector2(442, 210)
+rotation = 1.5708
+amount = 16
+process_material = ExtResource("2")
+texture = ExtResource("2_l7wnb")
+lifetime = 4.0
+speed_scale = 0.2
+visibility_rect = Rect2(-100, -100, 0, 0)
+
+[node name="Particles2D4" type="GPUParticles2D" parent="."]
+position = Vector2(386, 163)
+rotation = 1.5708
+amount = 16
+process_material = ExtResource("2")
+texture = ExtResource("2_l7wnb")
+lifetime = 4.0
+speed_scale = 0.2
+visibility_rect = Rect2(-100, -100, 0, 0)
+
+[node name="Particles2D5" type="GPUParticles2D" parent="."]
+position = Vector2(378, 121)
+rotation = 1.5708
+amount = 16
+process_material = ExtResource("2")
+texture = ExtResource("2_l7wnb")
+lifetime = 4.0
+speed_scale = 0.2
+visibility_rect = Rect2(-100, -100, 0, 0)

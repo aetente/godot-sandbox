@@ -1,0 +1,298 @@
+[gd_scene load_steps=23 format=3 uid="uid://cbi25sbbpiqm2"]
+
+[ext_resource type="Material" path="res://person_skin2.tres" id="1"]
+[ext_resource type="Script" path="res://scripts/person2_move_it.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cw7tcnnn0g2nb" path="res://elements/chair.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b3tl84v0iavs6" path="res://elements/cig.tscn" id="4"]
+
+[sub_resource type="PrismMesh" id="1"]
+
+[sub_resource type="CylinderShape3D" id="2"]
+height = 2.39245
+
+[sub_resource type="CylinderMesh" id="3"]
+material = ExtResource("1")
+top_radius = 0.786
+bottom_radius = 0.585
+radial_segments = 4
+
+[sub_resource type="CylinderShape3D" id="4"]
+height = 2.39245
+
+[sub_resource type="CylinderMesh" id="5"]
+material = ExtResource("1")
+top_radius = 0.488
+bottom_radius = 0.338
+radial_segments = 4
+
+[sub_resource type="SphereShape3D" id="6"]
+
+[sub_resource type="SphereMesh" id="7"]
+material = ExtResource("1")
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="8"]
+
+[sub_resource type="CylinderMesh" id="9"]
+material = ExtResource("1")
+top_radius = 0.104
+bottom_radius = 0.065
+radial_segments = 6
+
+[sub_resource type="CylinderShape3D" id="10"]
+
+[sub_resource type="CylinderMesh" id="11"]
+material = ExtResource("1")
+top_radius = 0.033
+bottom_radius = 0.065
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="12"]
+material = ExtResource("1")
+top_radius = 0.104
+bottom_radius = 0.065
+radial_segments = 6
+
+[sub_resource type="CylinderShape3D" id="13"]
+
+[sub_resource type="CylinderMesh" id="14"]
+material = ExtResource("1")
+top_radius = 0.057
+bottom_radius = 0.065
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="15"]
+material = ExtResource("1")
+top_radius = 0.066
+bottom_radius = 0.044
+radial_segments = 6
+
+[sub_resource type="CylinderShape3D" id="16"]
+
+[sub_resource type="Animation" id="17"]
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("prearm2Torso:motor/target_velocity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 5, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.4, -0.1, 0.3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e8eew"]
+_data = {
+"New Anim": SubResource("17")
+}
+
+[node name="Spatial" type="Node3D"]
+transform = Transform3D(0.09, 0, 0, 0, 0.0899482, 0.00305303, 0, -0.00305303, 0.0899482, 0, 0.63431, 0)
+script = ExtResource("2")
+
+[node name="torsomain" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.258819, -0.965927, 0, 0.965926, -0.258819, -0.0456164, -1.07913, 0.0931201)
+
+[node name="torso2base" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72254, -0.58239)
+
+[node name="leg1base" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72254, -0.58239)
+
+[node name="leg2base" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72254, -0.58239)
+
+[node name="knee1base" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137494, -1.10969, -1.19267)
+
+[node name="knee2base" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249201, -1.10969, -1.19267)
+
+[node name="base" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.25882, -0.965927, 0, 0.965927, -0.25882, -0.184434, 0.133174, 3.77973)
+
+[node name="static_base" type="StaticBody3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, -3.72529e-09, 0, 3.72529e-09, 1, 0, -3.96166, -0.304728)
+
+[node name="MeshInstance" type="MeshInstance3D" parent="base/static_base"]
+transform = Transform3D(1, 5.96046e-08, -1.49012e-08, 0, 1, -1.49012e-08, -1.49012e-08, 1.49012e-08, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("1")
+
+[node name="prearm1Torso" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 1.00229e-10, -3.7271e-08, -2.66015e-08, 0.70234, -0.711843, 2.61056e-08, 0.711843, 0.70234, 0.373983, -0.704355, 0.969148)
+
+[node name="Generic6DOFJoint" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866026, -0.5, 0, 0.5, 0.866026, -0.0422294, -0.152459, 1.11341)
+
+[node name="torso1Torso2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866026, -0.5, 0, 0.5, 0.866026, -0.00869241, -1.09187, 0.418109)
+
+[node name="arm1Prearm1" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, 0.41208, -1.19028, 0.358487)
+angular_spring_x/stiffness = 0.01
+angular_spring_y/stiffness = 0.01
+angular_spring_z/stiffness = 0.01
+
+[node name="prearm2Torso" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.702339, -0.711842, 0, 0.711842, 0.702339, -0.36365, -0.789454, 0.971857)
+
+[node name="arm2Prearm2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, -0.446801, -1.19935, 0.381261)
+
+[node name="leg1Torso2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.124381, -0.992235, 0, 0.992235, 0.124381, 0.0374956, -1.30755, -0.104955)
+
+[node name="leg2Torso2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.124381, -0.992235, 0, 0.992235, 0.124381, -0.164867, -1.33218, -0.118074)
+
+[node name="knee1Leg1" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, 0.0808166, -1.39794, -0.924086)
+
+[node name="knee2Leg2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, -0.184434, -1.38967, -0.913649)
+
+[node name="Rigidtorso" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, -2.20843e-08, 0.866026, -0.5, -2.13536e-08, 0.5, 0.866026, -0.000499412, -0.956657, 0.61198)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidtorso"]
+transform = Transform3D(0.297178, 0.010355, 0, -0.0132042, 0.235575, 1.86265e-09, 1.22236e-09, -9.31323e-10, 0.144519, -0.0594099, 0.1308, -0.0340813)
+shape = SubResource("2")
+
+[node name="torso" type="MeshInstance3D" parent="Rigidtorso/CollisionShape"]
+transform = Transform3D(1.51282, 0.067785, 0.000888051, 0.0207034, 1.23359, 0.0161613, 1.86265e-08, 0.124649, -1.43514, 0.0830305, -0.0338821, 0.00292206)
+mesh = SubResource("3")
+
+[node name="Rigidtorso2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, -0.0779454, -1.24454, 0.131785)
+
+[node name="CollisionShape2" type="CollisionShape3D" parent="Rigidtorso2"]
+transform = Transform3D(0.217825, 0.00758999, 0, -0.0110205, 0.196616, 6.0536e-09, 1.68802e-09, -7.91624e-09, 0.144519, 0.0278569, -0.0203141, 0.0263904)
+shape = SubResource("4")
+
+[node name="torso2" type="MeshInstance3D" parent="Rigidtorso2/CollisionShape2"]
+transform = Transform3D(2.10125, -0.0467372, -0.000612304, 0.328696, 1.40374, 0.0183904, -1.64874e-08, 0.124649, -1.43514, 0.0419681, 0.0710604, -0.167297)
+mesh = SubResource("5")
+
+[node name="Rigidhead" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866026, -0.5, 0, 0.5, 0.866026, -0.184434, -1.84365, 0.0589324)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidhead"]
+transform = Transform3D(0.351517, 0, 0, 0, 0.351517, 0, 0, 0, 0.351517, 0.159947, 1.878, 0.0394816)
+shape = SubResource("6")
+
+[node name="head" type="MeshInstance3D" parent="Rigidhead/CollisionShape"]
+transform = Transform3D(0.582689, -0.0526199, -0.143744, 0.29885, 0.391062, 1.06828, 0, -0.565745, 0.207101, -0.0877814, 0.0223541, 0.0744649)
+mesh = SubResource("7")
+
+[node name="Rigidprearm1" type="RigidBody3D" parent="."]
+transform = Transform3D(0.996015, 0.00302555, -0.0891385, -0.0655777, 0.70224, -0.708913, 0.0604518, 0.711933, 0.69964, 0.592357, -0.71426, 0.791226)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidprearm1"]
+transform = Transform3D(0.073879, -0.0358387, 2.79397e-09, 0.00881477, 0.300374, 1.39698e-09, 0, -4.65661e-09, 0.063329, -0.0342211, -0.229279, -0.00845758)
+shape = SubResource("8")
+
+[node name="prearm1" type="MeshInstance3D" parent="Rigidprearm1/CollisionShape"]
+transform = Transform3D(-2.3086, -0.134289, 10.5375, -0.144362, 1.15484, 0.288449, -12.3199, -0.325233, -2.83075, -0.213446, -0.106882, 0.570702)
+mesh = SubResource("9")
+
+[node name="Rigidarm1" type="RigidBody3D" parent="."]
+transform = Transform3D(0.751045, 0.0223974, -0.65987, -0.660182, 0.0400391, -0.75004, 0.00962208, 0.998947, 0.0448577, 0.53649, -1.20056, 0.0386426)
+mass = 0.102041
+gravity_scale = 0.1
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidarm1"]
+transform = Transform3D(0.0418674, 0.0335469, 0, -0.00576647, 0.243196, -0.00163948, -0.000225053, 0.00949145, 0.0420078, 0, -0.021153, -0.00638992)
+shape = SubResource("10")
+
+[node name="arm1" type="MeshInstance3D" parent="Rigidarm1/CollisionShape"]
+transform = Transform3D(-18.8979, -0.0312016, -1.54208, 0.0963532, -1.2053, 0.00734228, -1.56671, 0.0407592, 18.9672, -0.178301, 0.0604391, -0.0583382)
+mesh = SubResource("11")
+
+[node name="Rigidprearm2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70234, -0.711842, 0, 0.711842, 0.70234, -0.499063, -0.970013, 0.614151)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidprearm2"]
+transform = Transform3D(-0.0741375, 0.0254436, -0.000445157, 0.00627911, 0.300725, -0.00429832, 9.51719e-05, -0.020638, -0.0631814, -0.00299364, 0.0936596, -0.0316004)
+shape = SubResource("8")
+
+[node name="prearm2" type="MeshInstance3D" parent="Rigidprearm2/CollisionShape"]
+transform = Transform3D(2.4553, -0.082484, 10.4916, 0.132428, 1.15969, 0.199111, -12.3299, -0.0437817, 2.83305, -0.0877242, -0.0547233, -0.0641825)
+mesh = SubResource("12")
+
+[node name="Rigidarm2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, -0.528931, -1.20348, 0.327393)
+mass = 0.102041
+gravity_scale = 0.1
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidarm2"]
+transform = Transform3D(-0.0422087, -0.0118761, 0.000652284, -0.00190007, 0.241768, 0.00723176, -0.000996739, 0.0420369, -0.041408, 0.0172515, -0.260151, -0.0370288)
+shape = SubResource("10")
+
+[node name="arm2" type="MeshInstance3D" parent="Rigidarm2/CollisionShape"]
+transform = Transform3D(-18.5349, 0.021334, 3.8591, 0.058171, -1.20242, 0.20836, 3.91535, 0.214482, 18.6639, -0.00654078, 0.0246434, 0.0773183)
+mesh = SubResource("11")
+
+[node name="Spatial" parent="Rigidarm2" instance=ExtResource("4")]
+transform = Transform3D(-0.077835, -0.0744563, -0.022684, 0.0744562, -0.0618748, -0.0523867, 0.022684, -0.0523867, 0.0941151, 0, -0.608073, -0.116508)
+
+[node name="Rigidleg1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.124381, -0.992235, 0, 0.992235, 0.124381, 0.0473266, -1.29874, -0.268032)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidleg1"]
+transform = Transform3D(0.0715301, -0.0234176, 0, 0.00593238, 0.282359, 0, 0, 0, 0.0773742, 0.0274076, -0.336494, 0)
+shape = SubResource("13")
+
+[node name="leg2" type="MeshInstance3D" parent="Rigidleg1/CollisionShape"]
+transform = Transform3D(18.7048, -0.0901125, 0, 0.0911504, 1.18674, 0, 0, 0, 17.3546, 0.00700545, 0.140454, 0.0566846)
+mesh = SubResource("14")
+
+[node name="Rigidleg2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.124381, -0.992235, 0, 0.992235, 0.124381, -0.150346, -1.31285, -0.274708)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Rigidleg2"]
+transform = Transform3D(-0.0716989, 0.0130947, -6.75976e-09, 0.00331728, 0.283026, -2.46924e-10, 6.25336e-09, -2.04723e-09, -0.0773742, -0.0150609, -0.325804, 3.72529e-09)
+shape = SubResource("13")
+
+[node name="leg3" type="MeshInstance3D" parent="Rigidleg2/CollisionShape"]
+transform = Transform3D(-18.7083, 0.00413151, 1.62994e-06, 0.00446619, 1.11034, -3.4245e-08, -1.51211e-06, -2.90443e-08, -17.3546, -0.00827479, 0.133997, -0.0167775)
+mesh = SubResource("14")
+
+[node name="RigidKnee1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, 0.107617, -1.52353, -1.39417)
+
+[node name="knee1" type="MeshInstance3D" parent="RigidKnee1"]
+transform = Transform3D(1.34266, -0.00485394, 0, 0.0193811, 0.336264, 0, 0, 0, 1.3428, -0.00417313, 0.0514458, -0.0168469)
+mesh = SubResource("15")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="RigidKnee1"]
+transform = Transform3D(0.077771, 0, 0, 0, 0.307624, 0, 0, 0, 0.077771, 0, 0.0604769, 0)
+shape = SubResource("16")
+
+[node name="RigidKnee2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965927, 0, 0.965927, 0.258819, -0.184434, -1.52469, -1.41211)
+
+[node name="knee2" type="MeshInstance3D" parent="RigidKnee2"]
+transform = Transform3D(1.34266, -0.00485394, 0, 0.0193811, 0.336264, 0, 0, 0, 1.3428, 0.014086, 0.0690811, -0.0133188)
+mesh = SubResource("15")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="RigidKnee2"]
+transform = Transform3D(0.077771, 0, 0, 0, 0.307624, 0, 0, 0, 0.077771, 0.0136086, 0.0604769, 0)
+shape = SubResource("16")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "New Anim"
+libraries = {
+"": SubResource("AnimationLibrary_e8eew")
+}
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.0956546, -0.033767, 0.994842, 0.0337671, 0.99896, 0.0306601, -0.994842, 0.0306601, 0.0966953, 5.06146, -0.36843, -0.196158)
+fov = 48.6178
+
+[node name="Spatial" parent="." instance=ExtResource("3")]
+transform = Transform3D(-4.37114e-08, -0.0339226, 0.999424, 0.0339226, 0.998849, 0.0339031, -0.999425, 0.0339031, 0.0011507, 0, -1.63613, -0.0555337)

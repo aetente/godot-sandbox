@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdx3pn4rwi2xd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jsnkb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x7kax"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s75tb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.29329)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.15124, 0)
+physics_material_override = SubResource("PhysicsMaterial_jsnkb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_x7kax")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_s75tb")
+
+[node name="StaticBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.597352, 0.974276, 0)
+physics_material_override = SubResource("PhysicsMaterial_jsnkb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_x7kax")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_s75tb")
+
+[node name="SliderJoint3D" type="SliderJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../StaticBody3D2")
+linear_limit/upper_distance = 0.5
+linear_limit/lower_distance = -0.5

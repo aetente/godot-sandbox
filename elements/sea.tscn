@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnb72c5dvyjs0"]
+
+[ext_resource type="Texture2D" uid="uid://6kve4x0xbufy" path="res://assets/water/sea1.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bqoluapntw4jn" path="res://assets/water/sea2.png" id="2"]
+[ext_resource type="Shader" path="res://shaders/wave_sea.gdshader" id="3"]
+[ext_resource type="Texture2D" uid="uid://b56wljh1gry00" path="res://assets/water/water1.jpg" id="4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfw03"]
+render_priority = 0
+shader = ExtResource("3")
+shader_parameter/albedo = Color(0.603922, 0.619608, 0.854902, 1)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("1")
+shader_parameter/texture_albedo2 = ExtResource("2")
+shader_parameter/texture_vertex = ExtResource("4")
+
+[sub_resource type="PlaneMesh" id="2"]
+material = SubResource("ShaderMaterial_bfw03")
+subdivide_width = 10
+subdivide_depth = 10
+
+[node name="Spatial" type="Node3D"]
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(17.8969, 0, 0, 0, 17.8969, 0, 0, 0, 17.8969, -0.167759, -0.243678, -0.368814)
+mesh = SubResource("2")

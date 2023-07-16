@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://k2c7x376bkt8"]
+
+[ext_resource type="Shader" path="res://testing.gdshader" id="1_7t3p6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pc7x0"]
+render_priority = 0
+shader = ExtResource("1_7t3p6")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g5s7q"]
+material = SubResource("ShaderMaterial_pc7x0")
+
+[node name="Node3D" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_g5s7q")

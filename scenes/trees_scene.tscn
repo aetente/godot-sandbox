@@ -1,0 +1,313 @@
+[gd_scene load_steps=19 format=3 uid="uid://by73i24v67ose"]
+
+[ext_resource type="Texture2D" uid="uid://dcx2yu4w0kts1" path="res://assets/textures/leafs1.png" id="1_vpv5g"]
+[ext_resource type="Texture2D" uid="uid://cantvkrbgkmjk" path="res://assets/trees/tree3.png" id="2_cv4dr"]
+[ext_resource type="Texture2D" uid="uid://diltxfwvmwbe" path="res://assets/skybox/fog1_better.png" id="2_u1t47"]
+[ext_resource type="Texture2D" uid="uid://byp8c252sasi1" path="res://assets/trees/tree2.png" id="3_afoh1"]
+[ext_resource type="PackedScene" uid="uid://cq71q4blu7jpq" path="res://elements/tree.tscn" id="4_mqr0s"]
+[ext_resource type="PackedScene" uid="uid://cw7tcnnn0g2nb" path="res://elements/chair.tscn" id="6_nd70x"]
+[ext_resource type="PackedScene" uid="uid://332gccsl36ls" path="res://elements/background_trees.tscn" id="7_8ma82"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8fuer"]
+panorama = ExtResource("2_u1t47")
+
+[sub_resource type="Sky" id="Sky_kjh55"]
+sky_material = SubResource("PanoramaSkyMaterial_8fuer")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_ctms2"]
+background_mode = 2
+background_color = Color(0.878431, 0.878431, 0.878431, 1)
+sky = SubResource("Sky_kjh55")
+sky_rotation = Vector3(0.965167, -1.14319, 0.671952)
+ambient_light_source = 3
+ambient_light_color = Color(0.580392, 0.517647, 0.541176, 1)
+ambient_light_energy = 0.68
+reflected_light_source = 2
+fog_enabled = true
+fog_light_color = Color(0.580392, 0.517647, 0.541176, 1)
+fog_light_energy = 2.65
+fog_density = 0.0663
+fog_aerial_perspective = 0.295
+fog_sky_affect = 0.64
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkwhb"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("2_cv4dr")
+albedo_texture_force_srgb = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5ifr8"]
+material = SubResource("StandardMaterial3D_lkwhb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4mxjk"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("3_afoh1")
+albedo_texture_force_srgb = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w7ung"]
+material = SubResource("StandardMaterial3D_4mxjk")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_igkfk"]
+
+[sub_resource type="Shader" id="Shader_3k1y2"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	vec2 uv = UV*uv1_scale.xy+uv1_offset.xy;
+	//uv.x -= 10.;
+	VERTEX.y += sin(VERTEX.x * VERTEX.x * 1000.)/10.;
+	if (VERTEX.x < 0.) {
+		
+		VERTEX.y -= VERTEX.x*VERTEX.x * VERTEX.x* VERTEX.x*20.;
+	}
+	UV=uv;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dufqi"]
+render_priority = 0
+shader = SubResource("Shader_3k1y2")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(34, 34, 34)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("1_vpv5g")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n5q1r"]
+material = SubResource("ShaderMaterial_dufqi")
+subdivide_width = 16
+subdivide_depth = 16
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ctms2")
+
+[node name="allTrees" type="Node3D" parent="."]
+
+[node name="trees" type="Node3D" parent="allTrees"]
+
+[node name="tree1_1" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(0.772667, 0.63459, -0.0167614, -0.0978507, 0.0929706, -0.990849, -0.627225, 0.767237, 0.13393, 0, 0.609394, 0)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_1" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(-0.298186, 0.951052, -0.0811494, -0.0889434, -0.112332, -0.989682, -0.950355, -0.287892, 0.118086, 1.48349, 0.931191, 0)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_2" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(0.967236, -0.0990865, 0.233742, 0.200178, -0.26862, -0.942217, 0.156149, 0.958136, -0.239984, -0.904664, 0.611794, 0.574481)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_2" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(0.493391, 0.85818, -0.141748, -0.0889434, -0.112332, -0.989682, -0.865248, 0.500907, 0.0209058, 0.104933, 0.931191, 1.66143)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_3" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(-0.868317, 0.396808, -0.297605, 0.253241, -0.161244, -0.953871, -0.426491, -0.903628, 0.039523, 0.841809, 0.529931, 1.52736)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_3" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(-0.741548, -0.655896, 0.14109, -0.168176, -0.0218564, -0.985515, 0.649479, -0.754534, -0.0940987, -0.200089, 0.943946, 0.450609)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_4" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(0.986694, 0.160026, 0.0287632, 0.0449388, -0.0983967, -0.994132, -0.156257, 0.982196, -0.104279, 1.3118, 0.52737, 1.13633)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_4" type="MeshInstance3D" parent="allTrees/trees"]
+transform = Transform3D(-0.991891, 0.100546, 0.0777296, -0.0773953, 0.0072275, -0.996974, -0.100803, -0.994906, 0.000612587, 1.88307, 0.875868, 1.01327)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.536335)
+
+[node name="Node3D2" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-1.11566, -0.135364, -1.13885, -0.138258, 1.5931, -0.0539135, 1.1385, 0.0608161, -1.12255, -1.33222, 0, 0.908817)
+
+[node name="Node3D3" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(0.831547, 0, -0.555454, 0.0351772, 0.997993, 0.0526623, 0.554339, -0.0633305, 0.829878, 1.42038, -0.0146206, -0.216621)
+
+[node name="Node3D4" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-1.56011, -0.146342, -0.323483, -0.11727, 1.58835, -0.152983, 0.335119, -0.125459, -1.55947, -0.490137, 0.0146206, -0.481303)
+
+[node name="Node3D5" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.866862, 0, -0.498548, 0, 1, 0, 0.498548, 0, -0.866862, -0.500232, 0, 0.516796)
+
+[node name="Node3D6" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(0.399526, 0.0870218, 1.54687, -0.138258, 1.5931, -0.0539135, -1.54313, -0.120204, 0.405324, -1.07012, 0, -0.333551)
+
+[node name="Node3D7" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.997201, 0.0315733, 0.0677679, 0.0351772, 0.997993, 0.0526623, -0.0659691, 0.0548988, -0.99631, -0.711428, -0.0146206, 1.09216)
+
+[node name="Node3D8" parent="allTrees/trees" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(1.18533, 0.189406, 1.05789, -0.11727, 1.58835, -0.152983, -1.06829, 0.0357976, 1.19058, -0.668858, 0.0146206, 0.108335)
+
+[node name="trees2" type="Node3D" parent="allTrees"]
+transform = Transform3D(-0.0560999, 0, -0.998425, 0, 1, 0, 0.998425, 0, -0.0560999, 0.859339, 0, -0.618834)
+
+[node name="tree1_1" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(0.772667, 0.63459, -0.0167614, -0.0978507, 0.0929706, -0.990849, -0.627225, 0.767237, 0.13393, 0, 0.609394, 0)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_1" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(-0.298186, 0.951052, -0.0811494, -0.0889434, -0.112332, -0.989682, -0.950355, -0.287892, 0.118086, 1.48349, 0.931191, 0)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_2" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(0.967236, -0.0990865, 0.233742, 0.200178, -0.26862, -0.942217, 0.156149, 0.958136, -0.239984, 0.559773, 0.611794, 0.492197)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_2" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(0.493391, 0.85818, -0.141748, -0.0889434, -0.112332, -0.989682, -0.865248, 0.500907, 0.0209058, 0.104933, 0.931191, 1.66143)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_3" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(-0.868317, 0.396808, -0.297605, 0.253241, -0.161244, -0.953871, -0.426491, -0.903628, 0.039523, 0.414256, 0.529931, 1.79114)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_3" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(-0.741548, -0.655896, 0.14109, -0.168176, -0.0218564, -0.985515, 0.649479, -0.754534, -0.0940987, -0.200089, 0.943946, 0.450609)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="tree1_4" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(0.986694, 0.160026, 0.0287632, 0.0449388, -0.0983967, -0.994132, -0.156257, 0.982196, -0.104279, 1.3118, 0.52737, 2.37244)
+mesh = SubResource("PlaneMesh_5ifr8")
+skeleton = NodePath("../../..")
+
+[node name="tree2_4" type="MeshInstance3D" parent="allTrees/trees2"]
+transform = Transform3D(-0.991891, 0.100546, 0.0777296, -0.0773953, 0.0072275, -0.996974, -0.100803, -0.994906, 0.000612587, 1.88329, 0.875868, 1.0171)
+mesh = SubResource("PlaneMesh_w7ung")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(0.67496, 0, 0.737855, 0, 1, 0, -0.737855, 0, 0.67496, 1.05041, 0, -0.922155)
+
+[node name="Node3D2" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(1.0194, 0.211563, -1.21494, -0.355951, 1.55967, -0.0270682, 1.18073, 0.287533, 1.04077, 1.21943, 0, 1.0701)
+
+[node name="Node3D3" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(0.970283, -0.0467287, 0.237421, 0.0351772, 0.997993, 0.0526623, -0.239405, -0.0427455, 0.969979, 1.79686, -0.0146206, -0.693079)
+
+[node name="Node3D4" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.805742, -0.191346, -1.369, -0.11727, 1.58835, -0.152983, 1.37733, 0.0232994, -0.813896, 0.76019, 0.0146206, -0.523361)
+
+[node name="Node3D5" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.217241, 0, -0.976118, 0, 1, 0, 0.976118, 0, -0.217241, 1.59897, 0, 1.61866)
+
+[node name="Node3D6" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.868942, -0.0299569, 1.34314, -0.138258, 1.5931, -0.0539135, -1.33634, -0.145342, -0.867789, 0.477744, 0, 0.00430971)
+
+[node name="Node3D7" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(-0.721746, 0.0618181, -0.689392, 0.0351772, 0.997993, 0.0526623, 0.691264, 0.013758, -0.722472, 1.64356, -0.0146206, 2.32939)
+
+[node name="Node3D8" parent="allTrees/trees2" instance=ExtResource("4_mqr0s")]
+transform = Transform3D(0.0118071, 0.154255, 1.59251, -0.11727, 1.58835, -0.152983, -1.59566, -0.115592, 0.0230239, 1.65627, -0.0088628, 1.09985)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(0.777541, 0, -0.628832, 0, 1, 0, 0.628832, 0, 0.777541, 0, 0, 3.93242)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(822.313, 0, 0, 0, 0.86, 0, 0, 0, 28.676, 0, 0, 0)
+shape = SubResource("BoxShape3D_igkfk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(0.0182271, 0.00013591, 0.0057266, -0.821016, 3.34977, -6.23665e-07, -0.000193057, 2.25648e-06, 0.543212, 0, 0, 0)
+mesh = SubResource("PlaneMesh_n5q1r")
+skeleton = NodePath("../../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.99976, -0.00237377, 0.0217907, 0.00338211, 0.998919, -0.0463547, -0.0216571, 0.0464173, 0.998687, 0.244749, 0.427413, 4.84132)
+fov = 19.3
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188906, -0.122513, 0.410087)
+
+[node name="chair" parent="Node3D" instance=ExtResource("6_nd70x")]
+transform = Transform3D(0.301017, 0, 0.263418, 0, 0.4, 0, -0.263418, 0, 0.301017, 0.275133, 0.22957, -0.0954104)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187953, 0.296932, 0.101053)
+light_color = Color(1, 0.792157, 0.639216, 1)
+light_energy = 0.192
+omni_range = 0.856
+
+[node name="background_trees_set" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02165, -1.68645)
+
+[node name="Node3D" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(3.53065, 0, 0.130024, 0, 3.56088, 0, -0.463001, 0, 0.991511, -2.39124, 1.12862, -4.76396)
+
+[node name="Node3D7" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(3.53065, 0, 0.130024, 0, 3.56088, 0, -0.463001, 0, 0.991511, -2.70941, -0.00372982, -6.27616)
+
+[node name="Node3D2" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(2.36523, 0, -0.163892, 0, 2.39074, 0, 0.411012, 0, 0.943139, 1.2454, 1.12862, -2.7347)
+
+[node name="Node3D3" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(3.53065, 0, 0.130024, 0, 3.56088, 0, -0.463001, 0, 0.991511, -7.47199, 1.12862, -10.6737)
+
+[node name="Node3D4" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(2.36523, 0, -0.163892, 0, 2.39074, 0, 0.411012, 0, 0.943139, -3.83535, 1.12862, -8.64448)
+
+[node name="Node3D5" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(3.53065, 0, 0.130024, 0, 3.56088, 0, -0.463001, 0, 0.991511, 1.31931, 1.12862, -10.6737)
+
+[node name="Node3D6" parent="background_trees_set" instance=ExtResource("7_8ma82")]
+transform = Transform3D(2.36523, 0, -0.163892, 0, 2.39074, 0, 0.411012, 0, 0.943139, 1.27751, 0.642639, -8.23156)

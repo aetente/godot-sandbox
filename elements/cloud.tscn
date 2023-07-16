@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3a3oygkge8sa"]
+
+[ext_resource type="Shader" path="res://shaders/funny_fog.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://sk1uj44upd1o" path="res://assets/heightmaps/TexturesCom_Skies0220_1_S.jpg" id="2"]
+
+[sub_resource type="ShaderMaterial" id="1"]
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/albedo = Color(0.27451, 0.27451, 0.27451, 1)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/point_size = 1.0
+shader_parameter/uv1_scale = Vector3(0.1, 0.1, 0.1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/heightmap_texture = ExtResource("2")
+
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
+subdivide_width = 64
+subdivide_height = 1
+subdivide_depth = 64
+
+[sub_resource type="StandardMaterial3D" id="3"]
+albedo_color = Color(0.858824, 0.129412, 0.129412, 1)
+
+[sub_resource type="BoxMesh" id="4"]
+material = SubResource("3")
+
+[sub_resource type="Shader" id="5"]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D heightmap_texture : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+	vec2 new_uv = UV;
+	vec2 new_uv2 = UV;
+	new_uv.x += TIME/16.;
+	new_uv2.y += TIME/14.;
+	vec4 h_tex = texture(heightmap_texture,new_uv);
+	vec4 h_tex2 = texture(heightmap_texture,new_uv2);
+	VERTEX.y += 1. - h_tex2.r;
+	//VERTEX.y += h_tex2.r;
+}
+
+float sigmoid(float x) {
+	return 1./ (1. + exp(-(x * x)));
+}
+
+//float special_depth(float depth, float depth_change) {
+//	depth = depth * 2.0 - depth_change;
+//	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
+//	//depth *= 0.01;
+//	depth += VERTEX.z;
+//	//depth *= 0.1;
+//	depth = 1./(1. + exp(-depth * 0.5));
+//	return depth;
+//}
+
+float posSin(float x) {
+	return (sin(x) + 1.) / 2.;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	ALPHA = 0.9;
+	
+	vec4 wrld_vertex = CAMERA_MATRIX * vec4(VERTEX, 1.0);
+	
+	float x = wrld_vertex.x;
+	float y = wrld_vertex.y;
+	float z = wrld_vertex.z;
+	
+	float phase_value = 12.4;
+	
+	//float depth_change_r = posSin((x + y + z) / 5. + phase_value / 1.) / 2. + posSin((x + y + z) / 8. + TIME / 2.) * 5. + 1.;
+	//float depth_change_g = posSin((x + y + z) / 8. + phase_value / 1.) / 2. + posSin((x + y + z) / 13. + TIME / 2.) / 5. + 1.;
+	//float depth_change_b = posSin((x + y + z) / 13. + phase_value / 1.) /2. + posSin((x + y + z) / 21. + TIME / 2.) / 5. + 1.;
+	//depth_change_r = max(1., depth_change_r);
+	//depth_change_g = max(1., depth_change_g);
+	//depth_change_b = max(1., depth_change_b);
+	
+	float depth_change_r = posSin((x + y + z) / 3. + TIME / 2.) / 5. + 1.;
+	float depth_change_g = posSin((x + y + z) / 5. + TIME / 2.) / 5. + 1.;
+	float depth_change_b = posSin((x + y + z) / 8. + TIME / 2.)/5. + 1.;
+	
+	vec4 depth = vec4(texture(DEPTH_TEXTURE, SCREEN_UV).r,texture(DEPTH_TEXTURE, SCREEN_UV).r,texture(DEPTH_TEXTURE, SCREEN_UV).r,texture(DEPTH_TEXTURE, SCREEN_UV).r);
+	depth = vec4(depth.r * 2.0 - depth_change_r,depth.g * 2.0 - depth_change_g,depth.b * 2.0 - depth_change_b,depth.a * 2.0 - 1.);
+	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
+	//depth *= 0.01;
+	//depth += VERTEX.z;
+	//depth *= 0.1;
+	depth.rgb = 1./(1. + exp(-(depth.rgb)));
+	depth.a = 1./(1. + exp(-(pow(depth.a - 7.2, 3.)) * sigmoid(z) / 22.));
+	//depth = exp(-depth * sigmoid(z)*1.);
+	
+	//ALBEDO = vec3(pow(depth.r, 2.),pow(depth.g, 2.),pow(depth.b,3.));
+	ALPHA = pow(depth.a,VERTEX.x + 0.8 + 5. * posSin(TIME / 2.));
+	
+}
+"
+
+[sub_resource type="ShaderMaterial" id="6"]
+render_priority = 0
+shader = SubResource("5")
+
+[sub_resource type="CapsuleMesh" id="7"]
+material = SubResource("6")
+
+[node name="Spatial" type="Node3D"]
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(7.45812, 0.289784, 4.30641, -0.0205462, 2.01188, -1.47612e-08, -4.00192, -0.155494, 6.93225, 0.277454, 5.54359, -0.0769363)
+mesh = SubResource("2")
+
+[node name="MeshInstance3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24631, 2.36379, 0.509749)
+visible = false
+mesh = SubResource("4")
+
+[node name="MeshInstance2" type="MeshInstance3D" parent="."]
+transform = Transform3D(7.7741, 0, 0, 0, 5.18789, 0.0485897, 0, -0.715218, -9.65269, 0, 0, 33.5869)
+visible = false
+mesh = SubResource("7")
