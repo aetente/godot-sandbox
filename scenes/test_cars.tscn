@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bptfcymmtg3cd"]
+[gd_scene load_steps=6 format=3 uid="uid://bptfcymmtg3cd"]
 
 [ext_resource type="Script" path="res://scripts/follow_path_rigid.gd" id="1_vwrdg"]
+[ext_resource type="PackedScene" uid="uid://dbdviqi1aycpq" path="res://elements/test_mesh.tscn" id="2_3s6vl"]
 
 [sub_resource type="Curve3D" id="Curve3D_o6gkx"]
 bake_interval = 1.0
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.112644, -1.07185, -3.32795, 0, 0, 0, 0, 0, 0, 0.480787, -1.17248, -0.779045, 0, 0, 0, 0, 0, 0, -1.68195, -1.26824, 1.33012, 0, 0, 0, 0, 0, 0, 1.14262, -1.30483, 2.15524),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.145165, -1.05367, -2.3352, 0, 0, 0, 0, 0, 0, 0.480787, -1.17248, -0.779045, 0, 0, 0, 0, 0, 0, -1.68195, -1.26824, 1.33012, 0, 0, 0, 0, 0, 0, 1.14262, -1.30483, 2.15524),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
@@ -17,9 +18,10 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_vwrdg")
+mesh_model = ExtResource("2_3s6vl")
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.412126, -0.51815, 0.323977)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.424077, -0.435393, 0.554358)
 curve = SubResource("Curve3D_o6gkx")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]

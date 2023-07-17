@@ -5,18 +5,21 @@ var path_points
 var point_index = 0
 var point_indexes = []
 var rigids = []
-var move_speed = 0.1
+var time_alive = []
+@export var  move_speed: float = 0.1
 var velocity = Vector3.ZERO
+@export var max_time : float = 3
 
-const amount_of_rigis = 10
-const rigids_freq = 0.3
+@export var rigids_freq : float = 0.3
+@export var noise_freq : float = -0.1
+
+@export var mesh_model : PackedScene
 
 var time_start = 0
 var time_now = 0
 
 func create_instance(add):
-	var scene = load(add)
-	var scene_instance = scene.instantiate()
+	var scene_instance = add.instantiate()
 	return scene_instance
 
 # Called when the node enters the scene tree for the first time.
@@ -39,11 +42,12 @@ func _process(delta):
 
 func _physics_process(delta):
 	time_now = Time.get_unix_time_from_system()
-	if (time_now - time_start >= rigids_freq):
-		var rigid = create_instance('res://elements/test_mesh.tscn')
+	if (time_now - time_start >= rigids_freq + randf()*noise_freq):
+		var rigid = create_instance(mesh_model)
 		rigid.position = path.curve.get_point_position(0)
 		rigids.push_front(rigid)
 		point_indexes.push_front(0)
+		time_alive.push_front(Time.get_unix_time_from_system())
 		add_child(rigid)
 		time_start = Time.get_unix_time_from_system()
 	if (path):
@@ -51,6 +55,11 @@ func _physics_process(delta):
 			point_index = point_indexes[i]
 			var rigid = rigids[i]
 			var target = path.curve.get_point_position(point_index) + path.position
+			if (Time.get_unix_time_from_system() - time_alive[i] >= max_time):
+				remove_child(rigid)
+				point_indexes.remove_at(i)
+				rigids.remove_at(i)
+				time_alive.remove_at(i)
 			if (rigid.position.distance_to(target) < 0.3):
 				point_index = point_index + 1
 				point_indexes[i] = point_index
@@ -58,6 +67,7 @@ func _physics_process(delta):
 					remove_child(rigid)
 					point_indexes.remove_at(i)
 					rigids.remove_at(i)
+					time_alive.remove_at(i)
 				target = path.curve.get_point_position(point_index) + path.position
 			velocity = (target - rigid.position).normalized() * move_speed
 			rigid.look_at(target)
