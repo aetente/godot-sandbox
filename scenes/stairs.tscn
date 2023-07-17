@@ -355,5 +355,5 @@ transform = Transform3D(1.57785, -4.32091e-08, 0.613072, -10.3185, -6.60729e-09,
 mesh = SubResource("PlaneMesh_a4sfp")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.67969e-14, -4.11222e-08, 33.4301, -14.021, 0.0217867, 3.3841e-08, -0.32479, -0.940515, -1.46089e-06, 1.89659, -11.2873, -14.5308)
+transform = Transform3D(2.67969e-14, -4.11222e-08, 33.4301, -14.021, 0.0217867, 3.3841e-08, -0.32479, -0.940515, -1.46089e-06, 1.89659, -11.2873, -14.662)
 mesh = SubResource("PlaneMesh_r0n11")

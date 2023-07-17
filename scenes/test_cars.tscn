@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bptfcymmtg3cd"]
+
+[ext_resource type="Script" path="res://scripts/follow_path_rigid.gd" id="1_vwrdg"]
+
+[sub_resource type="Curve3D" id="Curve3D_o6gkx"]
+bake_interval = 1.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.558737, -1.04283, -0.906151, 0, 0, 0, 0, 0, 0, -0.0901741, 0.0758845, -0.912193, 0, 0, 0, 0, 0, 0, 0.208042, -0.230809, -0.182008, 0, 0, 0, 0, 0, 0, 0.0133808, 0.329375, 0.634688),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_pw0we"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_t71ep"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_vwrdg")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0478473, 1.77843, -0.079166)
+curve = SubResource("Curve3D_o6gkx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.66888, 0, 0, 0, 0.320857, 0, 0, 0, 6.49991, 0, -1.97208, 0)
+mesh = SubResource("BoxMesh_pw0we")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t71ep")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.36768, 0, 0.467075)
+fov = 115.2
