@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbdviqi1aycpq"]
+[gd_scene load_steps=10 format=3 uid="uid://dbdviqi1aycpq"]
 
 [ext_resource type="Texture2D" uid="uid://b08xgvd01jngr" path="res://assets/textures/car_texture1.png" id="1_bjlfw"]
 
@@ -12,10 +12,10 @@ uv1_offset = Vector3(0.5, 0.5, 0)
 material = SubResource("StandardMaterial3D_jlk4s")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1ab2y"]
-size = Vector3(0.3, 0.3, 0.3)
+size = Vector3(1.8, 1.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ujm2"]
-size = Vector3(0.3, 0.12256, 0.718983)
+size = Vector3(1.8, 0.8, 4.3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ee6a"]
 albedo_color = Color(0.368627, 0.368627, 0.368627, 1)
@@ -24,52 +24,64 @@ albedo_color = Color(0.368627, 0.368627, 0.368627, 1)
 material = SubResource("StandardMaterial3D_2ee6a")
 radial_segments = 8
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkgva"]
+transparency = 1
+albedo_color = Color(0.490196, 0.52549, 0.647059, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ja8go"]
+material = SubResource("StandardMaterial3D_lkgva")
+
 [node name="Node3D" type="RigidBody3D"]
 gravity_scale = 0.0
 
 [node name="StaticBody3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.3, -6.34258e-05, 7.86846e-05, 0.00015572, -0.0934118, 0.168622, -2.74757e-05, 0.163131, 0.0965563, -0.0056728, 0.0109756, -0.0312893)
+transform = Transform3D(-1.83297, -0.000387526, 0.000480756, 0.000951435, -0.570738, 1.03027, -0.000167874, 0.996716, 0.58995, -0.0174522, 0.373503, -0.0909324)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="StaticBody3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.275566, -5.19297e-05, 3.43306e-05, 0.000109775, 0.00296473, 0.0847632, -9.51115e-05, 0.153882, -0.00163309, -0.0056728, 0.10513, 0.00602688)
+transform = Transform3D(-1.68368, -0.000317286, 0.000209757, 0.000670715, 0.0181142, 0.517896, -0.000581123, 0.940205, -0.00997803, -0.0174522, 0.948777, 0.137066)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="StaticBody3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.275566, -5.19297e-05, 3.43306e-05, 0.000109775, 0.00296473, 0.0847632, -9.51115e-05, 0.153882, -0.00163309, -0.0056728, -0.110734, -0.051317)
+transform = Transform3D(-1.68368, -0.000317286, 0.000209757, 0.000670715, 0.0181142, 0.517896, -0.000581123, 0.940205, -0.00997803, -0.0174522, -0.370132, -0.2133)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="StaticBody3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.281331, 0, -2.62268e-08, 0, 0.136723, 0, 2.45948e-08, 0, -0.3, -0.00567282, -0.0845697, -0.263459)
+transform = Transform3D(-1.71891, 0, -1.60243e-07, 0, 0.835365, 0, 1.50272e-07, 0, -1.83297, -0.0174524, -0.210271, -1.50947)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="StaticBody3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.281331, 0, -2.62268e-08, 0, 0.136723, 0, 2.45948e-08, 0, -0.3, -0.00567278, -0.0845697, 0.157817)
+transform = Transform3D(-1.71891, 0, -1.60243e-07, 0, 0.835365, 0, 1.50272e-07, 0, -1.83297, -0.0174521, -0.210271, 1.06449)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="StaticBody3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.286325, 5.97633e-09, -2.27131e-08, 0, 0.118405, 0.15, 2.50314e-08, 0.0683613, -0.259808, -0.00567278, 0.0149846, 0.157817)
+transform = Transform3D(-1.74942, 3.65148e-08, -1.38775e-07, 0, 0.723444, 0.916486, 1.5294e-07, 0.417681, -1.5874, -0.0174521, 0.397997, 1.06449)
 mesh = SubResource("BoxMesh_2ytyv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35724, 0.146729)
 shape = SubResource("BoxShape3D_1ab2y")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0878898, -0.0560917)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.17396, -0.225055)
 shape = SubResource("BoxShape3D_8ujm2")
 
 [node name="wheel" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, -0.0281441, -1.39876e-08, -0.16, 0, 0, 0, 2.46044e-09, -0.16, -0.140828, -0.117399, -0.276111)
+transform = Transform3D(0, -0.171958, -8.5463e-08, -0.977586, 0, 0, 0, 1.50331e-08, -0.977586, -0.843238, -0.410855, -1.58677)
 mesh = SubResource("CylinderMesh_72lgl")
 
 [node name="wheel2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, -0.0281441, -1.39876e-08, -0.16, 0, 0, 0, 2.46044e-09, -0.16, 0.140827, -0.117399, -0.276111)
+transform = Transform3D(0, -0.171958, -8.5463e-08, -0.977586, 0, 0, 0, 1.50331e-08, -0.977586, 0.877648, -0.410855, -1.58677)
 mesh = SubResource("CylinderMesh_72lgl")
 
 [node name="wheel3" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, -0.0281441, -1.39876e-08, -0.16, 0, 0, 0, 2.46044e-09, -0.16, -0.140827, -0.117399, 0.203089)
+transform = Transform3D(0, -0.171958, -8.5463e-08, -0.977586, 0, 0, 0, 1.50331e-08, -0.977586, -0.843232, -0.410855, 1.3411)
 mesh = SubResource("CylinderMesh_72lgl")
 
 [node name="wheel4" type="MeshInstance3D" parent="."]
-transform = Transform3D(0, -0.0281441, -1.39876e-08, -0.16, 0, 0, 0, 2.46044e-09, -0.16, 0.140828, -0.117399, 0.203089)
+transform = Transform3D(0, -0.171958, -8.5463e-08, -0.977586, 0, 0, 0, 1.50331e-08, -0.977586, 0.877655, -0.410855, 1.3411)
 mesh = SubResource("CylinderMesh_72lgl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.596, 0, 0, 0, 1.43285, -0.35667, 0, 0.702968, 0.726994, 0.00184417, 0.209738, -0.391098)
+mesh = SubResource("BoxMesh_ja8go")

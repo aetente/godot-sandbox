@@ -6,9 +6,10 @@ var point_index = 0
 var point_indexes = []
 var rigids = []
 var time_alive = []
-@export var  move_speed: float = 0.1
+@export var move_speed: float = 0.1
 var velocity = Vector3.ZERO
 @export var max_time : float = 3
+@export var max_mesh : int = 10
 
 @export var rigids_freq : float = 0.3
 @export var noise_freq : float = -0.1
@@ -42,34 +43,39 @@ func _process(delta):
 
 func _physics_process(delta):
 	time_now = Time.get_unix_time_from_system()
-	if (time_now - time_start >= rigids_freq + randf()*noise_freq):
-		var rigid = create_instance(mesh_model)
-		rigid.position = path.curve.get_point_position(0)
-		rigids.push_front(rigid)
-		point_indexes.push_front(0)
-		time_alive.push_front(Time.get_unix_time_from_system())
-		add_child(rigid)
-		time_start = Time.get_unix_time_from_system()
 	if (path):
+		if (rigids.size() < max_mesh && time_now - time_start >= rigids_freq + randf()*noise_freq):
+			var rigid = create_instance(mesh_model)
+			rigids.push_front(rigid)
+			point_indexes.push_front(0)
+			time_alive.push_front(Time.get_unix_time_from_system())
+			add_child(rigid)
+			rigid.position = path.curve.get_point_position(0) + path.position
+			time_start = Time.get_unix_time_from_system()
 		for i in range(rigids.size()):
-			point_index = point_indexes[i]
-			var rigid = rigids[i]
-			var target = path.curve.get_point_position(point_index) + path.position
-			if (Time.get_unix_time_from_system() - time_alive[i] >= max_time):
-				remove_child(rigid)
-				point_indexes.remove_at(i)
-				rigids.remove_at(i)
-				time_alive.remove_at(i)
-			if (rigid.position.distance_to(target) < 0.3):
-				point_index = point_index + 1
-				point_indexes[i] = point_index
-				if (point_index >= path.curve.point_count):
+			if (i < path.curve.point_count):
+				point_index = point_indexes[i]
+				var rigid = rigids[i]
+				var target = path.curve.get_point_position(point_index) + path.position
+				if (false && Time.get_unix_time_from_system() - time_alive[i] >= max_time):
 					remove_child(rigid)
 					point_indexes.remove_at(i)
 					rigids.remove_at(i)
 					time_alive.remove_at(i)
-				target = path.curve.get_point_position(point_index) + path.position
-			velocity = (target - rigid.position).normalized() * move_speed
-			rigid.look_at(target)
-			#rigid.apply_force(velocity)
-			rigid.position += velocity
+				if (rigid.position.distance_to(target) < 0.3):
+					point_index = point_index + 1
+					point_indexes[i] = point_index
+					if (point_index >= path.curve.point_count):
+						remove_child(rigid)
+						point_indexes.remove_at(i)
+						rigids.remove_at(i)
+						time_alive.remove_at(i)
+					else:
+						target = path.curve.get_point_position(point_index) + path.position
+						time_alive[i] = Time.get_unix_time_from_system()
+				velocity = (target - rigid.position).normalized() * move_speed
+				#rigid.look_at_from_position(rigid.position, target - path.position, Vector3.ONE)
+				print(velocity)
+				rigid.look_at(target)
+				#rigid.apply_force(velocity)
+				rigid.position += velocity

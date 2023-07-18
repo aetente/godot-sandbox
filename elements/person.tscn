@@ -64,6 +64,7 @@ rings = 1
 [sub_resource type="PrismMesh" id="PrismMesh_niukt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pk014"]
+size = Vector3(1, 1, 0.168818)
 
 [node name="person" type="Node3D"]
 script = ExtResource("1_yfgfd")
@@ -287,15 +288,15 @@ lock_rotation = true
 
 [node name="MeshInstance" type="MeshInstance3D" parent="base/static_base"]
 transform = Transform3D(1, 5.96046e-08, -1.49012e-09, 0, 1, -1.49012e-09, -1.49012e-08, 1.49012e-08, 0.1, -1.39698e-09, 2, -2.21209)
+visible = false
 mesh = SubResource("PrismMesh_niukt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="base/static_base"]
-transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, 8.35187e-23, 1, -2.79397e-09, 1.91999, -2.65046)
+transform = Transform3D(1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0.0084294, 1.92577, -2.17973)
 shape = SubResource("BoxShape3D_pk014")
 
 [node name="Camera3D" type="Camera3D" parent="base/static_base/CollisionShape3D"]
 transform = Transform3D(1, 4.01244e-15, -4.37115e-08, -4.37115e-08, -1.74846e-08, -1, -4.77672e-15, 1, -1.74846e-08, -0.0239549, -3.97188, 2.3516)
-current = true
 
 [node name="baseJoint" type="HingeJoint3D" parent="."]
 transform = Transform3D(-2.18557e-07, -1, 0, 1, -2.18557e-07, 0, 0, 0, 1, 0, -2.03375, 0)
