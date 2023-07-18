@@ -6,13 +6,15 @@ var point_index = 0
 var point_indexes = []
 var rigids = []
 var time_alive = []
-@export var move_speed: float = 0.1
+@export var move_speed: float = 0.4
 var velocity = Vector3.ZERO
-@export var max_time : float = 3
+@export var max_time : float = 30
 @export var max_mesh : int = 10
 
-@export var rigids_freq : float = 0.3
-@export var noise_freq : float = -0.1
+@export var rigids_freq : float = 2
+@export var noise_freq : float = -0.7
+@export var point_radius : float = 0.3
+@export var show_points : bool = false
 
 @export var mesh_model : PackedScene
 
@@ -28,13 +30,14 @@ func _ready():
 	time_start = Time.get_unix_time_from_system()
 	if (path):
 		path_points = path.curve.get_baked_points()
-		for i in range(path.curve.point_count):
-			var mesh = MeshInstance3D.new()
-			mesh.mesh = SphereMesh.new()
-			mesh.position = path.curve.get_point_position(i) + path.position
-			mesh.scale = Vector3.ONE * 0.3
-			
-			add_child(mesh) 
+		if show_points:
+			for i in range(path.curve.point_count):
+				var mesh = MeshInstance3D.new()
+				mesh.mesh = SphereMesh.new()
+				mesh.position = path.curve.get_point_position(i) + path.position
+				mesh.scale = Vector3.ONE * point_radius
+				
+				add_child(mesh) 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,16 +56,16 @@ func _physics_process(delta):
 			rigid.position = path.curve.get_point_position(0) + path.position
 			time_start = Time.get_unix_time_from_system()
 		for i in range(rigids.size()):
-			if (i < path.curve.point_count):
+			if ((point_indexes[i] || point_indexes[i] == 0) && i < path.curve.point_count):
 				point_index = point_indexes[i]
 				var rigid = rigids[i]
 				var target = path.curve.get_point_position(point_index) + path.position
-				if (false && Time.get_unix_time_from_system() - time_alive[i] >= max_time):
+				if (Time.get_unix_time_from_system() - time_alive[i] >= max_time):
 					remove_child(rigid)
 					point_indexes.remove_at(i)
 					rigids.remove_at(i)
 					time_alive.remove_at(i)
-				if (rigid.position.distance_to(target) < 0.3):
+				if (rigid.position.distance_to(target) < point_radius):
 					point_index = point_index + 1
 					point_indexes[i] = point_index
 					if (point_index >= path.curve.point_count):

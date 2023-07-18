@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bptfcymmtg3cd"]
+[gd_scene load_steps=13 format=3 uid="uid://bptfcymmtg3cd"]
 
 [ext_resource type="Texture2D" uid="uid://xmqw62n4ktwn" path="res://assets/textures/road_texture1.png" id="1_febkk"]
 [ext_resource type="Script" path="res://scripts/follow_path_rigid.gd" id="1_vwrdg"]
@@ -12,8 +12,9 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [sub_resource type="Environment" id="Environment_y2kuj"]
 background_mode = 1
-background_color = Color(0.423529, 0.423529, 0.423529, 1)
-ambient_light_color = Color(0.388235, 0.388235, 0.388235, 1)
+background_color = Color(0.356863, 0.356863, 0.356863, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.14902, 0.14902, 0.14902, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2knn0"]
 albedo_texture = ExtResource("1_febkk")
@@ -24,9 +25,16 @@ uv1_scale = Vector3(3.2, 7.758, 0.97)
 [sub_resource type="PlaneMesh" id="PlaneMesh_8oq0r"]
 material = SubResource("StandardMaterial3D_2knn0")
 
+[sub_resource type="Curve3D" id="Curve3D_0lwx7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 180, -1.397, 2.842, 0, 0, 0, 0, 0, 0, -23.711, -1.397, 2.842),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [sub_resource type="Curve3D" id="Curve3D_bfaf0"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 24.442, -1.397, 2.842, 0, 0, 0, 0, 0, 0, -23.7109, -1.397, 2.842),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -23.711, -1.397, 2.842, 0, 0, 0, 0, 0, 0, 180, -1.397, 2.842),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -36,7 +44,7 @@ point_count = 2
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(31.3886, 0, 0, 0, 0.320857, 0, 0, 0, 17.3621, 0, -1.97208, 0)
+transform = Transform3D(247.85, 0, 0, 0, 0.320857, 0, 0, 0, 17.3621, 93.167, -3.66405, 0)
 mesh = SubResource("BoxMesh_pw0we")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -44,27 +52,77 @@ mesh = SubResource("BoxMesh_pw0we")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_t71ep")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(247.85, 0, 0, 0, -1.40251e-08, 17.3621, 0, -0.320857, -7.58923e-07, 93.167, 4.60112, 8.80308)
+visible = false
+mesh = SubResource("BoxMesh_pw0we")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t71ep")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(247.85, 0, 0, 0, -1.40251e-08, 17.3621, 0, -0.320857, -7.58923e-07, 93.167, 4.60112, -8.97888)
+visible = false
+mesh = SubResource("BoxMesh_pw0we")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t71ep")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -24.0234, -1.08766, 0.135078)
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -22.8005, -1.08766, 0.135078)
 fov = 45.7
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y2kuj")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 0, -1.74202, -0.250847)
+[node name="road_texture" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 0, -3.43399, -0.250847)
+mesh = SubResource("PlaneMesh_8oq0r")
+
+[node name="road_texture2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 48.1447, -3.43399, -0.250847)
+mesh = SubResource("PlaneMesh_8oq0r")
+
+[node name="road_texture3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 96.0677, -3.43399, -0.250847)
+mesh = SubResource("PlaneMesh_8oq0r")
+
+[node name="road_texture4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 144.119, -3.43399, -0.250847)
+mesh = SubResource("PlaneMesh_8oq0r")
+
+[node name="road_texture5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.04095e-07, 0, 24.12, 0, 1, 0, -6.95689, 0, -1.05432e-06, 192.137, -3.43399, -0.250847)
 mesh = SubResource("PlaneMesh_8oq0r")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.558429, 0)
 script = ExtResource("1_vwrdg")
-move_speed = 0.4
-max_mesh = 1
-rigids_freq = 1.0
+move_speed = 4.0
+rigids_freq = 0.5
 noise_freq = -0.3
+point_radius = 5.0
+show_points = true
 mesh_model = ExtResource("2_3s6vl")
 
 [node name="Path3D" type="Path3D" parent="Node3D"]
+curve = SubResource("Curve3D_0lwx7")
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.558429, -5.93659)
+script = ExtResource("1_vwrdg")
+move_speed = 4.0
+rigids_freq = 0.5
+noise_freq = -0.3
+point_radius = 5.0
+show_points = true
+mesh_model = ExtResource("2_3s6vl")
+
+[node name="Path3D" type="Path3D" parent="Node3D2"]
 curve = SubResource("Curve3D_bfaf0")
 
 [node name="person" parent="." instance=ExtResource("4_m6d2g")]
@@ -79,3 +137,8 @@ mesh = SubResource("BoxMesh_eev0y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.7109, -1.397, 2.842)
 visible = false
 mesh = SubResource("BoxMesh_eev0y")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.6985, 55.684, 0)
+light_energy = 11.047
+omni_range = 1656.61
