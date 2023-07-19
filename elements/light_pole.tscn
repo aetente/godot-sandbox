@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://ikp25cc4jpa1"]
+
+[ext_resource type="Texture2D" uid="uid://cli4pn2h5eh5q" path="res://assets/room/concrete_wall.png" id="1_vacuc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwmqq"]
+albedo_color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2xbrj"]
+material = SubResource("StandardMaterial3D_pwmqq")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qu41q"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rie5"]
+albedo_color = Color(1, 0.670588, 0.380392, 1)
+emission_enabled = true
+emission = Color(1, 0.670588, 0.380392, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uc7jy"]
+material = SubResource("StandardMaterial3D_6rie5")
+
+[sub_resource type="Shader" id="Shader_ygo1r"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	base_uv += TIME;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	ALPHA *= albedo.a * albedo_tex.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eudmd"]
+render_priority = 0
+shader = SubResource("Shader_ygo1r")
+shader_parameter/albedo = Color(1, 0.670588, 0.380392, 0.113725)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(100, 100, 100)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("1_vacuc")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lk1fw"]
+material = SubResource("ShaderMaterial_eudmd")
+top_radius = 0.0
+bottom_radius = 0.839
+radial_segments = 4
+rings = 1
+
+[node name="light_pole" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 8.51323, 0, 0, 0, 0.15, 0, 2.13803, 0)
+mesh = SubResource("BoxMesh_2xbrj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_qu41q")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.075, 1.64232, 0, -0.129904, 0.948194, 0, 0, 0, 0.15, 0.789683, 6.78919, 0.0104007)
+mesh = SubResource("BoxMesh_2xbrj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_qu41q")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.49012e-08, 0.966984, 0, -0.15, -5.76367e-08, 0, 0, 0, 0.5, 2.00426, 7.261, 0.0104007)
+mesh = SubResource("BoxMesh_2xbrj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_qu41q")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.685728, 0, 0, 0, 0.151531, 0, 0, 0, 0.177472, 2.0829, 7.1819, 0)
+mesh = SubResource("BoxMesh_uc7jy")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.937361, 1.52273e-08, -0.348359, 0.348359, -4.09734e-08, 0.937361, 0, -1, -4.37114e-08, 2.15521, 7.03013, 0)
+light_color = Color(1, 0.670588, 0.380392, 1)
+light_energy = 14.405
+spot_range = 48.654
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.18296, -1.48878, -0.00223447, 1.48878, 4.18294, 0.0120914, -0.00194926, -0.0121406, 4.43998, 3.52853, 2.98604, 0)
+mesh = SubResource("CylinderMesh_lk1fw")

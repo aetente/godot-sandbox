@@ -56,7 +56,8 @@ func _physics_process(delta):
 			rigid.position = path.curve.get_point_position(0) + path.position
 			time_start = Time.get_unix_time_from_system()
 		for i in range(rigids.size()):
-			if ((point_indexes[i] || point_indexes[i] == 0) && i < path.curve.point_count):
+			
+			if (i < rigids.size()):
 				point_index = point_indexes[i]
 				var rigid = rigids[i]
 				var target = path.curve.get_point_position(point_index) + path.position
@@ -78,7 +79,6 @@ func _physics_process(delta):
 						time_alive[i] = Time.get_unix_time_from_system()
 				velocity = (target - rigid.position).normalized() * move_speed
 				#rigid.look_at_from_position(rigid.position, target - path.position, Vector3.ONE)
-				print(velocity)
 				rigid.look_at(target)
 				#rigid.apply_force(velocity)
 				rigid.position += velocity

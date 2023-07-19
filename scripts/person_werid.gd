@@ -26,7 +26,7 @@ var time_now = 0
 
 @onready var rigidTorso = get_node("rigids/torso")
 @onready var rigidTorso2 = get_node("rigids/torsoEnd")
-@onready var base = get_node("base")
+@onready var base = get_node("base/static_base")
 
 
 @onready var mainJoint = get_node("torsoJoint")
