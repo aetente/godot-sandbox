@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ikp25cc4jpa1"]
 
-[ext_resource type="Texture2D" uid="uid://cli4pn2h5eh5q" path="res://assets/room/concrete_wall.png" id="1_vacuc"]
+[ext_resource type="Texture2D" uid="uid://botnlm5hhugcr" path="res://assets/textures/noise_texture.png" id="1_tsad6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwmqq"]
 albedo_color = Color(0.192157, 0.192157, 0.192157, 1)
@@ -52,6 +52,10 @@ void fragment() {
 	vec2 base_uv = UV;
 	base_uv += TIME;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	albedo_tex.rgb += 0.5;
+	if (albedo_tex.r > 1.) {
+		albedo_tex.rgb = vec3(1.);
+	}
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
@@ -72,11 +76,11 @@ shader_parameter/roughness = 1.0
 shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
-shader_parameter/uv1_scale = Vector3(100, 100, 100)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("1_vacuc")
+shader_parameter/texture_albedo = ExtResource("1_tsad6")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lk1fw"]
 material = SubResource("ShaderMaterial_eudmd")

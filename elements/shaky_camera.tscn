@@ -42,7 +42,7 @@ skeleton = NodePath("")
 [node name="Camera3D" type="Camera3D" parent="rigids/torso/CollisionShape3D"]
 transform = Transform3D(-0.99777, 1.28117e-09, -0.0667536, -1.70974e-14, 1, 1.91927e-08, 0.0667536, 1.91499e-08, -0.99777, 0.0818117, -0.720653, 0.0101023)
 current = true
-fov = 134.1
+fov = 50.0
 
 [node name="torsoEnd" type="RigidBody3D" parent="rigids"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)

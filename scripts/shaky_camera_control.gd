@@ -12,6 +12,8 @@ var F = 340
 var time_start = 0
 var time_now = 0
 
+@export var disable_walking = false
+
 #onready var prearm1Torso = get_node("prearm1Torso")
 #onready var prearm2Torso = get_node("prearm2Torso")
 
@@ -50,24 +52,24 @@ func _process(delta):
 	rigidTorso.apply_force(random_force, Vector3(0,0,0))
 	
 	
-	if Input.is_action_pressed("KEY_W"):
+	if !disable_walking && Input.is_action_pressed("KEY_W"):
 		var force_value3 = Vector3(0,F * 1,0)
 		rigidTorso.apply_force(force_value3, Vector3(0,0,0))
 		#rigidTorso2.apply_force(force_value3, Vector3(0,0,0))
-	if Input.is_action_pressed("KEY_S"):
+	if !disable_walking && Input.is_action_pressed("KEY_S"):
 		var force_value4 = Vector3(0,-F * 5,0)
 		rigidTorso.apply_force(force_value4, Vector3(0,0,0))
 		#rigidTorso2.apply_force(force_value4, Vector3(0,0,0))
 	
-	if Input.is_action_pressed("ui_up"):
+	if !disable_walking && Input.is_action_pressed("ui_up"):
 		base.position += Vector3(0.2,0,0).rotated(Vector3(0,1,0), base.rotation.y);
-	if Input.is_action_pressed("ui_down"):
+	if !disable_walking && Input.is_action_pressed("ui_down"):
 		base.position += Vector3(-0.1,0,0).rotated(Vector3(0,1,0), base.rotation.y)
 	
 	
-	if Input.is_action_pressed("ui_right"):
+	if !disable_walking && Input.is_action_pressed("ui_right"):
 		base.rotation += Vector3(0,-0.01,0);
-	if Input.is_action_pressed("ui_left"):
+	if !disable_walking && Input.is_action_pressed("ui_left"):
 		base.rotation += Vector3(0,0.01,0);
 	
 #func _input(ev):
