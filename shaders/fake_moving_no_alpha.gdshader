@@ -17,7 +17,6 @@ uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 uniform bool is_moving = false;
 uniform bool move_y = true;
-uniform bool alpha = true;
 uniform float speed = 1;
 uniform bool toggle_move = false;
 
@@ -46,9 +45,4 @@ void fragment() {
 	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
 	ROUGHNESS = roughness_tex * roughness;
 	SPECULAR = specular;
-	if (alpha) {
-		ALPHA *= albedo.a * albedo_tex.a;
-	} else {
-		ALPHA = 1.;
-	}
 }

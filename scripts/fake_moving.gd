@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("KEY_W"):
+	if Input.is_action_pressed("jump"):
 		material.set_shader_parameter('is_moving', true);
 	else:
 		material.set_shader_parameter('is_moving', false);

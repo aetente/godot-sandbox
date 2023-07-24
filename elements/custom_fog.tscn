@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://besilk55v1nvt"]
+
+[ext_resource type="Shader" path="res://shaders/custom_fog.gdshader" id="1_mnlqk"]
+[ext_resource type="Texture2D" uid="uid://cy4rkexd1ch1k" path="res://assets/textures/cat.png" id="2_vdx0r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1njj4"]
+render_priority = 0
+shader = ExtResource("1_mnlqk")
+shader_parameter/fog_intensity = 0.253
+shader_parameter/fog_amount = 0.025
+shader_parameter/gradient = ExtResource("2_vdx0r")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j7yg1"]
+material = SubResource("ShaderMaterial_1njj4")
+
+[node name="custom_fog" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_j7yg1")
