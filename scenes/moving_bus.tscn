@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://clp7g0ty2xk6s"]
+[gd_scene load_steps=26 format=3 uid="uid://clp7g0ty2xk6s"]
 
 [ext_resource type="Texture2D" uid="uid://xmqw62n4ktwn" path="res://assets/textures/road_texture1.png" id="1_g6v16"]
 [ext_resource type="PackedScene" uid="uid://cxbp5i2t02mrr" path="res://elements/shaky_camera.tscn" id="2_fnlpo"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://r7mt0mrfw206" path="res://assets/buildings/building_front_row1_solid.png" id="5_yu66f"]
 [ext_resource type="PackedScene" uid="uid://kgvo7bbax7uh" path="res://elements/some_smoke1.tscn" id="8_yidsr"]
 [ext_resource type="Texture2D" uid="uid://u1y68kbtur2s" path="res://assets/textures/newspaper_texture.png" id="9_ywcmw"]
+[ext_resource type="Script" path="res://scripts/follow_path_rigid.gd" id="10_jvh50"]
+[ext_resource type="PackedScene" uid="uid://dbdviqi1aycpq" path="res://elements/test_mesh.tscn" id="11_oab6l"]
 
 [sub_resource type="Shader" id="Shader_yerv1"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.0.3.stable's StandardMaterial3D.
@@ -97,8 +99,8 @@ fog_light_color = Color(0.541176, 0.541176, 0.541176, 1)
 fog_density = 0.003
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0093
-volumetric_fog_albedo = Color(0.427451, 0.482353, 0.729412, 1)
-volumetric_fog_emission = Color(0.427451, 0.482353, 0.729412, 1)
+volumetric_fog_albedo = Color(0.713726, 0.419608, 0.678431, 1)
+volumetric_fog_emission = Color(0.235294, 0.282353, 0.376471, 1)
 volumetric_fog_length = 254.92
 volumetric_fog_detail_spread = 6.0
 
@@ -149,17 +151,24 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 offsets = PackedFloat32Array(0, 0.0582524, 0.939806, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="Curve3D" id="Curve3D_l1ovf"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2, -1.397, 180, 0, 0, 0, 0, 0, 0, 2, -1.397, -180),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [node name="Node3D" type="Node3D"]
 
 [node name="bus" parent="." instance=ExtResource("5_u6hej")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3.68377, 0)
 
-[node name="shaky_camera" parent="bus" instance=ExtResource("2_fnlpo")]
-transform = Transform3D(-0.965926, -0.258819, -8.29545e-08, -0.258819, 0.965926, -3.394e-08, 8.89122e-08, -1.13133e-08, -1, 9.57383, 4.9353, 4.18486e-07)
-disable_walking = true
-
 [node name="Node3D" parent="bus" instance=ExtResource("8_yidsr")]
 transform = Transform3D(-0.999994, 0.00360644, -0.000138584, 0.00360642, 0.999993, 0.00016415, 0.000139172, 0.000163651, -1, 13.4689, 5.17956, 5.88743e-07)
+
+[node name="shaky_camera" parent="bus" instance=ExtResource("2_fnlpo")]
+transform = Transform3D(-0.965926, -0.258819, -8.29545e-08, -0.258819, 0.965926, -3.394e-08, 8.89122e-08, -1.13133e-08, -1, 10.1214, 4.9353, -0.147182)
+disable_walking = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(508.138, 0, 0, 0, 10, 0, 0, 0, 1929.95, 0, -1.94673, 0)
@@ -263,6 +272,7 @@ visible = false
 mesh = SubResource("BoxMesh_06ppp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8bu58")
@@ -273,6 +283,7 @@ visible = false
 mesh = SubResource("BoxMesh_06ppp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8bu58")
@@ -283,6 +294,7 @@ visible = false
 mesh = SubResource("BoxMesh_06ppp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8bu58")
@@ -293,6 +305,7 @@ visible = false
 mesh = SubResource("BoxMesh_06ppp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8bu58")
@@ -303,6 +316,7 @@ visible = false
 mesh = SubResource("BoxMesh_06ppp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_8bu58")
@@ -404,3 +418,16 @@ angle_min = -9.5
 angle_max = 4.8
 color_ramp = SubResource("Gradient_trqk4")
 color_initial_ramp = SubResource("Gradient_q7ifo")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.737624, 18.8443, 3.16219)
+script = ExtResource("10_jvh50")
+move_speed = 1.0
+rigids_freq = 1.0
+noise_freq = -0.3
+point_radius = 5.0
+mesh_model = ExtResource("11_oab6l")
+
+[node name="Path3D" type="Path3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2806, -12.3533, 0)
+curve = SubResource("Curve3D_l1ovf")

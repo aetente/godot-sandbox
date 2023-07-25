@@ -87,6 +87,7 @@ rim_enabled = true
 material = SubResource("StandardMaterial3D_1mab7")
 
 [node name="bus" type="RigidBody3D"]
+collision_layer = 3
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_8dn14")
 
