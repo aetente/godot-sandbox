@@ -191,7 +191,7 @@ albedo_color = Color(0.294118, 0.294118, 0.294118, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_3osyb"]
 material = SubResource("StandardMaterial3D_ilpal")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2l7v7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7efha"]
 transparency = 1
 cull_mode = 2
 vertex_color_use_as_albedo = true
@@ -200,7 +200,7 @@ emission = Color(0.498039, 0.498039, 0.498039, 1)
 emission_texture = ExtResource("11_q7n76")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rs1r2"]
-material = SubResource("StandardMaterial3D_2l7v7")
+material = SubResource("StandardMaterial3D_7efha")
 size = Vector2(1, 1)
 
 [sub_resource type="Gradient" id="Gradient_j4te1"]

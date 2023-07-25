@@ -16,10 +16,13 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 original = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec2 base_screen_uv = SCREEN_UV;
+	base_screen_uv.y += sin(TIME)/2.;
+	vec4 original = texture(SCREEN_TEXTURE, base_screen_uv);
 	
-	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
-	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
+	vec4 depth_texture = texture(DEPTH_TEXTURE, base_screen_uv);
+	float depth = texture(DEPTH_TEXTURE, base_screen_uv).x;
+	vec3 ndc = vec3(base_screen_uv * 2.0 - 1.0, depth);
 	
 	vec4 view = INV_PROJECTION_MATRIX* vec4(ndc, 1.0);
 	view.xyz /= view.w;
@@ -27,7 +30,7 @@ void fragment() {
 	vec4 world = CAMERA * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	vec3 world_position = world.xyz / world.w;
 	
-	float linear_depth = -view.z + VERTEX.z;
+	float linear_depth = -view.z;
 	
 	float fog = linear_depth * fog_amount;
 	
@@ -37,5 +40,6 @@ void fragment() {
 	else
 		ALBEDO = fog_color.rgb;
 		
-	//ALBEDO = vec3(1.);
+	ALBEDO = depth_texture.rgb;
+	ALPHA = 0.5;
 }

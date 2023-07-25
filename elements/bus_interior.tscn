@@ -1,7 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7e5fq1v1b7mm"]
+[gd_scene load_steps=22 format=3 uid="uid://c7e5fq1v1b7mm"]
 
 [ext_resource type="Texture2D" uid="uid://xblf68wgpkqd" path="res://assets/textures/bus_side1_transparent.png" id="2_bwfhw"]
 [ext_resource type="PackedScene" uid="uid://c6xkkpfmj3qwo" path="res://elements/bus_seat.tscn" id="3_6gt5h"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8dn14"]
+rough = true
+absorbent = true
 
 [sub_resource type="Gradient" id="Gradient_k47r6"]
 colors = PackedColorArray(0.261345, 0.175976, 0.388889, 1, 0.69638, 0.448478, 0.460493, 1)
@@ -21,6 +25,7 @@ material = SubResource("StandardMaterial3D_pvu3u")
 render_priority = 1
 transparency = 1
 cull_mode = 2
+depth_draw_mode = 1
 albedo_texture = ExtResource("2_bwfhw")
 uv1_scale = Vector3(2, 0.55, 0.55)
 uv1_offset = Vector3(0.5, 0.2, 0)
@@ -35,6 +40,7 @@ load_path = "res://.godot/imported/bus_side1_transparent.png-16523630ca71276c1bd
 render_priority = 1
 transparency = 1
 cull_mode = 2
+depth_draw_mode = 1
 albedo_texture = SubResource("CompressedTexture2D_nowa5")
 uv1_scale = Vector3(0.25, 0.4, 0.55)
 uv1_offset = Vector3(0.5, 0.2, 0)
@@ -47,7 +53,7 @@ load_path = "res://.godot/imported/bus_side1_transparent.png-16523630ca71276c1bd
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxdbv"]
 render_priority = 1
-transparency = 1
+transparency = 4
 cull_mode = 2
 albedo_texture = SubResource("CompressedTexture2D_px6pn")
 clearcoat_roughness = 1.0
@@ -71,8 +77,18 @@ size = Vector3(27.398, 1, 6.35329)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqkhw"]
 size = Vector3(7, 1, 6)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mab7"]
+albedo_color = Color(0.890196, 0.592157, 0.411765, 1)
+emission_enabled = true
+emission = Color(0.890196, 0.592157, 0.411765, 1)
+rim_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ilbf5"]
+material = SubResource("StandardMaterial3D_1mab7")
+
 [node name="bus" type="RigidBody3D"]
-gravity_scale = 100.0
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_8dn14")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(13.711, 0, 0, 0, 1, 0, 0, 0, 3.685, 0, 0, 0)
@@ -196,3 +212,79 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9606, 2.58903, 3.06064)
 
 [node name="bus_seat8" parent="." instance=ExtResource("3_6gt5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9606, 2.58903, 0.572259)
+
+[node name="floor_light" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.82878, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27519, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2206, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.36852, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7538, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="floor_light"]
+transform = Transform3D(23.8573, 0, 0, 0, 0.056, 0, 0, 0, 0.056, -1.40152, 1.64257, 1.51654)
+mesh = SubResource("BoxMesh_ilbf5")
+skeleton = NodePath("../..")
+
+[node name="floor_light2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.82878, -3.0601)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0129461, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26224, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2076, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38147, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7668, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="floor_light2"]
+transform = Transform3D(23.8573, 0, 0, 0, 0.056, 0, 0, 0, 0.056, -1.40152, 1.64257, 1.51654)
+mesh = SubResource("BoxMesh_ilbf5")
+skeleton = NodePath("../..")

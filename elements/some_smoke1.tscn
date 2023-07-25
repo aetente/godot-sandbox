@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://kgvo7bbax7uh"]
+
+[ext_resource type="Texture2D" uid="uid://doa1knsm2r2vs" path="res://assets/particles/whitePuff00.png" id="1_5wqiw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ogv5"]
+render_priority = 2
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.388235)
+albedo_texture = ExtResource("1_5wqiw")
+albedo_texture_msdf = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_l7ob2"]
+material = SubResource("StandardMaterial3D_3ogv5")
+
+[sub_resource type="Gradient" id="Gradient_w7xoe"]
+offsets = PackedFloat32Array(0, 0.295146, 0.648544, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Node3D" type="CPUParticles3D"]
+transform = Transform3D(0.998559, -0.00360127, 0.000138472, 0.00360124, 0.998559, 0.000163915, -0.000139059, -0.000163417, 0.998566, 0, 0, 0)
+amount = 32
+lifetime = 6.0
+mesh = SubResource("QuadMesh_l7ob2")
+emission_shape = 1
+emission_sphere_radius = 0.76
+direction = Vector3(2, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+radial_accel_min = -1.0
+radial_accel_max = 1.0
+tangential_accel_min = -1.0
+tangential_accel_max = 1.0
+angle_min = -90.0
+angle_max = 90.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+color = Color(1, 1, 1, 0.0470588)
+color_ramp = SubResource("Gradient_w7xoe")
