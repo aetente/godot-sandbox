@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://c7e5fq1v1b7mm"]
+[gd_scene load_steps=20 format=3 uid="uid://c7e5fq1v1b7mm"]
 
-[ext_resource type="Texture2D" uid="uid://xblf68wgpkqd" path="res://assets/textures/bus_side1_transparent.png" id="2_bwfhw"]
+[ext_resource type="Texture2D" uid="uid://c8s2fddcl8f0n" path="res://assets/textures/bus_side1_transparent3.png" id="1_6qgls"]
 [ext_resource type="PackedScene" uid="uid://c6xkkpfmj3qwo" path="res://elements/bus_seat.tscn" id="3_6gt5h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8dn14"]
@@ -26,36 +26,30 @@ render_priority = 1
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
-albedo_texture = ExtResource("2_bwfhw")
+albedo_texture = ExtResource("1_6qgls")
 uv1_scale = Vector3(2, 0.55, 0.55)
 uv1_offset = Vector3(0.5, 0.2, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ff32u"]
 material = SubResource("StandardMaterial3D_7yt5i")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nowa5"]
-load_path = "res://.godot/imported/bus_side1_transparent.png-16523630ca71276c1bdc42eaea6733ab.s3tc.ctex"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1jty"]
 render_priority = 1
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
-albedo_texture = SubResource("CompressedTexture2D_nowa5")
+albedo_texture = ExtResource("1_6qgls")
 uv1_scale = Vector3(0.25, 0.4, 0.55)
 uv1_offset = Vector3(0.5, 0.2, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l0yv6"]
 material = SubResource("StandardMaterial3D_e1jty")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_px6pn"]
-load_path = "res://.godot/imported/bus_side1_transparent.png-16523630ca71276c1bdc42eaea6733ab.s3tc.ctex"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxdbv"]
 render_priority = 1
 transparency = 4
 cull_mode = 2
-albedo_texture = SubResource("CompressedTexture2D_px6pn")
+albedo_texture = ExtResource("1_6qgls")
 clearcoat_roughness = 1.0
 detail_blend_mode = 3
 uv1_scale = Vector3(0.84, 0.65, 1)
@@ -72,10 +66,10 @@ size = Vector3(27.3985, 1.65812, 7.48884)
 size = Vector3(27.398, 1, 7.489)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2hhsl"]
-size = Vector3(27.398, 1, 6.35329)
+size = Vector3(27.398, 2.563, 6.353)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqkhw"]
-size = Vector3(7, 1, 6)
+size = Vector3(7, 2.563, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mab7"]
 albedo_color = Color(0.890196, 0.592157, 0.411765, 1)
@@ -88,6 +82,7 @@ material = SubResource("StandardMaterial3D_1mab7")
 
 [node name="bus" type="RigidBody3D"]
 collision_layer = 3
+collision_mask = 3
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_8dn14")
 
@@ -116,7 +111,7 @@ transform = Transform3D(-1.60324e-07, 1, -1.43154e-07, 0, -4.37114e-08, -3.27499
 mesh = SubResource("PlaneMesh_l0yv6")
 
 [node name="bus_side4" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.60324e-07, 1, -1.43154e-07, 0, -4.37114e-08, -3.27499, -3.66778, -4.37114e-08, 6.25748e-15, -13.6941, 3.31473, 0.0371864)
+transform = Transform3D(-1.6117e-07, 1, -1.43154e-07, 0, -4.37114e-08, -3.27499, -3.68713, -4.37114e-08, 6.25748e-15, -13.6941, 3.31473, 0.0211936)
 mesh = SubResource("PlaneMesh_radj3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -128,11 +123,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2161, 0)
 shape = SubResource("BoxShape3D_a6svh")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, -3.87254)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, -4.71608)
 shape = SubResource("BoxShape3D_2hhsl")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, 3.85215)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, 4.75095)
 shape = SubResource("BoxShape3D_2hhsl")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
@@ -140,7 +135,7 @@ transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 
 shape = SubResource("BoxShape3D_cqkhw")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -13.7211, 3.50669, -0.10621)
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -14.809, 3.50669, -0.10621)
 shape = SubResource("BoxShape3D_cqkhw")
 
 [node name="bus_seat_row" type="Node3D" parent="."]
