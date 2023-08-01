@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 @onready var path = get_node('./Path3D')

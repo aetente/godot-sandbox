@@ -1,0 +1,278 @@
+[gd_scene load_steps=19 format=3 uid="uid://cksc25iqi1do1"]
+
+[ext_resource type="Texture2D" uid="uid://c8s2fddcl8f0n" path="res://assets/textures/bus_side1_transparent3.png" id="1_fgh30"]
+[ext_resource type="PackedScene" uid="uid://c6xkkpfmj3qwo" path="res://elements/bus_seat.tscn" id="2_usngt"]
+
+[sub_resource type="Gradient" id="Gradient_k47r6"]
+colors = PackedColorArray(0.261345, 0.175976, 0.388889, 1, 0.69638, 0.448478, 0.460493, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3m6ew"]
+gradient = SubResource("Gradient_k47r6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvu3u"]
+cull_mode = 2
+albedo_color = Color(0.47451, 0.47451, 0.47451, 1)
+albedo_texture = SubResource("GradientTexture1D_3m6ew")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s3d6u"]
+material = SubResource("StandardMaterial3D_pvu3u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7yt5i"]
+render_priority = 1
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_texture = ExtResource("1_fgh30")
+uv1_scale = Vector3(2, 0.55, 0.55)
+uv1_offset = Vector3(0.5, 0.2, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ff32u"]
+material = SubResource("StandardMaterial3D_7yt5i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1jty"]
+render_priority = 1
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_texture = ExtResource("1_fgh30")
+uv1_scale = Vector3(0.25, 0.4, 0.55)
+uv1_offset = Vector3(0.5, 0.2, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l0yv6"]
+material = SubResource("StandardMaterial3D_e1jty")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxdbv"]
+render_priority = 1
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_fgh30")
+clearcoat_roughness = 1.0
+detail_blend_mode = 3
+uv1_scale = Vector3(0.84, 0.65, 1)
+uv1_offset = Vector3(0.47, 0.2, 0)
+grow_amount = 1.486
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_radj3"]
+material = SubResource("StandardMaterial3D_vxdbv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ncanq"]
+size = Vector3(27.3985, 1.65812, 7.48884)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a6svh"]
+size = Vector3(27.398, 1, 7.489)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2hhsl"]
+size = Vector3(27.398, 2.563, 6.353)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqkhw"]
+size = Vector3(7, 2.563, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1mab7"]
+albedo_color = Color(0.890196, 0.592157, 0.411765, 1)
+emission_enabled = true
+emission = Color(0.890196, 0.592157, 0.411765, 1)
+rim_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ilbf5"]
+material = SubResource("StandardMaterial3D_1mab7")
+
+[node name="bus" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.711, 0, 0, 0, 1, 0, 0, 0, 3.685, 0, 0, 0)
+mesh = SubResource("PlaneMesh_s3d6u")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.711, 0, 0, 0, 1, 0, 0, 0, 3.685, 0, 1.63363, 0)
+mesh = SubResource("PlaneMesh_s3d6u")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.711, 0, 0, 0, 1, 0, 0, 0, 3.685, 0, 6.47749, 0)
+mesh = SubResource("PlaneMesh_s3d6u")
+
+[node name="bus_side" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.7107, 0, 0, 0, -4.37114e-08, -3.27499, 0, 1, -1.43155e-07, 0, 3.22642, -3.65579)
+mesh = SubResource("PlaneMesh_ff32u")
+
+[node name="bus_side2" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.7107, 0, 0, 0, -4.37114e-08, -3.27499, 0, 1, -1.43155e-07, 0, 3.22642, 3.70071)
+mesh = SubResource("PlaneMesh_ff32u")
+
+[node name="bus_side3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.60324e-07, 1, -1.43154e-07, 0, -4.37114e-08, -3.27499, -3.66778, -4.37114e-08, 6.25748e-15, 13.6206, 3.31473, 0.0371864)
+mesh = SubResource("PlaneMesh_l0yv6")
+
+[node name="bus_side4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.6117e-07, 1, -1.43154e-07, 0, -4.37114e-08, -3.27499, -3.68713, -4.37114e-08, 6.25748e-15, -13.6941, 3.31473, 0.0211936)
+mesh = SubResource("PlaneMesh_radj3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.814414, 0)
+shape = SubResource("BoxShape3D_ncanq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2161, 0)
+shape = SubResource("BoxShape3D_a6svh")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, -4.71608)
+shape = SubResource("BoxShape3D_2hhsl")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.50669, 4.75095)
+shape = SubResource("BoxShape3D_2hhsl")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 13.6255, 3.50669, -0.10621)
+shape = SubResource("BoxShape3D_cqkhw")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -14.809, 3.50669, -0.10621)
+shape = SubResource("BoxShape3D_cqkhw")
+
+[node name="bus_seat_row" type="Node3D" parent="."]
+
+[node name="bus_seat" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58903, -2.0349)
+
+[node name="bus_seat2" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44453, 2.58903, -2.0349)
+
+[node name="bus_seat3" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58945, 2.58903, -2.0349)
+
+[node name="bus_seat4" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.44255, 2.58903, -2.0349)
+
+[node name="bus_seat5" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.88708, 2.58903, -2.0349)
+
+[node name="bus_seat6" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.032, 2.58903, -2.0349)
+
+[node name="bus_seat7" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.75008, 2.58903, -2.0349)
+
+[node name="bus_seat8" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30555, 2.58903, -2.0349)
+
+[node name="bus_seat9" parent="bus_seat_row" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16064, 2.58903, -2.0349)
+
+[node name="bus_seat_row2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.15394)
+
+[node name="bus_seat" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58903, -2.0349)
+
+[node name="bus_seat2" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44453, 2.58903, -2.0349)
+
+[node name="bus_seat3" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58945, 2.58903, -2.0349)
+
+[node name="bus_seat4" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.44255, 2.58903, -2.0349)
+
+[node name="bus_seat5" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.88708, 2.58903, -2.0349)
+
+[node name="bus_seat6" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.032, 2.58903, -2.0349)
+
+[node name="bus_seat7" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.75008, 2.58903, -2.0349)
+
+[node name="bus_seat10" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.95212, 2.58903, -2.0349)
+
+[node name="bus_seat8" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30555, 2.58903, -2.0349)
+
+[node name="bus_seat9" parent="bus_seat_row2" instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16064, 2.58903, -2.0349)
+
+[node name="bus_seat6" parent="." instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9606, 2.58903, -2.0349)
+
+[node name="bus_seat7" parent="." instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9606, 2.58903, 3.06064)
+
+[node name="bus_seat8" parent="." instance=ExtResource("2_usngt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9606, 2.58903, 0.572259)
+
+[node name="floor_light" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.82878, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27519, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2206, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.36852, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="floor_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7538, 1.62656, 1.52234)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="floor_light"]
+transform = Transform3D(23.8573, 0, 0, 0, 0.056, 0, 0, 0, 0.056, -1.40152, 1.64257, 1.51654)
+mesh = SubResource("BoxMesh_ilbf5")
+skeleton = NodePath("../..")
+
+[node name="floor_light2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.82878, -3.0601)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0129461, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26224, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2076, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38147, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="floor_light2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7668, 1.6259, 1.51155)
+light_color = Color(0.890196, 0.592157, 0.411765, 1)
+light_energy = 1.213
+shadow_enabled = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="floor_light2"]
+transform = Transform3D(23.8573, 0, 0, 0, 0.056, 0, 0, 0, 0.056, -1.40152, 1.64257, 1.51654)
+mesh = SubResource("BoxMesh_ilbf5")
+skeleton = NodePath("../..")
