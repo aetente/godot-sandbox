@@ -1,58 +1,137 @@
 [gd_scene load_steps=7 format=3 uid="uid://dbru1famrgb3x"]
 
 [ext_resource type="Script" path="res://scripts/chain.gd" id="1_jlybs"]
-[ext_resource type="PackedScene" uid="uid://c7e5fq1v1b7mm" path="res://elements/bus_interior.tscn" id="2_e7hoc"]
+[ext_resource type="PackedScene" uid="uid://baopt8ln3c00j" path="res://elements/chain_test_part.tscn" id="2_esoix"]
+[ext_resource type="PackedScene" uid="uid://dhj75jhobujno" path="res://elements/chain_test_part_front.tscn" id="3_midq8"]
+
+[sub_resource type="Environment" id="Environment_rdft1"]
+background_mode = 1
+background_color = Color(0.984314, 0, 0, 1)
+ambient_light_source = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_rgejj"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ehfd4"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="BoxMesh" id="BoxMesh_e70nb"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lg001"]
-size = Vector3(4.1, 1, 1)
-
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_jlybs")
-cell = ExtResource("2_e7hoc")
-cell_distance = 35.0
-joint_offset = Vector3(0, 3.5, 0)
-debug_draw = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(6.0588, 0, 0, 0, 6.0588, 0, 0, 0, 91.912, 62.0722, -3.66603, 0)
-mesh = SubResource("BoxMesh_rgejj")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_ehfd4")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.6742, 0, 29.1098)
+transform = Transform3D(1, 0, 0, 0, 0.982894, 0.184174, 0, -0.184174, 0.982894, 22.923, 30.8681, 138.092)
+fov = 8.7
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.8771, 0, 24)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rdft1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-transform = Transform3D(4.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_e70nb")
+[node name="walls" type="Node3D" parent="."]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_lg001")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(-2.26526e-06, 0, -70.3822, 0, 6.0588, 0, 51.8229, 0, -3.0765e-06, 30.7813, -3.66603, 0)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
 
-[node name="RigidBody3D2" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.5396, 0, 24)
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2"]
-transform = Transform3D(4.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_e70nb")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
-shape = SubResource("BoxShape3D_lg001")
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(-2.26526e-06, 0, -70.3822, 0, 6.0588, 0, 51.8229, 0, -3.0765e-06, 30.7813, 14.6149, 0)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
 
-[node name="PinJoint3D" type="PinJoint3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.169, -0.00969701, 23.9853)
-node_a = NodePath("../RigidBody3D")
-node_b = NodePath("../RigidBody3D2")
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D6/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(9.90175e-14, 6.0588, 3.0765e-06, 2.26526e-06, -2.64839e-07, 70.3822, 51.8229, 0, -3.0765e-06, 41.8151, 26.6048, 0)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(9.90175e-14, 6.0588, 3.0765e-06, 2.26526e-06, -2.64839e-07, 70.3822, 51.8229, 0, -3.0765e-06, 4.56174, 26.6048, 0)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(82.3926, -2.64839e-07, -3.0765e-06, 3.6015e-06, -2.64839e-07, 70.3822, -3.6015e-06, -6.0588, -3.0765e-06, 31.9484, 26.6048, -19.0892)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="walls"]
+transform = Transform3D(82.3926, -2.64839e-07, -3.0765e-06, 3.6015e-06, -2.64839e-07, 70.3822, -3.6015e-06, -6.0588, -3.0765e-06, 31.9484, 26.6048, 20.2583)
+mesh = SubResource("BoxMesh_rgejj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/MeshInstance3D5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ehfd4")
+
+[node name="chains" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="chains"]
+transform = Transform3D(0.798604, 0, -0.601857, 0, 1, 0, 0.601857, 0, 0.798604, 10.5628, 2, -7.39528)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1
+
+[node name="Node3D2" type="Node3D" parent="chains"]
+transform = Transform3D(0.630364, 0, 0.7763, 0, 1, 0, -0.7763, 0, 0.630364, 10.5628, 0, 13.1992)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1
+
+[node name="Node3D3" type="Node3D" parent="chains"]
+transform = Transform3D(0.679838, 0, 0.733362, 0, 1, 0, -0.733362, 0, 0.679838, 10.5628, 3.0383, 11.9364)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1
+
+[node name="Node3D4" type="Node3D" parent="chains"]
+transform = Transform3D(0.670336, 0, -0.742058, 0, 1, 0, 0.742058, 0, 0.670336, 10.5628, 6.0383, -12.7756)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1
+
+[node name="Node3D5" type="Node3D" parent="chains"]
+transform = Transform3D(0.656638, 0, 0.754206, 0, 1, 0, -0.754206, 0, 0.656638, 10.5628, 6.7648, 15.2167)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1
+
+[node name="Node3D6" type="Node3D" parent="chains"]
+transform = Transform3D(0.618436, 0, -0.785835, 0, 1, 0, 0.785835, 0, 0.618436, 10.5628, 8.7648, -10.9949)
+script = ExtResource("1_jlybs")
+cell = ExtResource("2_esoix")
+front_cell = ExtResource("3_midq8")
+amount_of_cells = 16
+cell_distance = 2.1

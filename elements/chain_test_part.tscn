@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://baopt8ln3c00j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsge4"]
+cull_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4co0b"]
+material = SubResource("StandardMaterial3D_hsge4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nllln"]
+custom_solver_bias = 1.0
+margin = 0.337
+size = Vector3(0.959977, 0.0891248, 2.02135)
+
+[node name="Node3D" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+gravity_scale = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.484192, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4co0b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_nllln")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false

@@ -21,12 +21,11 @@ var meshes = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var test = get_node("./PinJoint3D")
 	for i in range(amount_of_cells):
 		var cell_element
 		if (i == 0 && front_cell):
 			cell_element = create_instance(front_cell)
-		if (i == amount_of_cells - 1 && back_cell):
+		elif (i == amount_of_cells - 1 && back_cell):
 			cell_element = create_instance(back_cell)
 		else:
 			cell_element = create_instance(cell)
