@@ -1,11 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqfjrw0fywb08"]
+[gd_scene load_steps=9 format=3 uid="uid://bqfjrw0fywb08"]
 
+[ext_resource type="Script" path="res://scripts/generate_tree.gd" id="1_l0q1n"]
 [ext_resource type="Script" path="res://scripts/generate_building.gd" id="1_n2sxu"]
+[ext_resource type="Texture2D" uid="uid://dxg0d3ihlnsug" path="res://assets/skybox/fog1.png" id="2_f8shs"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v64nt"]
+panorama = ExtResource("2_f8shs")
+
+[sub_resource type="Sky" id="Sky_t4lcl"]
+sky_material = SubResource("PanoramaSkyMaterial_v64nt")
 
 [sub_resource type="Environment" id="Environment_mg5d2"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.458824, 0.458824, 0.458824, 1)
-ambient_light_color = Color(0.976471, 0.976471, 0.976471, 1)
+background_energy_multiplier = 1.17
+sky = SubResource("Sky_t4lcl")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 16.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skkjq"]
 
@@ -13,6 +25,10 @@ ambient_light_color = Color(0.976471, 0.976471, 0.976471, 1)
 material = SubResource("StandardMaterial3D_skkjq")
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.1161, 0, 31.1401)
+script = ExtResource("1_l0q1n")
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource("1_n2sxu")
@@ -27,5 +43,5 @@ fov = 121.6
 environment = SubResource("Environment_mg5d2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 58.8013)
+transform = Transform3D(214.32, 0, 0, 0, 0.337081, 0, 0, 0, 177.265, 17.5637, 0, 20.4462)
 mesh = SubResource("BoxMesh_ma0o0")

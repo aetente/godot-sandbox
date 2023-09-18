@@ -7,7 +7,7 @@ extends Node
 @export var cellsPerRow: float = 10;
 @export var texuresAmount: int = 4;
 var m_MainTexture: Texture2D;
-var rng = RandomNumberGenerator.new()
+var rng = RandomNumberGenerator.new();
 
 var BuildingPart = load("res://scripts/BuildingPart.gd");
 
