@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8pry54c4rxvp"]
+
+[ext_resource type="PackedScene" uid="uid://ck2cc5ct4bwap" path="res://scenes/driving_car_test.tscn" id="1_ddcsn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p5pls"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k186e"]
+points = PackedVector3Array(50.7837, 1.88095, 50.7837, -50.7837, -1.29365, -50.7837, -50.7837, 1.88095, -50.7837, 50.7837, -1.29365, -50.7837, -50.7837, -1.29365, 50.7837, -50.7837, 1.88095, 50.7837, 50.7837, 1.88095, -50.7837, 50.7837, -1.29365, 50.7837)
+
+[sub_resource type="Environment" id="Environment_fe0rt"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_p5pls")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_k186e")
+
+[node name="test_car" parent="." instance=ExtResource("1_ddcsn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.8862, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.532994, 0.846119, 0, 0.846119, 0.532994, -1, 2.32979e-08, -3.6985e-08, 10.3742, 7.19906, -4.03869)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fe0rt")

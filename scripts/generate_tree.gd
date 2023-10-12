@@ -123,7 +123,6 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, lineSi
 		add_child(cube);
 		cube.position = branchStart;
 		var branchEndFix: Vector3 = branchEnd + transform.origin;
-		print(branchEndFix.normalized(), Vector3.DOWN)
 		if (branchEnd.normalized().y > 0.99):
 			cube.rotation.x = PI/4;
 			cube.look_at(branchEndFix, Vector3(0,0,1))

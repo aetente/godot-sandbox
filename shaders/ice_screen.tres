@@ -1,0 +1,74 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://blnysw1jr78e7"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qpk3p"]
+output_port_for_preview = 0
+source = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_sf0ua"]
+output_port_for_preview = 0
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_u112n"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_vbkue"]
+default_input_values = [0, 1.0, 1, 0.0]
+operator = 1
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_f5ku4"]
+op_type = 0
+
+[resource]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D screen_tex_frg_2 : hint_screen_texture;
+
+
+
+void fragment() {
+// Input:3
+	vec2 n_out3p0 = SCREEN_UV;
+
+
+// VectorDecompose:4
+	float n_out4p0 = n_out3p0.x;
+	float n_out4p1 = n_out3p0.y;
+
+
+// FloatOp:5
+	float n_in5p0 = 1.00000;
+	float n_out5p0 = n_in5p0 - n_out4p1;
+
+
+// VectorCompose:6
+	vec2 n_out6p0 = vec2(n_out4p0, n_out5p0);
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(screen_tex_frg_2, n_out6p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+modes/depth_draw = 1
+flags/unshaded = true
+nodes/fragment/0/position = Vector2(620, 140)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_qpk3p")
+nodes/fragment/2/position = Vector2(340, 60)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_sf0ua")
+nodes/fragment/3/position = Vector2(-580, 60)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_u112n")
+nodes/fragment/4/position = Vector2(-200, 180)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_vbkue")
+nodes/fragment/5/position = Vector2(40, 320)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorCompose_f5ku4")
+nodes/fragment/6/position = Vector2(140, 160)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 4, 0, 4, 1, 5, 1, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 2, 0)
