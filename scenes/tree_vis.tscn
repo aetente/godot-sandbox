@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc7qwriv7krn7"]
+
+[ext_resource type="Shader" uid="uid://w48si2cv5hby" path="res://shaders/move_tree_texture.tres" id="1_eas5o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vlpg"]
+render_priority = 0
+shader = ExtResource("1_eas5o")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cg54g"]
+material = SubResource("ShaderMaterial_1vlpg")
+subdivide_width = 2
+subdivide_depth = 2
+
+[node name="tree_vis" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.284959, 0)
+mesh = SubResource("QuadMesh_cg54g")
