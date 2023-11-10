@@ -1,10 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8tcojf5d27lm"]
+[gd_scene load_steps=8 format=3 uid="uid://c8tcojf5d27lm"]
 
+[ext_resource type="Script" path="res://scripts/fill_trees_test1.gd" id="1_mwt6k"]
 [ext_resource type="PackedScene" uid="uid://cc7qwriv7krn7" path="res://scenes/tree_vis.tscn" id="1_o81tr"]
+[ext_resource type="Texture2D" uid="uid://dxg0d3ihlnsug" path="res://assets/skybox/fog1.png" id="3_vlxhe"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g36ug"]
+panorama = ExtResource("3_vlxhe")
+
+[sub_resource type="Sky" id="Sky_kwmgp"]
+sky_material = SubResource("PanoramaSkyMaterial_g36ug")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_rpohl"]
+background_mode = 2
+background_color = Color(0.345098, 0.407843, 0.4, 1)
+sky = SubResource("Sky_kwmgp")
+ambient_light_source = 3
+ambient_light_color = Color(0.345098, 0.407843, 0.4, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 2.04
+tonemap_white = 6.04
+
+[sub_resource type="BoxMesh" id="BoxMesh_02t12"]
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_mwt6k")
+tree = ExtResource("1_o81tr")
+amount_of_trees = 200
 
-[node name="tree_vis" parent="." instance=ExtResource("1_o81tr")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rpohl")
 
-[node name="tree_vis2" parent="." instance=ExtResource("1_o81tr")]
-transform = Transform3D(0.999851, 0, -0.017243, 0, 1, 0, 0.017243, 0, 0.999851, -0.227415, 0.335488, 0)
+[node name="OmniLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-4.10107e-08, -0.346052, 0.938215, -1.51264e-08, 0.938215, 0.346052, -1, 2.39808e-14, -4.37114e-08, 3.91677, 1.30514, 0)
+light_color = Color(1, 0.584314, 0.454902, 1)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.07046, 0, 0, 0, 1, 0, 0, 0, 2.1009, 0, -0.526028, 0)
+mesh = SubResource("BoxMesh_02t12")
