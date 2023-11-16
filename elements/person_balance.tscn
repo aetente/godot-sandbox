@@ -13,6 +13,14 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_jelsj"]
 size = Vector3(0.380966, 0.492347, 0.187368)
 
+[sub_resource type="SphereMesh" id="SphereMesh_5qmyc"]
+material = ExtResource("2_afb2k")
+radial_segments = 4
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yrcj1"]
+size = Vector3(0.155527, 0.365031, 0.290999)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_qc8rj"]
 material = ExtResource("2_afb2k")
 bottom_radius = 0.3
@@ -48,14 +56,6 @@ material = ExtResource("2_afb2k")
 top_radius = 0.3
 radial_segments = 4
 rings = 1
-
-[sub_resource type="SphereMesh" id="SphereMesh_5qmyc"]
-material = ExtResource("2_afb2k")
-radial_segments = 4
-rings = 1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_yrcj1"]
-size = Vector3(0.155527, 0.365031, 0.290999)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8rjts"]
 material = ExtResource("2_afb2k")
@@ -144,12 +144,25 @@ angular_limit/lower = -0.750492
 [node name="headJoint" type="HingeJoint3D" parent="rigids/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 1, 0, 0.42234, 0.0241065)
 node_a = NodePath("..")
-node_b = NodePath("../../head")
+node_b = NodePath("../head")
 params/bias = 0.86
 angular_limit/enable = true
 angular_limit/upper = 0.174533
 angular_limit/lower = -0.174533
 angular_limit/bias = 0.01
+
+[node name="head" type="RigidBody3D" parent="rigids/torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620481, 0.0241065)
+gravity_scale = 0.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torso/head"]
+transform = Transform3D(0.155527, 0, 0, 0, 0.365018, -0.0024378, 0, 0.00305799, 0.290988, 0, 0.0031755, 0.0188936)
+mesh = SubResource("SphereMesh_5qmyc")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torso/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0154777)
+shape = SubResource("BoxShape3D_yrcj1")
 
 [node name="torsoEnd" type="RigidBody3D" parent="rigids"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)
@@ -167,7 +180,7 @@ shape = SubResource("BoxShape3D_jj452")
 
 [node name="RayCast3D" type="RayCast3D" parent="rigids/torsoEnd"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.179, 0.0241108)
-target_position = Vector3(0, -1.5, 0)
+target_position = Vector3(0, -1.4, 0)
 collision_mask = 2
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
@@ -195,6 +208,7 @@ shape = SubResource("BoxShape3D_0w5dh")
 
 [node name="rightFootEnd" type="RigidBody3D" parent="rigids/torsoEnd/rightFoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, -0.993062, 0.216904)
+script = ExtResource("3_4rsit")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/rightFoot/rightFootEnd"]
 transform = Transform3D(0.155522, -0.00147215, 0.000965864, 0.000476211, 0.328645, 0.0279975, -0.00113485, -0.0638381, 0.144112, 7.59231e-05, 0.0385144, 0.0265732)
@@ -229,6 +243,7 @@ shape = SubResource("BoxShape3D_0w5dh")
 
 [node name="leftFootEnd" type="RigidBody3D" parent="rigids/torsoEnd/leftFoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.99633, -0.0358547)
+script = ExtResource("3_4rsit")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/leftFoot/leftFootEnd"]
 transform = Transform3D(0.155527, 0, 0, 0, 0.33478, -0.00122986, 0, 0.00280464, 0.146804, 0, 0.0054971, 0.0179637)
@@ -254,19 +269,6 @@ node_b = NodePath("../rightFoot")
 angular_limit/enable = true
 angular_limit/upper = 1.22173
 angular_limit/lower = -1.22173
-
-[node name="head" type="RigidBody3D" parent="rigids"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.749841, 0)
-gravity_scale = 0.0
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/head"]
-transform = Transform3D(0.155527, 0, 0, 0, 0.365018, -0.0024378, 0, 0.00305799, 0.290988, 0, 0.0031755, 0.0188936)
-mesh = SubResource("SphereMesh_5qmyc")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0154777)
-shape = SubResource("BoxShape3D_yrcj1")
 
 [node name="leftHand" type="RigidBody3D" parent="rigids"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.223944, 0.384586)
@@ -321,7 +323,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 [node name="StaticBody3D" type="StaticBody3D" parent="BodyControll"]
 
 [node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="BodyControll"]
-node_a = NodePath("../../rigids/head")
+node_a = NodePath("../../rigids/torso/head")
 node_b = NodePath("../StaticBody3D")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false

@@ -35,7 +35,7 @@ var time_now = 0
 
 @onready var mainJoint = get_node("torsoJoint")
 
-var walkSpeed = 1
+var walkSpeed = 0.1
 var walkAnimationTimer = 0
 var isWalking = false
 
@@ -52,32 +52,25 @@ func handleWalk():
 	isWalking = false
 	
 	if Input.is_action_pressed("KEY_W"):
-		body.apply_central_impulse(-bodyControll.transform.basis.z*walkSpeed)
+		base.position += (-bodyControll.transform.basis.z*walkSpeed)
 		isWalking = true
-	elif Input.is_action_just_released("KEY_W"):
-		body.apply_central_impulse(bodyControll.transform.basis.z*walkSpeed)
 		
 	if Input.is_action_pressed("KEY_A"):
-		body.apply_central_impulse(-bodyControll.transform.basis.x*walkSpeed)
+		base.position += (-bodyControll.transform.basis.x*walkSpeed)
 		isWalking = true
-	elif Input.is_action_just_released("KEY_A"):
-		body.apply_central_impulse(bodyControll.transform.basis.x*walkSpeed)
 		
 	if Input.is_action_pressed("KEY_D"):
-		body.apply_central_impulse(bodyControll.transform.basis.x*walkSpeed)
+		base.position += (bodyControll.transform.basis.x*walkSpeed)
 		isWalking = true
-	elif Input.is_action_just_released("KEY_D"):
-		body.apply_central_impulse(-bodyControll.transform.basis.x*walkSpeed)
 		
 	if Input.is_action_pressed("KEY_S"):
-		body.apply_central_impulse(bodyControll.transform.basis.z*walkSpeed)
+		base.position += (bodyControll.transform.basis.z*walkSpeed)
 		isWalking = true
-	elif Input.is_action_just_released("KEY_S"):
-		body.apply_central_impulse(-bodyControll.transform.basis.z*walkSpeed)
 		
 	if isWalking:
 		animateWalk()
 	else:
+		walkAnimationTimer = 0
 		leftLeg.rotation.z = 0
 		rightLeg.rotation.z = 0
 
