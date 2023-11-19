@@ -11,7 +11,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#global_transform.origin = lerp(global_transform.origin, target.global_transform.origin, delta*speed)
-	self.look_at(target.get_node('rigids/torso/head').position + Vector3(0,3,0))
+	self.look_at(target.get_node('rigids/torso').position + Vector3(0,3,0))
 	#var current_rotation = Quaternion(global_transform.basis)
 	#var next_rotation = current_rotation.slerp(Quaternion(target.global_transform.basis), delta*speed)
 	#global_transform.basis = Basis(next_rotation)

@@ -21,8 +21,8 @@ var time_now = 0
 @onready var rigidArm1 = get_node("rigids/leftHandEnd")
 @onready var rigidArm2 = get_node("rigids/rightHandEnd")
 
-@onready var leftLeg = get_node("rigids/torsoEnd/leftFoot")
-@onready var rightLeg = get_node("rigids/torsoEnd/rightFoot")
+@onready var leftLeg = get_node("rigids/leftFoot")
+@onready var rightLeg = get_node("rigids/rightFoot")
 
 @onready var rigidTorso = get_node("rigids/torso")
 @onready var rigidTorso2 = get_node("rigids/torsoEnd")
@@ -31,22 +31,36 @@ var time_now = 0
 @onready var body = $"rigids/torso"
 @onready var bodyControll = $BodyControll
 @onready var torsoEnd = $"rigids/torsoEnd"
-@onready var ray = $"rigids/torsoEnd/RayCast3D"
+@onready var leftFoot = $"rigids/leftFoot/leftFootEnd"
+@onready var rightFoot = $"rigids/rightFoot/rightFootEnd"
 
 @onready var mainJoint = get_node("torsoJoint")
 
-var walkSpeed = 0.1
+var walkSpeed = 0.0
 var walkAnimationTimer = 0
 var isWalking = false
 
+var leftFootStartPos = Vector3(0,0,0)
+var rightFootStartPos = Vector3(0,0,0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	leftFootStartPos = leftFoot.position
+	rightFootStartPos = rightFoot.position
 	time_start = Time.get_unix_time_from_system()
 	
 func animateWalk():
 	walkAnimationTimer += 0.1
-	leftLeg.rotation.z = sin(walkAnimationTimer) * 1
-	rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
+	if (sin(walkAnimationTimer) > 0):
+		leftLeg.rotation.z = sin(walkAnimationTimer) * 1
+		rightLeg.rotation.z = -sin(walkAnimationTimer) * 0.1
+	else:
+		leftLeg.rotation.z = sin(walkAnimationTimer) * 0.1
+		rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
+	#leftFoot.position.y += (sin(walkAnimationTimer) + 1) / 20 * 1
+	#leftFoot.position.x += (cos(walkAnimationTimer)) / 20 * 1
+	#rightFoot.position.y += -(sin(walkAnimationTimer) + 1) / 20 * 1
+	#rightFoot.position.x += -(cos(walkAnimationTimer)) / 20 * 1
 
 func handleWalk():
 	isWalking = false
@@ -71,10 +85,12 @@ func handleWalk():
 		animateWalk()
 	else:
 		walkAnimationTimer = 0
-		leftLeg.rotation.z = 0
-		rightLeg.rotation.z = 0
+		#leftLeg.rotation.z = 0
+		#rightLeg.rotation.z = 0
+		#leftFoot.position = leftFootStartPos
+		#rightFoot.position = rightFootStartPos
 		
-func handleBalance():
+func handleBalance(ray):
 	if ray.is_colliding():
 		var distanceToGround = ray.get_collision_point().distance_to(torsoEnd.transform.origin)
 		#if (distanceToGround < 1):

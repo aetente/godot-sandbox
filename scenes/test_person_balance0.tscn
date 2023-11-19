@@ -19,7 +19,7 @@ ambient_light_color = Color(0.960784, 0.960784, 0.960784, 1)
 [node name="Node3D" type="Node3D"]
 
 [node name="person_balance" parent="." instance=ExtResource("1_ijoe3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.73333, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.45679, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87041, 3.85404, -0.282224)
