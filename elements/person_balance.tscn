@@ -126,7 +126,7 @@ angular_limit/lower = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12936, -0.0241065)
 linear_damp = 5.0
 script = ExtResource("3_4rsit")
-angular_spring_stiffness = 4000.0
+angular_spring_stiffness = 2000.0
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torso"]
 transform = Transform3D(0.00664556, 0.00211398, 0.187341, 0, 0.252364, -0.00156965, -0.442705, 3.17335e-05, 0.00281226, 0.00275935, 0.0767433, 0.0331356)
@@ -265,7 +265,7 @@ angular_limit/lower = -1.22173
 [node name="torsoEnd" type="RigidBody3D" parent="rigids"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)
 script = ExtResource("3_4rsit")
-angular_spring_stiffness = 4000.0
+angular_spring_stiffness = 2000.0
 desired_position = Vector3(0, -0.320596, -0.0241065)
 
 [node name="balanceStickCollision" type="CollisionShape3D" parent="rigids/torsoEnd"]
