@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwbf3sb3xt8ns"]
+[gd_scene load_steps=20 format=3 uid="uid://dwbf3sb3xt8ns"]
 
 [ext_resource type="Script" path="res://scripts/person_balance.gd" id="1_5tx4d"]
 [ext_resource type="Material" uid="uid://p84rae3i8xvw" path="res://materials/person_material1.tres" id="2_afb2k"]
@@ -20,6 +20,10 @@ rings = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yrcj1"]
 size = Vector3(0.155527, 0.365031, 0.290999)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bm17k"]
+radius = 0.02
+height = 1.35
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qc8rj"]
 material = ExtResource("2_afb2k")
@@ -169,6 +173,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)
 script = ExtResource("3_4rsit")
 angular_spring_stiffness = 4000.0
 
+[node name="balanceStickCollision" type="CollisionShape3D" parent="rigids/torsoEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.914168, 0.021137)
+shape = SubResource("CapsuleShape3D_bm17k")
+
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd"]
 transform = Transform3D(0.00522024, 0.00157344, 0.189911, 0, 0.187835, -0.00159118, -0.347756, 2.36194e-05, 0.00285085, 0.00275935, 0.00214678, 0.0331356)
 mesh = SubResource("CylinderMesh_qc8rj")
@@ -180,15 +188,13 @@ shape = SubResource("BoxShape3D_jj452")
 
 [node name="RayCast3D" type="RayCast3D" parent="rigids/torsoEnd"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.179, 0.0241108)
+visible = false
 target_position = Vector3(0, -1.4, 0)
 collision_mask = 2
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="rightFoot" type="RigidBody3D" parent="rigids/torsoEnd"]
 transform = Transform3D(1, 0, 0, 0, 0.976967, -0.213389, 0, 0.213389, 0.976967, 0, -0.304867, -0.194035)
-script = ExtResource("3_4rsit")
-desired_angle = Vector3(12.3, 0, 0)
-max_angular_force = 100.0
 
 [node name="rightFootEndJoint" type="HingeJoint3D" parent="rigids/torsoEnd/rightFoot"]
 transform = Transform3D(1, 0, 0, 0, 0.976968, 0.213389, 0, -0.213389, 0.976968, 0, -0.649598, 0.192514)
@@ -208,7 +214,6 @@ shape = SubResource("BoxShape3D_0w5dh")
 
 [node name="rightFootEnd" type="RigidBody3D" parent="rigids/torsoEnd/rightFoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, -0.993062, 0.216904)
-script = ExtResource("3_4rsit")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/rightFoot/rightFootEnd"]
 transform = Transform3D(0.155522, -0.00147215, 0.000965864, 0.000476211, 0.328645, 0.0279975, -0.00113485, -0.0638381, 0.144112, 7.59231e-05, 0.0385144, 0.0265732)
@@ -221,9 +226,6 @@ shape = SubResource("BoxShape3D_0w5dh")
 
 [node name="leftFoot" type="RigidBody3D" parent="rigids/torsoEnd"]
 transform = Transform3D(1, 0, 0, 0, 0.999353, 0.0359635, 0, -0.0359635, 0.999353, 0.0269134, -0.268765, 0.175232)
-script = ExtResource("3_4rsit")
-desired_angle = Vector3(-2.1, 0, 0)
-max_angular_force = 100.0
 
 [node name="leftFootEndJoint" type="HingeJoint3D" parent="rigids/torsoEnd/leftFoot"]
 transform = Transform3D(0.93029, -0.366826, 3.41633e-10, 0.366589, 0.929687, -0.0359635, 0.0131924, 0.0334565, 0.999353, -0.0269134, -0.682778, -0.00951625)
@@ -243,7 +245,6 @@ shape = SubResource("BoxShape3D_0w5dh")
 
 [node name="leftFootEnd" type="RigidBody3D" parent="rigids/torsoEnd/leftFoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.99633, -0.0358547)
-script = ExtResource("3_4rsit")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/leftFoot/leftFootEnd"]
 transform = Transform3D(0.155527, 0, 0, 0, 0.33478, -0.00122986, 0, 0.00280464, 0.146804, 0, 0.0054971, 0.0179637)

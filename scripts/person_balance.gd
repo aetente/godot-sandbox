@@ -73,17 +73,23 @@ func handleWalk():
 		walkAnimationTimer = 0
 		leftLeg.rotation.z = 0
 		rightLeg.rotation.z = 0
+		
+func handleBalance():
+	if ray.is_colliding():
+		var distanceToGround = ray.get_collision_point().distance_to(torsoEnd.transform.origin)
+		#if (distanceToGround < 1):
+		#	torsoEnd.position.y = ray.target_position.y
+		#else:
+		var normUp = (ray.target_position.y - distanceToGround) / ray.target_position.y
+		if normUp < 0:
+			normUp = 0
+		var upForce = Vector3(0,1,0) * 0.7 * normUp
+		torsoEnd.apply_central_impulse(upForce)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	time_now = Time.get_unix_time_from_system()
 	var r = time_now - time_start
-	if ray.is_colliding():
-		var normUp = (ray.target_position.y - ray.get_collision_point().distance_to(torsoEnd.transform.origin)) / ray.target_position.y
-		if normUp < 0:
-			normUp = 0
-		var upForce = Vector3(0,1,0) * 0.7 * normUp
-		torsoEnd.apply_central_impulse(upForce)
 	handleWalk()
 	
 	
