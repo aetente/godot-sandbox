@@ -12,23 +12,12 @@ var F = 340
 var time_start = 0
 var time_now = 0
 
-#onready var prearm1Torso = get_node("prearm1Torso")
-#onready var prearm2Torso = get_node("prearm2Torso")
-
-@onready var rigidPrearm1 = get_node("rigids/leftHand")
-@onready var rigidPrearm2 = get_node("rigids/rightHand")
-
-@onready var rigidArm1 = get_node("rigids/leftHandEnd")
-@onready var rigidArm2 = get_node("rigids/rightHandEnd")
 
 @onready var leftLeg = get_node("rigids/leftFoot")
 @onready var rightLeg = get_node("rigids/rightFoot")
 
-@onready var rigidTorso = get_node("rigids/torso")
-@onready var rigidTorso2 = get_node("rigids/torsoEnd")
-
 @onready var base = $"rigids"
-@onready var body = $"rigids/torso"
+@onready var body = $"rigids/torsoEnd/torso"
 @onready var bodyControll = $BodyControll
 @onready var torsoEnd = $"rigids/torsoEnd"
 @onready var leftFoot = $"rigids/leftFoot/leftFootEnd"
@@ -43,20 +32,38 @@ var isWalking = false
 var leftFootStartPos = Vector3(0,0,0)
 var rightFootStartPos = Vector3(0,0,0)
 
+var leftLegDesiredAngle = Vector3(0,0,0)
+var rightLegDesiredAngle = Vector3(0,0,0)
+
+var movedRightLeg = false
+var movedLeftLeg = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	leftFootStartPos = leftFoot.position
 	rightFootStartPos = rightFoot.position
+	leftLegDesiredAngle = leftLeg.desired_angle
+	rightLegDesiredAngle = rightLeg.desired_angle
 	time_start = Time.get_unix_time_from_system()
 	
 func animateWalk():
 	walkAnimationTimer += 0.1
-	if (sin(walkAnimationTimer) > 0):
-		leftLeg.rotation.z = sin(walkAnimationTimer) * 1
-		rightLeg.rotation.z = -sin(walkAnimationTimer) * 0.1
-	else:
-		leftLeg.rotation.z = sin(walkAnimationTimer) * 0.1
-		rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
+	if (sin(walkAnimationTimer) > 0 && !movedRightLeg):
+		#leftLeg.rotation.z = sin(walkAnimationTimer) * 1
+		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 0.1
+		movedRightLeg = true
+		movedLeftLeg = false
+		leftLeg.desired_angle.z = -1
+		rightLeg.desired_angle.z = 1
+		pass
+	elif (sin(walkAnimationTimer) <= 0 && !movedLeftLeg):
+		#leftLeg.rotation.z = sin(walkAnimationTimer) * 0.1
+		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
+		movedRightLeg = false
+		movedLeftLeg = true
+		leftLeg.desired_angle.z = 1
+		rightLeg.desired_angle.z = -1
+		pass
 	#leftFoot.position.y += (sin(walkAnimationTimer) + 1) / 20 * 1
 	#leftFoot.position.x += (cos(walkAnimationTimer)) / 20 * 1
 	#rightFoot.position.y += -(sin(walkAnimationTimer) + 1) / 20 * 1
@@ -65,26 +72,33 @@ func animateWalk():
 func handleWalk():
 	isWalking = false
 	
+	#body.rotation.z = 0
 	if Input.is_action_pressed("KEY_W"):
-		base.position += (-bodyControll.transform.basis.z*walkSpeed)
+		#torsoEnd.desired_angle.z = -PI / 4
+		#base.position += (-bodyControll.transform.basis.z*walkSpeed)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_A"):
-		base.position += (-bodyControll.transform.basis.x*walkSpeed)
+		#base.position += (-bodyControll.transform.basis.x*walkSpeed)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_D"):
-		base.position += (bodyControll.transform.basis.x*walkSpeed)
+		#base.position += (bodyControll.transform.basis.x*walkSpeed)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_S"):
-		base.position += (bodyControll.transform.basis.z*walkSpeed)
+		#base.position += (bodyControll.transform.basis.z*walkSpeed)
 		isWalking = true
 		
 	if isWalking:
 		animateWalk()
+		pass
 	else:
 		walkAnimationTimer = 0
+		movedRightLeg = false
+		movedLeftLeg = false
+		leftLeg.desired_angle = leftLegDesiredAngle 
+		rightLeg.desired_angle = rightLegDesiredAngle
 		#leftLeg.rotation.z = 0
 		#rightLeg.rotation.z = 0
 		#leftFoot.position = leftFootStartPos
