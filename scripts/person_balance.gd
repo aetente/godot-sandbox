@@ -25,7 +25,7 @@ var time_now = 0
 
 @onready var mainJoint = get_node("torsoJoint")
 
-var walkSpeed = 0.0
+var walkForce = 0.1
 var walkAnimationTimer = 0
 var isWalking = false
 
@@ -37,6 +37,8 @@ var rightLegDesiredAngle = Vector3(0,0,0)
 
 var movedRightLeg = false
 var movedLeftLeg = false
+
+var movingDirection = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,16 +55,16 @@ func animateWalk():
 		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 0.1
 		movedRightLeg = true
 		movedLeftLeg = false
-		leftLeg.desired_angle.z = -1
-		rightLeg.desired_angle.z = 1
+		leftLeg.desired_angle.z = 1 * movingDirection.x
+		rightLeg.desired_angle.z = 0 * movingDirection.x
 		pass
 	elif (sin(walkAnimationTimer) <= 0 && !movedLeftLeg):
 		#leftLeg.rotation.z = sin(walkAnimationTimer) * 0.1
 		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
 		movedRightLeg = false
 		movedLeftLeg = true
-		leftLeg.desired_angle.z = 1
-		rightLeg.desired_angle.z = -1
+		leftLeg.desired_angle.z = 0 * movingDirection.x
+		rightLeg.desired_angle.z = 1 * movingDirection.x
 		pass
 	#leftFoot.position.y += (sin(walkAnimationTimer) + 1) / 20 * 1
 	#leftFoot.position.x += (cos(walkAnimationTimer)) / 20 * 1
@@ -71,23 +73,28 @@ func animateWalk():
 
 func handleWalk():
 	isWalking = false
+	movingDirection = Vector2(0,0)
 	
 	#body.rotation.z = 0
 	if Input.is_action_pressed("KEY_W"):
+		movingDirection.x += 1
 		#torsoEnd.desired_angle.z = -PI / 4
-		#base.position += (-bodyControll.transform.basis.z*walkSpeed)
+		body.apply_central_impulse(-bodyControll.transform.basis.z*walkForce)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_A"):
-		#base.position += (-bodyControll.transform.basis.x*walkSpeed)
+		movingDirection.y -= 1
+		body.apply_central_impulse(-bodyControll.transform.basis.x*walkForce * 10)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_D"):
-		#base.position += (bodyControll.transform.basis.x*walkSpeed)
+		movingDirection.y += 1
+		body.apply_central_impulse(bodyControll.transform.basis.x*walkForce * 10)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_S"):
-		#base.position += (bodyControll.transform.basis.z*walkSpeed)
+		movingDirection.x -= 1
+		body.apply_central_impulse(bodyControll.transform.basis.z*walkForce)
 		isWalking = true
 		
 	if isWalking:
@@ -97,6 +104,7 @@ func handleWalk():
 		walkAnimationTimer = 0
 		movedRightLeg = false
 		movedLeftLeg = false
+		movingDirection = Vector2(0,0)
 		leftLeg.desired_angle = leftLegDesiredAngle 
 		rightLeg.desired_angle = rightLegDesiredAngle
 		#leftLeg.rotation.z = 0
