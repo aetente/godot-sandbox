@@ -28,14 +28,23 @@ var time_now = 0
 @onready var rightHandEnd = $"rigids/torsoEnd/torso/rightHandEnd"
 
 
+@onready var leftFootRay = $"rigids/leftFoot/leftFootEnd/leftFootRay"
+@onready var rightFootRay = $"rigids/rightFoot/rightFootEnd/rightFootRay"
+
+
 @onready var cameraPivot = $"CameraPivot"
 
-var walkForce = 0.1
+var jumpForce = 100
+var walkForce = 0.5
+var leanForce = 1
 var walkAnimationTimer = 0
+var walkAnimationSpeed = 0.2
+var max_angle_forward = 1.5
 var isWalking = false
 
 var leftLegDesiredAngle = Vector3(0,0,0)
 var rightLegDesiredAngle = Vector3(0,0,0)
+var bodyDesiredAngle = Vector3(0,0,0)
 var torsoEndDesiredAngle = Vector3(0,0,0)
 
 var previousCameraPivotAngle = Vector3(0,0,0)
@@ -47,41 +56,82 @@ var movedLeftLeg = false
 var movingDirection = Vector2(0,0)
 
 var mouse_sensitivity = 0.3
-var max_angle_forward = 1.5
+
+var canJump = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	leftLegDesiredAngle = leftLeg.desired_angle
 	rightLegDesiredAngle = rightLeg.desired_angle
+	bodyDesiredAngle = body.desired_angle
 	torsoEndDesiredAngle = torsoEnd.desired_angle
 	
 	previousCameraPivotAngle = cameraPivot.rotation
 	time_start = Time.get_unix_time_from_system()
 	
+func resetValues():
+	walkAnimationTimer = 0
+	movedRightLeg = false
+	movedLeftLeg = false
+	movingDirection = Vector2(0,0)
+	leftLeg.desired_angle = leftLegDesiredAngle 
+	rightLeg.desired_angle = rightLegDesiredAngle
+	body.desired_angle = bodyDesiredAngle
+	torsoEnd.desired_angle = torsoEndDesiredAngle
+	
+	
 func animateWalk():
-	walkAnimationTimer += 0.2
+	walkAnimationTimer += walkAnimationSpeed
+	var actualMovingDirection = 0
+	if (movingDirection.y > 0 && movingDirection.x >= 0):
+		actualMovingDirection = 1
+	elif (movingDirection.y == 0):
+		actualMovingDirection = movingDirection.x
+	elif (movingDirection.y > 0 && movingDirection.x < 0):
+		actualMovingDirection = -1
+		
 	torsoEnd.desired_angle.z = -abs(movingDirection.x) / 2
 	if (sin(walkAnimationTimer) > 0 && !movedRightLeg):
 		#leftLeg.rotation.z = sin(walkAnimationTimer) * 1
 		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 0.1
 		movedRightLeg = true
 		movedLeftLeg = false
-		leftLeg.desired_angle.z = max_angle_forward * movingDirection.x
-		rightLeg.desired_angle.z = 0 * movingDirection.x
+		leftLeg.desired_angle.z += max_angle_forward * actualMovingDirection
+		rightLeg.desired_angle.z = 0 * actualMovingDirection
+		#leftLeg.desired_angle.x = 1.5*max_angle_forward * movingDirection.y
+		#rightLeg.desired_angle.x = 0 * movingDirection.y
 		pass
 	elif (sin(walkAnimationTimer) <= 0 && !movedLeftLeg):
 		#leftLeg.rotation.z = sin(walkAnimationTimer) * 0.1
 		#rightLeg.rotation.z = -sin(walkAnimationTimer) * 1
 		movedRightLeg = false
 		movedLeftLeg = true
-		leftLeg.desired_angle.z = 0 * movingDirection.x
-		rightLeg.desired_angle.z = max_angle_forward * movingDirection.x
+		leftLeg.desired_angle.z = 0 * actualMovingDirection
+		rightLeg.desired_angle.z += max_angle_forward * actualMovingDirection
+		#leftLeg.desired_angle.x = 0 * movingDirection.y
+		#rightLeg.desired_angle.x = 1.5*max_angle_forward * movingDirection.y
 		pass
 	#leftFoot.position.y += (sin(walkAnimationTimer) + 1) / 20 * 1
 	#leftFoot.position.x += (cos(walkAnimationTimer)) / 20 * 1
 	#rightFoot.position.y += -(sin(walkAnimationTimer) + 1) / 20 * 1
 	#rightFoot.position.x += -(cos(walkAnimationTimer)) / 20 * 1
+	
+func handleCrouch():
+	if Input.is_action_pressed("CTRL"):
+		leftLeg.desired_angle.z = PI/2
+		rightLeg.desired_angle.z = PI/2
+		body.desired_angle.z = -PI/1.5
+		isWalking = true
+		
+func handleJump():
+	if Input.is_action_just_pressed("jump"):
+		if canJump:
+			if rightFootRay.is_colliding() or leftFootRay.is_colliding():
+				canJump = false
+				body.apply_central_impulse(body.global_transform.basis.y*jumpForce)
+				await get_tree().create_timer(0.25).timeout
+				canJump = true
 	
 func handleRotation():
 	#torsoEnd.rotation.y = cameraPivot.rotation.y
@@ -123,37 +173,32 @@ func handleWalk():
 	if Input.is_action_pressed("KEY_W"):
 		movingDirection.x += 1
 		#torsoEnd.desired_angle.z = -PI / 4
-		body.apply_central_impulse(-body.transform.basis.y*walkForce)
+		body.apply_central_impulse(body.global_transform.basis.x*walkForce)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_A"):
-		movingDirection.y -= 1
-		body.apply_central_impulse(-body.transform.basis.z*walkForce * 10)
+		movingDirection.y = 1
+		body.apply_central_impulse(-body.global_transform.basis.z*leanForce)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_D"):
-		movingDirection.y += 1
-		body.apply_central_impulse(body.transform.basis.z*walkForce * 10)
+		movingDirection.y = 1
+		body.apply_central_impulse(body.global_transform.basis.z*leanForce)
 		isWalking = true
 		
 	if Input.is_action_pressed("KEY_S"):
 		movingDirection.x -= 1
-		body.apply_central_impulse(body.transform.basis.y*walkForce)
+		body.apply_central_impulse(-body.global_transform.basis.x*walkForce)
 		isWalking = true
 		
+	handleCrouch()
+	handleJump()
+	
 	if isWalking:
 		animateWalk()
 		pass
 	else:
-		walkAnimationTimer = 0
-		movedRightLeg = false
-		movedLeftLeg = false
-		movingDirection = Vector2(0,0)
-		leftLeg.desired_angle = leftLegDesiredAngle 
-		rightLeg.desired_angle = rightLegDesiredAngle
-		torsoEnd.desired_angle = torsoEndDesiredAngle 
-		#leftLeg.rotation.z = 0
-		#rightLeg.rotation.z = 0
+		resetValues()
 		
 func handleBalance(ray):
 	if ray.is_colliding():

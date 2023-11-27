@@ -1,15 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsqkusclafv8n"]
+[gd_scene load_steps=11 format=3 uid="uid://bsqkusclafv8n"]
 
 [ext_resource type="PackedScene" uid="uid://dwbf3sb3xt8ns" path="res://elements/person_balance.tscn" id="1_ijoe3"]
 [ext_resource type="PackedScene" uid="uid://dsryrtdo4h60c" path="res://elements/test_balance_stick.tscn" id="2_amjvw"]
 [ext_resource type="Script" path="res://scripts/camera_look_at.gd" id="2_kalap"]
 [ext_resource type="PackedScene" uid="uid://bowtg1j6gwtme" path="res://scenes/fps.tscn" id="4_0nbfi"]
+[ext_resource type="Texture2D" uid="uid://be28oeqe2fmjk" path="res://assets/floor/floor1.jpg" id="4_vh403"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ooul6"]
 viewport_path = NodePath("Camera3D/SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nb0sv"]
+albedo_texture = ExtResource("4_vh403")
+uv1_scale = Vector3(20, 20, 20)
+
 [sub_resource type="BoxMesh" id="BoxMesh_u4qjq"]
+material = SubResource("StandardMaterial3D_nb0sv")
 size = Vector3(89.0055, 1, 89.9)
+subdivide_width = 4
+subdivide_height = 4
+subdivide_depth = 4
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eimay"]
 points = PackedVector3Array(-45.2162, -1.21349, -45.6635, 44.6838, 1.64048, 45.6635, 44.6838, -1.21349, 45.6635, 44.6838, 1.64048, -45.6635, -45.2162, 1.64048, 45.6635, -45.2162, -1.21349, 45.6635, 44.6838, -1.21349, -45.6635, -45.2162, 1.64048, -45.6635)
@@ -19,6 +28,9 @@ background_mode = 1
 background_color = Color(0.345098, 0.54902, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.960784, 0.960784, 0.960784, 1)
+tonemap_mode = 1
+tonemap_exposure = 1.18
+tonemap_white = 3.44
 
 [node name="Node3D" type="Node3D"]
 
@@ -43,6 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0366806, 0.740794, -1.1409
 texture = SubResource("ViewportTexture_ooul6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.995529, -0.0944558, 0, 0.0944558, 0.995529, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.838, 0)
