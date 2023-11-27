@@ -12,6 +12,7 @@ extends RigidBody3D
 @export var angular_error_threshold: float = 0.0
 
 @export var apply_for_position = false
+@export var is_global_position = false
 
 
 @export var desired_position: Vector3 = Vector3(0,0,0)
@@ -36,10 +37,16 @@ func _process(delta):
 func _physics_process(delta):
 	if (enable):
 		if (apply_for_position):
-			var position_difference:Vector3 = desired_position - transform.origin
+			var current_position = transform.origin
+			if is_global_position:
+				current_position = global_transform.origin
+			var position_difference:Vector3 = desired_position - current_position
 			
 			if position_difference.length_squared() > 1.0:
-				transform.origin = desired_position
+				if is_global_position:
+					global_transform.origin = desired_position
+				else:
+					transform.origin = desired_position
 			else:
 				var force: Vector3 = hookes_law(position_difference, self.linear_velocity, linear_spring_stiffness, linear_spring_damping)
 				force = force.limit_length(max_linear_force)

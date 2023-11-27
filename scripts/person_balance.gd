@@ -24,8 +24,8 @@ var time_now = 0
 
 @onready var leftArm = $"rigids/torsoEnd/torso/leftArm"
 @onready var rightArm = $"rigids/torsoEnd/torso/rightArm"
-@onready var leftHandEnd = $"rigids/torsoEnd/torso/leftHandEnd"
-@onready var rightHandEnd = $"rigids/torsoEnd/torso/rightHandEnd"
+@onready var leftHandEnd = $"rigids/torsoEnd/torso/leftArm/leftHandEnd"
+@onready var rightHandEnd = $"rigids/torsoEnd/torso/rightArm/rightHandEnd"
 
 
 @onready var leftFootRay = $"rigids/leftFoot/leftFootEnd/leftFootRay"
@@ -165,6 +165,15 @@ func _input(event):
 		cameraPivot.rotation_degrees.x -= event.relative.y * mouse_sensitivity
 		cameraPivot.rotation_degrees.x = clamp(cameraPivot.rotation_degrees.x, -90, 90)
 
+func handleHands():
+	leftArm.enable = false
+	rightArm.enable = false
+	if Input.is_action_pressed("left_mouse"):
+		leftArm.enable = true
+		
+	if Input.is_action_pressed("right_mouse"):
+		rightArm.enable = true
+
 func handleWalk():
 	isWalking = false
 	movingDirection = Vector2(0,0)
@@ -193,6 +202,7 @@ func handleWalk():
 		
 	handleCrouch()
 	handleJump()
+	handleHands()
 	
 	if isWalking:
 		animateWalk()
