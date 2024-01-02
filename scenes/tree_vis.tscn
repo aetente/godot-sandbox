@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc7qwriv7krn7"]
+[gd_scene load_steps=5 format=3 uid="uid://cc7qwriv7krn7"]
 
 [ext_resource type="Shader" uid="uid://w48si2cv5hby" path="res://shaders/move_tree_texture.tres" id="1_eas5o"]
+[ext_resource type="Texture2D" uid="uid://cantvkrbgkmjk" path="res://assets/trees/tree3.png" id="2_ky7fi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vlpg"]
 render_priority = 0
 shader = ExtResource("1_eas5o")
+shader_parameter/FloatParameter = 2.0
+shader_parameter/tex_frg_2 = ExtResource("2_ky7fi")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cg54g"]
 material = SubResource("ShaderMaterial_1vlpg")

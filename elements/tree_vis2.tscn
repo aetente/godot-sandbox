@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://darqf45578lql"]
+
+[ext_resource type="Shader" uid="uid://w48si2cv5hby" path="res://shaders/move_tree_texture.tres" id="1_nyple"]
+[ext_resource type="Texture2D" uid="uid://byp8c252sasi1" path="res://assets/trees/tree2.png" id="2_y0bnn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vlpg"]
+render_priority = 0
+shader = ExtResource("1_nyple")
+shader_parameter/FloatParameter = 1.0
+shader_parameter/Texture2DParameter = ExtResource("2_y0bnn")
+shader_parameter/tex_frg_2 = ExtResource("2_y0bnn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_cg54g"]
+material = SubResource("ShaderMaterial_1vlpg")
+subdivide_width = 2
+subdivide_depth = 2
+
+[node name="tree_vis" type="MeshInstance3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.284959, 0)
+mesh = SubResource("QuadMesh_cg54g")

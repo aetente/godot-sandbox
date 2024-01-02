@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgnonyt2seu1m"]
+
+[ext_resource type="Texture2D" uid="uid://cnfhngsdgrhsd" path="res://assets/floor/snow_texture.png" id="1_ukvy6"]
+[ext_resource type="Texture2D" uid="uid://c6u5foy0hfm68" path="res://assets/trees/tree_bark_covered_in_snow__texture.jpg" id="2_bn5un"]
+[ext_resource type="Script" path="res://scripts/fill_trees_test1.gd" id="3_3qt3f"]
+[ext_resource type="PackedScene" uid="uid://darqf45578lql" path="res://elements/tree_vis2.tscn" id="4_8450k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iabeo"]
+albedo_texture = ExtResource("1_ukvy6")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mxo7g"]
+material = SubResource("StandardMaterial3D_iabeo")
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Environment" id="Environment_2adru"]
+background_mode = 1
+background_color = Color(0.486275, 0.635294, 0.972549, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.509804, 0.72549, 0.968627, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4cu8"]
+albedo_texture = ExtResource("2_bn5un")
+uv1_scale = Vector3(2.235, 10, 10)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cmfbf"]
+material = SubResource("StandardMaterial3D_x4cu8")
+radial_segments = 4
+rings = 1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.498537, 2.34765, 0, -2.34368, 0.497694, 0.139575, 0.136531, -0.0289932, 2.39594, -0.0684167, -1.49771, -0.0304325)
+mesh = SubResource("CapsuleMesh_mxo7g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.148461, 2.39511, 0.0374431, -2.39151, -0.15034, 0.134459, 0.136531, -0.0289932, 2.39594, 2.60355, -1.1219, -0.0304325)
+mesh = SubResource("CapsuleMesh_mxo7g")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.741919, 6.30245, -3.17193, -2.75766, 0.141742, -3.58875, -1.25569, 3.41249, 6.00723, -0.699883, -1.1219, -12.7558)
+mesh = SubResource("CapsuleMesh_mxo7g")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.36362e-07, -34.524, 0, 3.00457, -1.45344e-06, -10.1496, 0.839342, -4.06028e-07, 36.332, -0.699883, -3.17829, -19.008)
+mesh = SubResource("CapsuleMesh_mxo7g")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.33596)
+fov = 30.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2adru")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.6569, -3.138, 0, 0.380364, 13.6694, 0, 0, 0, 1.7, -2.18628, 0, -1.44043)
+mesh = SubResource("CylinderMesh_cmfbf")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.67199, 2.53539, 0, -0.30732, 13.7939, 0, 0, 0, 1.7, 2.00985, 0, -1.56644)
+mesh = SubResource("CylinderMesh_cmfbf")
+
+[node name="back_trees" type="Node3D" parent="."]
+transform = Transform3D(-5.23603e-08, -0.071544, 1.19787, -3.12728e-09, 1.19787, 0.071544, -1.2, 5.27522e-16, -5.24537e-08, -1.419, 4.60148, -42.8052)
+script = ExtResource("3_3qt3f")
+tree = ExtResource("4_8450k")
+tree_distance_x = 5.0
+tree_frequency_x = 0.03
+tree_distance_z = 10.0
+tree_frequency_z = 0.03
+tree_distance_y = 1.0
+tree_frequency_y = 2.43523e+08
+tree_max_scale = 7.0
+tree_min_scale = 12.0
+tree_scale_frequency = 2.45235e+06
