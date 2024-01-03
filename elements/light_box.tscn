@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4bx3vq40woii"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+transparency = 1
+albedo_color = Color(1, 0.533333, 0.0784314, 1)
+emission = Color(1, 0.513726, 0.0823529, 1)
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
+flip_faces = true
+
+[node name="Spatial" type="Node3D"]
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.15, 0, 0, 0, 3.15, 0, 0, 0, 3.15, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("2")

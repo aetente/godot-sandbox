@@ -1,9 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgnonyt2seu1m"]
+[gd_scene load_steps=16 format=3 uid="uid://bgnonyt2seu1m"]
 
+[ext_resource type="PackedScene" uid="uid://irf63vparcp3" path="res://elements/rain_particles1.tscn" id="1_brkm4"]
+[ext_resource type="PackedScene" uid="uid://cmx2n7puxircl" path="res://elements/house.tscn" id="1_ch7u8"]
+[ext_resource type="PackedScene" uid="uid://c0d2cht8587te" path="res://elements/people_shadows_particle.tscn" id="1_nsikf"]
 [ext_resource type="Texture2D" uid="uid://cnfhngsdgrhsd" path="res://assets/floor/snow_texture.png" id="1_ukvy6"]
 [ext_resource type="Texture2D" uid="uid://c6u5foy0hfm68" path="res://assets/trees/tree_bark_covered_in_snow__texture.jpg" id="2_bn5un"]
 [ext_resource type="Script" path="res://scripts/fill_trees_test1.gd" id="3_3qt3f"]
 [ext_resource type="PackedScene" uid="uid://darqf45578lql" path="res://elements/tree_vis2.tscn" id="4_8450k"]
+[ext_resource type="Texture2D" uid="uid://cy5b3wlma42r0" path="res://assets/sketches/rain_sketch1.png" id="4_uc03w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iabeo"]
 albedo_texture = ExtResource("1_ukvy6")
@@ -13,11 +17,22 @@ material = SubResource("StandardMaterial3D_iabeo")
 radial_segments = 4
 rings = 1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lx8k2"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.254902)
+albedo_texture = ExtResource("4_uc03w")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ek4bh"]
+material = SubResource("StandardMaterial3D_lx8k2")
+
 [sub_resource type="Environment" id="Environment_2adru"]
 background_mode = 1
 background_color = Color(0.486275, 0.635294, 0.972549, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.509804, 0.72549, 0.968627, 1)
+fog_enabled = true
+fog_light_color = Color(0.509804, 0.72549, 0.968627, 1)
+fog_density = 0.001
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4cu8"]
 albedo_texture = ExtResource("2_bn5un")
@@ -30,39 +45,78 @@ rings = 1
 
 [node name="Node3D" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.498537, 2.34765, 0, -2.34368, 0.497694, 0.139575, 0.136531, -0.0289932, 2.39594, -0.0684167, -1.49771, -0.0304325)
-mesh = SubResource("CapsuleMesh_mxo7g")
+[node name="Node3D" parent="." instance=ExtResource("1_brkm4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.49135, -9.83465)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.148461, 2.39511, 0.0374431, -2.39151, -0.15034, 0.134459, 0.136531, -0.0289932, 2.39594, 2.60355, -1.1219, -0.0304325)
-mesh = SubResource("CapsuleMesh_mxo7g")
+[node name="house" type="Node3D" parent="."]
+transform = Transform3D(0.888713, 0, -0.458463, 0, 1, 0, 0.458463, 0, 0.888713, 0.0941277, 3.6724, -145.883)
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.741919, 6.30245, -3.17193, -2.75766, 0.141742, -3.58875, -1.25569, 3.41249, 6.00723, -0.699883, -1.1219, -12.7558)
-mesh = SubResource("CapsuleMesh_mxo7g")
+[node name="Spatial2" parent="house" instance=ExtResource("1_nsikf")]
+transform = Transform3D(-0.885426, 0, 0.46478, 0, 1, 0, -0.46478, 0, -0.885426, 0.471483, -4.88313, 5.03427)
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.36362e-07, -34.524, 0, 3.00457, -1.45344e-06, -10.1496, 0.839342, -4.06028e-07, 36.332, -0.699883, -3.17829, -19.008)
+[node name="Spatial3" parent="house" instance=ExtResource("1_nsikf")]
+transform = Transform3D(-0.895991, 0, 0.444072, 0, 1, 0, -0.444072, 0, -0.895991, 9.19082, -5.13298, 8.74045)
+
+[node name="Spatial" parent="house" instance=ExtResource("1_ch7u8")]
+transform = Transform3D(3.88274, 0.246926, -1.83122, -0.223333, 4.2929, 0.105331, 1.83425, 4.77396e-16, 3.88916, 0, -6.27341, 0.751892)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="house"]
+transform = Transform3D(-0.875102, 6.52002e-08, 0.483939, 0.272412, 0.826521, 0.4926, -0.399986, 0.562906, -0.72329, 6.93066, -3.61431, -2.47592)
+light_color = Color(0.988235, 0.596078, 0.0941176, 1)
+light_energy = 16.0
+light_indirect_energy = 8.319
+shadow_enabled = true
+spot_range = 224.612
+spot_attenuation = 0.329877
+spot_angle = 62.23
+spot_angle_attenuation = 0.133972
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="house"]
+transform = Transform3D(-0.875102, 6.52002e-08, 0.483939, 0.272412, 0.826521, 0.4926, -0.399986, 0.562906, -0.72329, 9.45093, -3.29996, 0.304367)
+light_color = Color(0.988235, 0.596078, 0.0941176, 1)
+light_energy = 16.0
+light_indirect_energy = 8.319
+shadow_enabled = true
+spot_range = 224.612
+spot_attenuation = 0.329877
+spot_angle = 62.23
+spot_angle_attenuation = 0.133972
+
+[node name="OmniLight3D" type="OmniLight3D" parent="house"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9754, -4.85239, 4.49805)
+light_color = Color(0.988235, 0.596078, 0.0941176, 1)
+light_energy = 1.851
+omni_range = 21.698
+omni_attenuation = 0.217638
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="house"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.48863, -4.49102, 0.952972)
+light_color = Color(0.988235, 0.596078, 0.0941176, 1)
+light_energy = 2.532
+omni_range = 21.698
+omni_attenuation = 0.217638
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.28278e-08, -158.465, 2.48307e-13, 0.521833, -6.92132e-06, -7.82018, 0.020603, -2.73278e-07, 198.061, -0.699883, -5.71799, -55.9171)
 mesh = SubResource("CapsuleMesh_mxo7g")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.33596)
-fov = 30.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.813581, 13.4532)
+fov = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.442806, -5.71472)
+visible = false
+mesh = SubResource("PlaneMesh_ek4bh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2adru")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.6569, -3.138, 0, 0.380364, 13.6694, 0, 0, 0, 1.7, -2.18628, 0, -1.44043)
-mesh = SubResource("CylinderMesh_cmfbf")
+[node name="background" type="Node3D" parent="."]
+transform = Transform3D(0.642813, -167.663, -2.04559, 17.462, 6.30172, -18.4282, 1.79635, -1.26065, 179.867, 11.2236, -7.85804, -246.736)
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.67199, 2.53539, 0, -0.30732, 13.7939, 0, 0, 0, 1.7, 2.00985, 0, -1.56644)
-mesh = SubResource("CylinderMesh_cmfbf")
-
-[node name="back_trees" type="Node3D" parent="."]
-transform = Transform3D(-5.23603e-08, -0.071544, 1.19787, -3.12728e-09, 1.19787, 0.071544, -1.2, 5.27522e-16, -5.24537e-08, -1.419, 4.60148, -42.8052)
+[node name="back_trees" type="Node3D" parent="background"]
+transform = Transform3D(-0.00682237, 0.23058, 0.00742997, -0.00103877, 0.000640139, -0.0208195, -0.0190544, -0.000593802, 0.000932482, 0.227404, 0.0206466, 0.0774893)
 script = ExtResource("3_3qt3f")
 tree = ExtResource("4_8450k")
 tree_distance_x = 5.0
@@ -71,6 +125,49 @@ tree_distance_z = 10.0
 tree_frequency_z = 0.03
 tree_distance_y = 1.0
 tree_frequency_y = 2.43523e+08
-tree_max_scale = 7.0
-tree_min_scale = 12.0
-tree_scale_frequency = 2.45235e+06
+tree_max_scale = 5.0
+tree_min_scale = 15.0
+tree_scale_frequency = 1.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="background"]
+transform = Transform3D(-5.18955e-09, 0.118282, 0.0102299, -0.0107279, -4.67187e-10, -4.04059e-11, -5.80031e-16, -0.000845974, 0.00978163, 0.58636, 0.110499, -0.0849805)
+light_color = Color(1, 0.603922, 0, 1)
+light_energy = 5.532
+omni_range = 15.7893
+
+[node name="frontTrees" type="Node3D" parent="."]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="frontTrees"]
+transform = Transform3D(2.20367, -5.39698, 0, 0.628004, 17.4528, 0.643749, -0.183201, -5.09132, 2.20674, -1.9123, 0, -1.44043)
+mesh = SubResource("CylinderMesh_cmfbf")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="frontTrees"]
+transform = Transform3D(1.67199, 2.53539, 0, -0.30732, 13.7939, 0, 0, 0, 1.7, 2.58101, 0, -1.56644)
+mesh = SubResource("CylinderMesh_cmfbf")
+skeleton = NodePath("../..")
+
+[node name="frontSnowDrifts" type="Node3D" parent="."]
+transform = Transform3D(0.987106, -0.160071, 0, 0.160071, 0.987106, 0, 0, 0, 1, 0, -0.930046, 0.605804)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="frontSnowDrifts"]
+transform = Transform3D(-0.549709, 2.28275, 0.496862, -2.32996, -0.573007, 0.0548236, 0.170773, -0.469802, 2.34737, 0.44534, -0.441768, -3.37203)
+mesh = SubResource("CapsuleMesh_mxo7g")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="frontSnowDrifts"]
+transform = Transform3D(0.346876, 2.37479, 0.00897074, -2.37088, 0.345778, 0.139287, 0.136531, -0.0289932, 2.39594, 1.05968, -0.737758, -0.190352)
+mesh = SubResource("CapsuleMesh_mxo7g")
+skeleton = NodePath("../..")
+
+[node name="backSnowDeifts" type="Node3D" parent="."]
+
+[node name="showdrift3" type="MeshInstance3D" parent="backSnowDeifts"]
+transform = Transform3D(2.91232, 24.7396, -12.4511, -9.8393, -1.70924, -17.8601, -6.683, 13.2975, 20.8691, -0.699883, -11.4359, -115.939)
+mesh = SubResource("CapsuleMesh_mxo7g")
+skeleton = NodePath("../..")
+
+[node name="showdrift4" type="MeshInstance3D" parent="backSnowDeifts"]
+transform = Transform3D(-0.235771, 28.0519, -2.29599, -9.8393, -1.70924, -17.8601, -7.28619, 1.40043, 24.1925, 23.5146, -10.9363, -115.939)
+mesh = SubResource("CapsuleMesh_mxo7g")
+skeleton = NodePath("../..")

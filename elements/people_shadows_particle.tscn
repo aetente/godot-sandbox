@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0d2cht8587te"]
+
+[ext_resource type="Texture2D" uid="uid://du037heq0c1j6" path="res://assets/textures/person1_wide.png" id="1_6ga55"]
+
+[sub_resource type="ParticleProcessMaterial" id="1"]
+emission_shape = 3
+emission_box_extents = Vector3(4, 0, 0.2)
+gravity = Vector3(3, 0, 0)
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+turbulence_enabled = true
+turbulence_noise_strength = 8.19
+turbulence_noise_scale = 2.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52i67"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_color = Color(0.160784, 0.160784, 0.160784, 1)
+albedo_texture = ExtResource("1_6ga55")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_71flh"]
+material = SubResource("StandardMaterial3D_52i67")
+size = Vector2(1, 2)
+
+[node name="Spatial" type="Node3D"]
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.00941133, 0, 0.0125113)
+process_material = SubResource("1")
+draw_pass_1 = SubResource("PlaneMesh_71flh")

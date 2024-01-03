@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://irf63vparcp3"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h12cf"]
+emission_shape_scale = Vector3(10, 1, 10)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p04oa"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.298039, 1, 1, 0.0588235)
+
+[sub_resource type="QuadMesh" id="QuadMesh_nlpww"]
+material = SubResource("StandardMaterial3D_p04oa")
+size = Vector2(0.01, 0.2)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 1600
+visibility_aabb = AABB(-4, -2.63055, -4, 8, 4.95446, 8)
+process_material = SubResource("ParticleProcessMaterial_h12cf")
+draw_pass_1 = SubResource("QuadMesh_nlpww")

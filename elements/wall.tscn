@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cms327uio5518"]
+
+[ext_resource type="PackedScene" uid="uid://b3nmm3ti2gfkq" path="res://elements/log.tscn" id="1"]
+
+[node name="Spatial" type="Node3D"]
+
+[node name="Spatial" parent="." instance=ExtResource("1")]
+
+[node name="Spatial2" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 1, 0, 0.153848, 0)
+
+[node name="Spatial3" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.298951, 0)
+
+[node name="Spatial4" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 1, 0, 0.452799, 0)
+
+[node name="Spatial7" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 1, 0, 0.589766, 0)

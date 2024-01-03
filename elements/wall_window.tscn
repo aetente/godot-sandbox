@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfejg0j0mwski"]
+
+[ext_resource type="PackedScene" uid="uid://b3nmm3ti2gfkq" path="res://elements/log.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://b3ht3tcvwk31h" path="res://assets/buildings/window1_solid3.png" id="2_2s3hc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j61qo"]
+transparency = 1
+albedo_texture = ExtResource("2_2s3hc")
+disable_receive_shadows = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_81qcx"]
+material = SubResource("StandardMaterial3D_j61qo")
+
+[node name="Spatial" type="Node3D"]
+
+[node name="Spatial" parent="." instance=ExtResource("1")]
+
+[node name="Spatial2" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 1, 0, 0.153848, 0)
+
+[node name="Spatial7" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 1, 0, 0.592012, 0)
+
+[node name="Spatial3" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.359898, 0, 0.298324, -0.966954)
+
+[node name="Spatial4" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 0.359898, 0, 0.452172, -0.966954)
+
+[node name="Spatial5" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.359898, 0, 0.298324, 0.999753)
+
+[node name="Spatial6" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.873441, -0.48693, 0, 0.48693, 0.873441, 0, 0, 0, 0.359898, 0, 0.452172, 0.999753)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.92055e-08, 0.412995, 0, 2.92055e-08, 2.25636e-15, 0.426942, 0.668145, 1.80526e-08, -1.86622e-08, 0, 0.383352, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_81qcx")

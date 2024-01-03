@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbxx5dnp15xhb"]
+
+[ext_resource type="Texture2D" uid="uid://b3u6dqemk6exx" path="res://assets/textures/snow1.jpg" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_texture = ExtResource("1")
+
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
+
+[node name="Spatial" type="Node3D"]
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.06895, 0, 0, 0, 0.239971, 0.964481, 0, 0.0217287, 2.37392, 0, 0, 0)
+mesh = SubResource("2")

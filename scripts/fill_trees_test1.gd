@@ -26,10 +26,11 @@ func _ready():
 		tree_element = create_instance(tree)
 		tree_element.position.x = tree_distance_x * sin(i * tree_frequency_x)
 		tree_element.position.z = tree_distance_z * cos(i * tree_frequency_z)
-		tree_element.position.y = tree_distance_y * sin(i * tree_frequency_y)
-		tree_element.rotation.y = 360 * cos(i * 23452345)
+		
 		var tree_scale_value = (tree_max_scale - tree_min_scale) * (sin(tree_scale_frequency * i) + 1) / 2 + tree_min_scale
 		tree_element.scale = Vector3(tree_scale_value,tree_scale_value,tree_scale_value)
+		tree_element.position.y = tree_distance_y * sin(i * tree_frequency_y) + tree_scale_value / 2
+		tree_element.rotation.y = 360 * cos(i * 23452345)
 		add_child(tree_element)
 
 
