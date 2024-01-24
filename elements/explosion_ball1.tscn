@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqyp2r1hipt5t"]
+
+[ext_resource type="Material" uid="uid://cs3h6gpq2jobc" path="res://materials/explosion_material1.tres" id="1_qr7js"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_u0v63"]
+material = ExtResource("1_qr7js")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_u0v63")

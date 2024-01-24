@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://4ha7jeoql6sm"]
+
+[ext_resource type="Material" uid="uid://cs3h6gpq2jobc" path="res://materials/explosion_material1.tres" id="1_l0c2l"]
+
+[sub_resource type="Gradient" id="Gradient_4ktqi"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ew1ke"]
+gradient = SubResource("Gradient_4ktqi")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1x0q2"]
+
+[sub_resource type="Curve" id="Curve_ki6vf"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dc3nk"]
+curve = SubResource("Curve_ki6vf")
+
+[sub_resource type="Curve" id="Curve_rs27i"]
+_data = [Vector2(0, 0), 0.0, -0.3051, 0, 0, Vector2(0.0662461, 0.845044), 0.443198, 0.443198, 0, 0, Vector2(0.996845, 1), -0.206825, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_y43sa"]
+curve = SubResource("Curve_rs27i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d7irr"]
+emission_shape_scale = Vector3(1, 0.5, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -577.7
+angle_max = 535.8
+direction = Vector3(1, 3.6, 1.115)
+directional_velocity_min = -0.5
+directional_velocity_max = 0.5
+directional_velocity_curve = SubResource("CurveXYZTexture_1x0q2")
+orbit_velocity_min = -0.093
+orbit_velocity_max = 0.069
+orbit_velocity_curve = SubResource("CurveTexture_dc3nk")
+gravity = Vector3(0, 0, 0)
+radial_accel_max = 0.5
+tangential_accel_min = -0.1
+tangential_accel_max = 0.1
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_y43sa")
+color_ramp = SubResource("GradientTexture1D_ew1ke")
+
+[sub_resource type="SphereMesh" id="SphereMesh_2lkbq"]
+material = ExtResource("1_l0c2l")
+radial_segments = 10
+rings = 10
+
+[node name="explosion_particles1" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 32
+lifetime = 2.14
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_d7irr")
+draw_pass_1 = SubResource("SphereMesh_2lkbq")

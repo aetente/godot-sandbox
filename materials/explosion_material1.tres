@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cs3h6gpq2jobc"]
+
+[ext_resource type="Shader" uid="uid://c3rlljrivjtyc" path="res://shaders/explosion.tres" id="1_oc58x"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_oc58x")
+shader_parameter/displace = 0.3
+shader_parameter/emission_color = Color(0.941176, 0.356863, 0, 1)
