@@ -52,11 +52,10 @@ material = ExtResource("1_l0c2l")
 radial_segments = 10
 rings = 10
 
-[node name="explosion_particles1" type="Node3D"]
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="explosion_particles1" type="GPUParticles3D"]
 amount = 32
 lifetime = 2.14
+speed_scale = 0.3
 explosiveness = 0.3
 process_material = SubResource("ParticleProcessMaterial_d7irr")
 draw_pass_1 = SubResource("SphereMesh_2lkbq")

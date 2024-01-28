@@ -34,6 +34,10 @@ var time_now = 0
 
 @onready var cameraPivot = $"CameraPivot"
 
+@export var has_camera = true
+
+
+
 var jumpForce = 100
 var walkForce = 0.5
 var leanForce = 1
@@ -67,7 +71,10 @@ func _ready():
 	bodyDesiredAngle = body.desired_angle
 	torsoEndDesiredAngle = torsoEnd.desired_angle
 	
-	previousCameraPivotAngle = cameraPivot.rotation
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+	if has_camera:
+		previousCameraPivotAngle = cameraPivot.rotation
 	time_start = Time.get_unix_time_from_system()
 	
 func resetValues():
@@ -135,7 +142,8 @@ func handleJump():
 	
 func handleRotation():
 	#torsoEnd.rotation.y = cameraPivot.rotation.y
-	cameraPivotAngleDifference = cameraPivot.rotation - previousCameraPivotAngle
+	if has_camera:
+		cameraPivotAngleDifference = cameraPivot.rotation - previousCameraPivotAngle
 	
 	leftLegDesiredAngle.y += cameraPivotAngleDifference.y
 	rightLegDesiredAngle.y += cameraPivotAngleDifference.y
@@ -156,11 +164,12 @@ func handleRotation():
 	#leftHandEnd.desired_angle.y += cameraPivotAngleDifference.y
 	#rightHandEnd.desired_angle.y += cameraPivotAngleDifference.y
 	
-	previousCameraPivotAngle = cameraPivot.rotation
+	if has_camera:
+		previousCameraPivotAngle = cameraPivot.rotation
 	pass
 	
 func _input(event):
-	if event is InputEventMouseMotion:
+	if has_camera and event is InputEventMouseMotion:
 		cameraPivot.rotation_degrees.y -= event.relative.x * mouse_sensitivity
 		cameraPivot.rotation_degrees.x -= event.relative.y * mouse_sensitivity
 		cameraPivot.rotation_degrees.x = clamp(cameraPivot.rotation_degrees.x, -90, 90)
@@ -227,7 +236,8 @@ func _process(delta):
 	time_now = Time.get_unix_time_from_system()
 	var r = time_now - time_start
 	
-	cameraPivot.global_transform.origin = head.global_transform.origin
+	if has_camera:
+		cameraPivot.global_transform.origin = head.global_transform.origin
 	handleRotation()
 	handleWalk()
 	

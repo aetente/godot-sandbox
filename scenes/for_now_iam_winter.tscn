@@ -1,0 +1,126 @@
+[gd_scene load_steps=15 format=3 uid="uid://be1834atnbjb2"]
+
+[ext_resource type="PackedScene" uid="uid://4ha7jeoql6sm" path="res://elements/explosion_particles1.tscn" id="1_4sv6h"]
+[ext_resource type="Texture2D" uid="uid://b3u6dqemk6exx" path="res://assets/textures/snow1.jpg" id="1_51iwl"]
+[ext_resource type="Script" path="res://scripts/fill_trees_test1.gd" id="2_47e6c"]
+[ext_resource type="PackedScene" uid="uid://darqf45578lql" path="res://elements/tree_vis2.tscn" id="3_7ayqx"]
+[ext_resource type="PackedScene" uid="uid://buj5nd4xk7xh0" path="res://elements/tree_vis3.tscn" id="5_8pke1"]
+[ext_resource type="PackedScene" uid="uid://cmsf5uf3fyy5g" path="res://elements/person_balance_no_camera.tscn" id="5_b4kyg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwvnm"]
+albedo_texture = ExtResource("1_51iwl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_0gtvi"]
+material = SubResource("StandardMaterial3D_iwvnm")
+radial_segments = 4
+rings = 2
+
+[sub_resource type="Environment" id="Environment_lmmfv"]
+background_mode = 1
+background_color = Color(0.529412, 0.682353, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.231373, 0.458824, 0.788235, 1)
+fog_enabled = true
+fog_light_color = Color(0.529412, 0.682353, 1, 1)
+fog_density = 0.001
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ydgm0"]
+size = Vector3(465.12, 1, 171.962)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gpvvd"]
+size = Vector3(465.12, 1, 302.751)
+
+[sub_resource type="Animation" id="Animation_3nqnh"]
+resource_name = "new_animation"
+length = 40.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 40),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_x7te8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p8kic"]
+_data = {
+"RESET": SubResource("Animation_x7te8"),
+"new_animation": SubResource("Animation_3nqnh")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="tree_vis" parent="." instance=ExtResource("3_7ayqx")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 4.28496, 0)
+
+[node name="explosion_particles1" parent="." instance=ExtResource("1_4sv6h")]
+transform = Transform3D(1310.2, 0, 0, 0, 1310.2, 0, 0, 0, 1310.2, -2281.86, -7.51573, -2351.09)
+emitting = false
+speed_scale = 0.2
+local_coords = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(34.2318, 0, 0, 0, 2.21205, 0, 0, 0, 12.7058, 0, 0, 0)
+mesh = SubResource("SphereMesh_0gtvi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1210.83, 4.61027, 173.7, -27.2071, 83.5939, -47.0686, -472.605, 6.99929, 447.735, -65.0579, -13.2317, -198.453)
+mesh = SubResource("SphereMesh_0gtvi")
+
+[node name="Node3D" type="Node3D" parent="MeshInstance3D2"]
+transform = Transform3D(-3.14082e-05, -1.17006e-05, 0.000768453, 0.0012172, 0.0118383, 0.000230016, -0.00205973, 0.000213353, -8.09371e-05, -0.046576, 0.341403, 0.198215)
+script = ExtResource("2_47e6c")
+tree = ExtResource("5_8pke1")
+amount_of_trees = 1000
+tree_distance_x = 50.0
+tree_distance_z = 50.0
+tree_max_scale = 10.0
+tree_min_scale = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.0370071, 0.706138, 0, 0.99863, -0.052336, -0.707107, 0.0370071, 0.706138, 9.29426, 1.06126, 5.02401)
+fov = 20.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lmmfv")
+
+[node name="person_balance" parent="." instance=ExtResource("5_b4kyg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46347, -0.0278955, 75.4216)
+shape = SubResource("BoxShape3D_ydgm0")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.0924, -124.818)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(0.870506, 0.0426056, 0.49031, 0.0505004, 0.983255, -0.1751, -0.48956, 0.177186, 0.853778, -45.2119, 4.5732, -16.4752)
+shape = SubResource("BoxShape3D_gpvvd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p8kic")
+}
+autoplay = "new_animation"

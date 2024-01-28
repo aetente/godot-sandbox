@@ -1,0 +1,424 @@
+[gd_scene load_steps=23 format=3 uid="uid://cmsf5uf3fyy5g"]
+
+[ext_resource type="Script" path="res://scripts/person_balance.gd" id="1_0afiw"]
+[ext_resource type="Script" path="res://scripts/test_balance_stick.gd" id="2_x3ajs"]
+[ext_resource type="Material" uid="uid://p84rae3i8xvw" path="res://materials/person_material1.tres" id="3_ube5u"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_umwyg"]
+material = ExtResource("3_ube5u")
+top_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0w5dh"]
+size = Vector3(0.166, 0.7, 0.195)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utobv"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n8tea"]
+material = SubResource("StandardMaterial3D_utobv")
+size = Vector3(0.2, 0.05, 0.05)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p01ym"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wr4sy"]
+material = ExtResource("3_ube5u")
+top_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dj332"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qc8rj"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jj452"]
+size = Vector3(0.29922, 0.373834, 0.189939)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6k6fl"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jelsj"]
+size = Vector3(0.380966, 0.492347, 0.187368)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5qmyc"]
+material = ExtResource("3_ube5u")
+radial_segments = 4
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yrcj1"]
+size = Vector3(0.155527, 0.365031, 0.290999)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8rjts"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5tbha"]
+material = ExtResource("3_ube5u")
+top_radius = 0.3
+bottom_radius = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5ucj1"]
+material = ExtResource("3_ube5u")
+bottom_radius = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5euxf"]
+material = ExtResource("3_ube5u")
+top_radius = 0.3
+bottom_radius = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p0ij"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fg8gr"]
+material = SubResource("StandardMaterial3D_7p0ij")
+
+[node name="person_balance" type="Node3D"]
+script = ExtResource("1_0afiw")
+
+[node name="rigids" type="Node3D" parent="."]
+
+[node name="rightFoot" type="RigidBody3D" parent="rigids"]
+transform = Transform3D(1, 0, 0, 0, 0.976967, -0.213389, 0, 0.213389, 0.976967, 0, -0.625463, -0.218141)
+collision_layer = 2
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(0.215, 1.57, 0)
+angular_spring_stiffness = 2000.0
+
+[node name="rightFootEnd" type="RigidBody3D" parent="rigids/rightFoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.993062, 0.216904)
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(0, 1.57, 0)
+angular_spring_stiffness = 2000.0
+desired_position = Vector3(0, -0.993062, 0.216904)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/rightFoot/rightFootEnd"]
+transform = Transform3D(0.155522, -0.00147215, 0.000965862, 0.000476211, 0.328645, 0.0279976, -0.00113485, -0.0638381, 0.144112, 7.59231e-05, 0.0385144, 0.0265732)
+mesh = SubResource("CylinderMesh_umwyg")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/rightFoot/rightFootEnd"]
+transform = Transform3D(0.999969, -0.00445217, 0.00654196, 0.00306192, 0.98001, 0.198923, -0.00729683, -0.198897, 0.979993, 0, 0.0326641, 0.0137136)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="rightFootRay" type="RayCast3D" parent="rigids/rightFoot/rightFootEnd"]
+transform = Transform3D(1, 0, 0, 0, 0.9763, 0.216423, 0, -0.216423, 0.9763, 0, -0.325613, 0.0836418)
+target_position = Vector3(0, -0.5, 0)
+
+[node name="rightFootEndJoint" type="HingeJoint3D" parent="rigids/rightFoot"]
+transform = Transform3D(1, 0, 0, 0, 0.976968, 0.213389, 0, -0.213389, 0.976968, 0, -0.649598, 0.192514)
+node_a = NodePath("..")
+node_b = NodePath("../rightFootEnd")
+angular_limit/enable = true
+angular_limit/lower = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/rightFoot/rightFootEndJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/rightFoot"]
+transform = Transform3D(0.155522, -0.00151608, 0.000966382, 0.000476211, 0.338453, 0.0280125, -0.00113485, -0.0657432, 0.144189, 7.59223e-05, -0.232309, 0.0857263)
+mesh = SubResource("CylinderMesh_p01ym")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/rightFoot"]
+transform = Transform3D(0.999969, -0.00445217, 0.00654196, 0.00306192, 0.98001, 0.198923, -0.00729683, -0.198897, 0.979993, 0, -0.238159, 0.0728668)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="rightFootJoint" type="HingeJoint3D" parent="rigids/rightFoot"]
+transform = Transform3D(1, 0, 0, 0, 0.976968, 0.213389, 0, -0.213389, 0.976968, 0, 0.118472, 0.0247535)
+node_a = NodePath("../../torsoEnd")
+node_b = NodePath("..")
+angular_limit/enable = true
+angular_limit/upper = 0.389208
+angular_limit/lower = -1.22173
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/rightFoot/rightFootJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="leftFoot" type="RigidBody3D" parent="rigids"]
+transform = Transform3D(1, 0, 0, 0, 0.999353, 0.0359635, 0, -0.0359635, 0.999353, 0.0269134, -0.589361, 0.151125)
+collision_layer = 2
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(-0.036, 1.57, 0)
+angular_spring_stiffness = 2000.0
+
+[node name="leftFootEnd" type="RigidBody3D" parent="rigids/leftFoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.99633, -0.0358547)
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(0, 1.57, 0)
+angular_spring_stiffness = 2000.0
+desired_position = Vector3(0, -0.99633, -0.0358547)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/leftFoot/leftFootEnd"]
+transform = Transform3D(0.155527, 0, 0, 0, 0.33478, -0.00122986, 0, 0.00280464, 0.146804, 0, 0.0054971, 0.0179637)
+mesh = SubResource("CylinderMesh_wr4sy")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/leftFoot/leftFootEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 6.70553e-08, 0, -6.70553e-08, 1, 0, 0.00232148, 0.00419721)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="leftFootRay" type="RayCast3D" parent="rigids/leftFoot/leftFootEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.361897, 0.0136247)
+target_position = Vector3(0, -0.5, 0)
+
+[node name="leftFootEndJoint" type="HingeJoint3D" parent="rigids/leftFoot"]
+transform = Transform3D(0.93029, -0.366826, 3.41633e-10, 0.366589, 0.929687, -0.0359635, 0.0131924, 0.0334565, 0.999353, -0.0269134, -0.682778, -0.00951625)
+visible = false
+node_a = NodePath("..")
+node_b = NodePath("../leftFootEnd")
+angular_limit/enable = true
+angular_limit/lower = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/leftFoot/leftFootEndJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/leftFoot"]
+transform = Transform3D(0.155527, 0, 0, 0, 0.34477, -0.00123052, 0, 0.00288834, 0.146883, 0, -0.271532, 0.0079943)
+mesh = SubResource("CylinderMesh_dj332")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/leftFoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 6.70552e-08, 0, -6.70552e-08, 1, 0, -0.274708, -0.00577221)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="leftFootJoint" type="HingeJoint3D" parent="rigids/leftFoot"]
+transform = Transform3D(1, 0, 0, 0, 0.999353, -0.0359635, 0, 0.0359635, 0.999353, -0.0269134, 0.0916293, 0.0183522)
+node_a = NodePath("../../torsoEnd")
+node_b = NodePath("..")
+angular_limit/enable = true
+angular_limit/upper = 0.389208
+angular_limit/lower = -1.22173
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/leftFoot/leftFootJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="torsoEnd" type="RigidBody3D" parent="rigids"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.320596, -0.0241065)
+collision_layer = 2
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(0, 1.57, 0)
+angular_spring_stiffness = 2000.0
+desired_position = Vector3(0, -0.320596, -0.0241065)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd"]
+transform = Transform3D(0.00522024, 0.00157344, 0.189911, 0, 0.187835, -0.00159118, -0.347756, 2.36194e-05, 0.00285085, 0.00275935, 0.00214678, 0.0331356)
+mesh = SubResource("CylinderMesh_qc8rj")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd"]
+transform = Transform3D(0.0150099, 0, 0.999887, 0, 1, 0, -0.999887, 0, 0.0150099, 0, -0.0010286, 0.0330942)
+shape = SubResource("BoxShape3D_jj452")
+
+[node name="torso" type="RigidBody3D" parent="rigids/torsoEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.449956, 0)
+collision_layer = 2
+linear_damp = 5.0
+script = ExtResource("2_x3ajs")
+is_global_rotation = true
+desired_angle = Vector3(0, 1.57, 0)
+angular_spring_stiffness = 2000.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(0.00664556, 0.00211398, 0.187341, 0, 0.252364, -0.00156965, -0.442705, 3.17335e-05, 0.00281226, 0.00275935, 0.0767433, 0.0331356)
+mesh = SubResource("CylinderMesh_6k6fl")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(0.0150099, 0, 0.999887, 0, 1, 0, -0.999887, 0, 0.0150099, 0, 0.0791167, 0.0330942)
+shape = SubResource("BoxShape3D_jelsj")
+
+[node name="torsoJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(1, 0, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 1, 0, -0.198009, 0.0241065)
+node_a = NodePath("..")
+node_b = NodePath("../..")
+angular_limit/enable = true
+angular_limit/upper = -0.314159
+angular_limit/lower = -0.750492
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/torsoJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="headJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(1, 0, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 1, 0, 0.42234, 0.0241065)
+node_a = NodePath("..")
+node_b = NodePath("../head")
+params/bias = 0.86
+angular_limit/enable = true
+angular_limit/upper = 0.174533
+angular_limit/lower = -0.174533
+angular_limit/bias = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/headJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="head" type="RigidBody3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620481, 0.0241065)
+collision_layer = 2
+gravity_scale = 0.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso/head"]
+transform = Transform3D(0.155527, 0, 0, 0, 0.365018, -0.0024378, 0, 0.00305799, 0.290988, 0, 0.0031755, 0.0188936)
+mesh = SubResource("SphereMesh_5qmyc")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0154777)
+shape = SubResource("BoxShape3D_yrcj1")
+
+[node name="leftArm" type="RigidBody3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.094584, 0.408693)
+collision_layer = 2
+script = ExtResource("2_x3ajs")
+enable = false
+desired_angle = Vector3(-0.524, 0, -1.5)
+angular_spring_stiffness = 1000.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso/leftArm"]
+transform = Transform3D(0.108869, 0, 0, 0, 0.363599, -0.000869442, 0, 0.00304611, 0.103781, 0, -0.106825, 0.0254718)
+mesh = SubResource("CylinderMesh_8rjts")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso/leftArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11, 0.0117053)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="leftHandEnd" type="RigidBody3D" parent="rigids/torsoEnd/torso/leftArm"]
+transform = Transform3D(1, 0, 0, 0, 0.866026, -0.5, 0, 0.5, 0.866026, 0, -0.521032, -0.0888543)
+collision_layer = 2
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso/leftArm/leftHandEnd"]
+transform = Transform3D(0.149306, 0, 0, 0, 0.335478, -0.00111284, 0, 0.0028105, 0.132835, 0, -0.248458, 0.0291649)
+mesh = SubResource("CylinderMesh_5tbha")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso/leftArm/leftHandEnd"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -0.251633, 0.0153983)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="leftHandEndJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso/leftArm"]
+transform = Transform3D(1, 1.66533e-16, -8.9407e-08, -4.47035e-08, 0.866026, -0.5, 7.74288e-08, 0.5, 0.866026, 0, -0.462241, -0.0151009)
+node_a = NodePath("..")
+node_b = NodePath("../leftHandEnd")
+angular_limit/enable = true
+angular_limit/upper = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/leftArm/leftHandEndJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="leftHandJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso/leftArm"]
+transform = Transform3D(-1, 2.98023e-08, 8.74228e-08, 6.15683e-08, 0.866026, 0.5, -4.70347e-08, 0.500001, -0.866026, 0, 0.239809, 0.0143788)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+angular_limit/enable = true
+angular_limit/upper = 1.0472
+angular_limit/lower = -1.0472
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/leftArm/leftHandJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="rightArm" type="RigidBody3D" parent="rigids/torsoEnd/torso"]
+transform = Transform3D(1, 0, 0, 0, 0.883855, -0.46776, 0, 0.46776, 0.883855, 0, 0.05503, -0.448148)
+collision_layer = 2
+script = ExtResource("2_x3ajs")
+enable = false
+desired_angle = Vector3(0.487, 0, 1.5)
+angular_spring_stiffness = 1000.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso/rightArm"]
+transform = Transform3D(0.108869, 0, 0, 0, 0.363599, -0.000869442, 0, 0.00304611, 0.103781, 0, -0.0196012, 0.028914)
+mesh = SubResource("CylinderMesh_5ucj1")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso/rightArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227766, 0.0151475)
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="rightHandEnd" type="RigidBody3D" parent="rigids/torsoEnd/torso/rightArm"]
+transform = Transform3D(1, 0, 0, 0, 0.882226, 0.470827, 0, -0.470827, 0.882226, 0, -0.670929, 0.229922)
+collision_layer = 2
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="rigids/torsoEnd/torso/rightArm/rightHandEnd"]
+transform = Transform3D(0.149306, 0, 0, 0, 0.335478, -0.00111284, 0, 0.00281051, 0.132835, 0, 0.00317538, 0.0137666)
+mesh = SubResource("CylinderMesh_5euxf")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rigids/torsoEnd/torso/rightArm/rightHandEnd"]
+shape = SubResource("BoxShape3D_0w5dh")
+
+[node name="rightHandEndJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso/rightArm"]
+transform = Transform3D(-1, 2.59076e-17, -8.74228e-08, 4.08929e-08, 0.883856, -0.46776, 7.72691e-08, -0.46776, -0.883856, 0, -0.360213, 0.0895227)
+node_a = NodePath("..")
+node_b = NodePath("../rightHandEnd")
+angular_limit/enable = true
+angular_limit/lower = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/rightArm/rightHandEndJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="rightHandJoint" type="HingeJoint3D" parent="rigids/torsoEnd/torso/rightArm"]
+transform = Transform3D(-1, -2.98023e-08, -8.74228e-08, 1.91081e-08, 0.883856, -0.46776, 9.98186e-08, -0.46776, -0.883855, 0, 0.317549, 0.0686858)
+node_a = NodePath("../..")
+node_b = NodePath("..")
+angular_limit/enable = true
+angular_limit/upper = 1.0472
+angular_limit/lower = -1.0472
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigids/torsoEnd/torso/rightArm/rightHandJoint"]
+transform = Transform3D(1, -1.65755e-17, 0, 5.01868e-18, 1, 0, 7.10543e-15, 1.42109e-14, 1, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_n8tea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_fg8gr")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+spring_length = 5.0

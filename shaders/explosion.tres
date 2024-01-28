@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=44 format=3 uid="uid://c3rlljrivjtyc"]
+[gd_resource type="VisualShader" load_steps=43 format=3 uid="uid://c3rlljrivjtyc"]
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_fgn2o"]
 constant = Color(0.113652, 0.116936, 0.197326, 1)
@@ -45,9 +45,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_6msgu"]
 input_name = "uv"
 
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xt0ct"]
-input_name = "time"
-
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_mhg1m"]
 default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
 op_type = 0
@@ -60,10 +57,6 @@ noise = SubResource("FastNoiseLite_e1j7q")
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_thvtv"]
 expanded_output_ports = [0]
 texture = SubResource("NoiseTexture2D_b7yd2")
-
-[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ger1u"]
-default_input_values = [0, 0.0, 1, 0.1]
-operator = 2
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_4gd2e"]
 input_name = "node_position_world"
@@ -95,6 +88,10 @@ operator = 5
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_eq07a"]
 constant = 2.0
 
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_pmnsx"]
+default_input_values = [0, 0.0, 1, 0.2]
+operator = 2
+
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_n04mn"]
 parameter_name = "alpha"
 
@@ -112,7 +109,7 @@ expanded_output_ports = [0]
 input_name = "color"
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_0hgqi"]
-default_input_values = [0, 0.0, 1, 20.0]
+default_input_values = [0, 0.0, 1, 200.0]
 operator = 2
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_r60bj"]
@@ -247,7 +244,7 @@ void fragment() {
 
 
 // FloatOp:9
-	float n_in9p1 = 20.00000;
+	float n_in9p1 = 200.00000;
 	float n_out9p0 = n_out8p4 * n_in9p1;
 
 
@@ -274,15 +271,6 @@ void fragment() {
 	vec2 n_out17p0 = UV;
 
 
-// Input:18
-	float n_out18p0 = TIME;
-
-
-// FloatOp:20
-	float n_in20p1 = 0.10000;
-	float n_out20p0 = n_out18p0 * n_in20p1;
-
-
 // Input:21
 	vec3 n_out21p0 = NODE_POSITION_WORLD;
 
@@ -302,11 +290,16 @@ void fragment() {
 
 
 // FloatOp:22
-	float n_out22p0 = n_out20p0 * n_out30p0;
+	float n_out22p0 = n_out8p4 * n_out30p0;
+
+
+// FloatOp:34
+	float n_in34p1 = 0.20000;
+	float n_out34p0 = n_out22p0 * n_in34p1;
 
 
 // VectorOp:19
-	vec2 n_out19p0 = n_out17p0 + vec2(n_out22p0);
+	vec2 n_out19p0 = n_out17p0 + vec2(n_out34p0);
 
 
 // Texture2D:15
@@ -342,7 +335,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-446.666, 564.216)
+graph_offset = Vector2(-441.568, 37.3803)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_xj3pm")
 nodes/vertex/2/position = Vector2(-140, -40)
 nodes/vertex/3/node = SubResource("VisualShaderNodeTexture_ri75n")
@@ -373,49 +366,47 @@ nodes/fragment/3/position = Vector2(-105.6, 154.808)
 nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_n04mn")
 nodes/fragment/4/position = Vector2(-1140, 460)
 nodes/fragment/5/node = SubResource("VisualShaderNodeColorParameter_ftrrb")
-nodes/fragment/5/position = Vector2(-780, 740)
+nodes/fragment/5/position = Vector2(-120, 860)
 nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_qp0la")
 nodes/fragment/6/position = Vector2(160, 420)
 nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_1njma")
-nodes/fragment/7/position = Vector2(-1120, 680)
+nodes/fragment/7/position = Vector2(-1960, 800)
 nodes/fragment/8/node = SubResource("VisualShaderNodeInput_t63de")
-nodes/fragment/8/position = Vector2(-840, 340)
+nodes/fragment/8/position = Vector2(-1380, 740)
 nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_0hgqi")
 nodes/fragment/9/position = Vector2(-240, 440)
 nodes/fragment/10/node = SubResource("VisualShaderNodeColorConstant_fgn2o")
 nodes/fragment/10/position = Vector2(102.069, 9.06175)
 nodes/fragment/11/node = SubResource("VisualShaderNodeVectorOp_hkr0b")
-nodes/fragment/11/position = Vector2(-20, 640)
+nodes/fragment/11/position = Vector2(200, 680)
 nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_hfnng")
-nodes/fragment/12/position = Vector2(-340, 600)
+nodes/fragment/12/position = Vector2(-500, 860)
 nodes/fragment/13/node = SubResource("VisualShaderNodeFloatOp_lpqnj")
-nodes/fragment/13/position = Vector2(-180, 640)
+nodes/fragment/13/position = Vector2(-260, 720)
 nodes/fragment/14/node = SubResource("VisualShaderNodeVectorOp_80pil")
-nodes/fragment/14/position = Vector2(-420, 780)
+nodes/fragment/14/position = Vector2(260, 840)
 nodes/fragment/15/node = SubResource("VisualShaderNodeTexture_fb0wy")
-nodes/fragment/15/position = Vector2(-480, 980)
+nodes/fragment/15/position = Vector2(200, 1040)
 nodes/fragment/16/node = SubResource("VisualShaderNodeVectorOp_j234y")
-nodes/fragment/16/position = Vector2(-100, 860)
+nodes/fragment/16/position = Vector2(580, 920)
 nodes/fragment/17/node = SubResource("VisualShaderNodeInput_6msgu")
-nodes/fragment/17/position = Vector2(-1040, 960)
-nodes/fragment/18/node = SubResource("VisualShaderNodeInput_xt0ct")
-nodes/fragment/18/position = Vector2(-1520, 1220)
+nodes/fragment/17/position = Vector2(-560, 1040)
 nodes/fragment/19/node = SubResource("VisualShaderNodeVectorOp_mhg1m")
-nodes/fragment/19/position = Vector2(-700, 1020)
-nodes/fragment/20/node = SubResource("VisualShaderNodeFloatOp_ger1u")
-nodes/fragment/20/position = Vector2(-1140, 1160)
+nodes/fragment/19/position = Vector2(-20, 1080)
 nodes/fragment/21/node = SubResource("VisualShaderNodeInput_4gd2e")
-nodes/fragment/21/position = Vector2(-1820, 1340)
+nodes/fragment/21/position = Vector2(-2100, 1340)
 nodes/fragment/22/node = SubResource("VisualShaderNodeFloatOp_fpdrq")
-nodes/fragment/22/position = Vector2(-880, 1180)
+nodes/fragment/22/position = Vector2(-1080, 1220)
 nodes/fragment/28/node = SubResource("VisualShaderNodeVectorOp_yv7i1")
-nodes/fragment/28/position = Vector2(-1500, 1380)
+nodes/fragment/28/position = Vector2(-1780, 1380)
 nodes/fragment/29/node = SubResource("VisualShaderNodeFloatConstant_rb1ij")
-nodes/fragment/29/position = Vector2(-1680, 1480)
+nodes/fragment/29/position = Vector2(-1960, 1480)
 nodes/fragment/30/node = SubResource("VisualShaderNodeRandomRange_euxjl")
-nodes/fragment/30/position = Vector2(-1200, 1320)
+nodes/fragment/30/position = Vector2(-1540, 1360)
 nodes/fragment/31/node = SubResource("VisualShaderNodeVectorOp_wg064")
-nodes/fragment/31/position = Vector2(-120, 1040)
+nodes/fragment/31/position = Vector2(560, 1100)
 nodes/fragment/32/node = SubResource("VisualShaderNodeFloatConstant_eq07a")
-nodes/fragment/32/position = Vector2(-420, 1300)
-nodes/fragment/connections = PackedInt32Array(2, 1, 3, 0, 6, 0, 0, 5, 8, 4, 3, 1, 8, 4, 9, 0, 10, 0, 0, 0, 9, 0, 6, 0, 11, 0, 6, 1, 8, 4, 12, 0, 12, 0, 13, 0, 13, 0, 11, 0, 5, 0, 14, 0, 14, 0, 16, 0, 16, 0, 11, 1, 17, 0, 19, 0, 19, 0, 15, 0, 18, 0, 20, 0, 22, 0, 19, 1, 29, 0, 28, 1, 21, 0, 28, 0, 20, 0, 22, 0, 30, 0, 22, 1, 28, 0, 30, 0, 3, 0, 0, 1, 8, 3, 0, 19, 15, 0, 31, 0, 32, 0, 31, 1, 31, 0, 16, 1)
+nodes/fragment/32/position = Vector2(260, 1360)
+nodes/fragment/34/node = SubResource("VisualShaderNodeFloatOp_pmnsx")
+nodes/fragment/34/position = Vector2(-412.7, 1139.6)
+nodes/fragment/connections = PackedInt32Array(2, 1, 3, 0, 6, 0, 0, 5, 8, 4, 3, 1, 8, 4, 9, 0, 10, 0, 0, 0, 9, 0, 6, 0, 11, 0, 6, 1, 8, 4, 12, 0, 12, 0, 13, 0, 13, 0, 11, 0, 5, 0, 14, 0, 14, 0, 16, 0, 16, 0, 11, 1, 17, 0, 19, 0, 19, 0, 15, 0, 29, 0, 28, 1, 21, 0, 28, 0, 30, 0, 22, 1, 28, 0, 30, 0, 3, 0, 0, 1, 8, 3, 0, 19, 15, 0, 31, 0, 32, 0, 31, 1, 31, 0, 16, 1, 8, 4, 22, 0, 34, 0, 19, 1, 22, 0, 34, 0)
