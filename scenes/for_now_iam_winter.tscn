@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://be1834atnbjb2"]
+[gd_scene load_steps=16 format=3 uid="uid://be1834atnbjb2"]
 
 [ext_resource type="PackedScene" uid="uid://4ha7jeoql6sm" path="res://elements/explosion_particles1.tscn" id="1_4sv6h"]
 [ext_resource type="Texture2D" uid="uid://b3u6dqemk6exx" path="res://assets/textures/snow1.jpg" id="1_51iwl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://darqf45578lql" path="res://elements/tree_vis2.tscn" id="3_7ayqx"]
 [ext_resource type="PackedScene" uid="uid://buj5nd4xk7xh0" path="res://elements/tree_vis3.tscn" id="5_8pke1"]
 [ext_resource type="PackedScene" uid="uid://cmsf5uf3fyy5g" path="res://elements/person_balance_no_camera.tscn" id="5_b4kyg"]
+[ext_resource type="VoxelGIData" uid="uid://dd5uw01x1wr28" path="res://bake_lights/for_now_iam_winter.VoxelGI_data.res" id="7_wjy38"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwvnm"]
 albedo_texture = ExtResource("1_51iwl")
@@ -20,15 +21,40 @@ background_mode = 1
 background_color = Color(0.529412, 0.682353, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.231373, 0.458824, 0.788235, 1)
+tonemap_mode = 1
+sdfgi_bounce_feedback = 0.05
 fog_enabled = true
 fog_light_color = Color(0.529412, 0.682353, 1, 1)
 fog_density = 0.001
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0.529412, 0.682353, 1, 1)
+volumetric_fog_emission = Color(0.529412, 0.682353, 1, 1)
+adjustment_enabled = true
+adjustment_brightness = 0.96
+adjustment_contrast = 0.65
+adjustment_saturation = 1.43
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ydgm0"]
 size = Vector3(465.12, 1, 171.962)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gpvvd"]
 size = Vector3(465.12, 1, 302.751)
+
+[sub_resource type="Animation" id="Animation_x7te8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3nqnh"]
 resource_name = "new_animation"
@@ -44,21 +70,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_x7te8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("explosion_particles1:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p8kic"]
@@ -124,3 +135,12 @@ libraries = {
 "": SubResource("AnimationLibrary_p8kic")
 }
 autoplay = "new_animation"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.551413, 0.834232, 0, -0.834232, -0.551413, 0, 4.30488, 8.82344)
+light_bake_mode = 1
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.955, 36.9668, -183.278)
+size = Vector3(673.64, 93.9336, 421.498)
+data = ExtResource("7_wjy38")
