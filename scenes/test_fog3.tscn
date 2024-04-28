@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://bh5s3g7bf1n73"]
+
+[ext_resource type="Shader" path="res://shaders/test_fog4.gdshader" id="1_xsyrg"]
+[ext_resource type="Texture2D" uid="uid://wetlle1jblrv" path="res://assets/leaves/leaves_pattern1.png" id="2_sw5fe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0xe4"]
+render_priority = 0
+shader = ExtResource("1_xsyrg")
+shader_parameter/albedo = Color(1, 0, 0, 1)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("2_sw5fe")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2a2wa"]
+material = SubResource("ShaderMaterial_u0xe4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p35lo"]
+transparency = 4
+albedo_color = Color(1, 0.0745098, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dpp7d"]
+material = SubResource("StandardMaterial3D_p35lo")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6k6ww"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_nk112"]
+noise = SubResource("FastNoiseLite_6k6ww")
+
+[sub_resource type="FogMaterial" id="FogMaterial_7a3ol"]
+density = 5.3265
+density_texture = SubResource("NoiseTexture3D_nk112")
+
+[sub_resource type="Environment" id="Environment_uot0y"]
+background_mode = 1
+background_color = Color(0.92549, 0.737255, 0.843137, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+volumetric_fog_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_2a2wa")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0.071498)
+mesh = SubResource("BoxMesh_dpp7d")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.45403, 0.673685, 1.67943)
+size = Vector3(4.28672, 2, 7.41555)
+material = SubResource("FogMaterial_7a3ol")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uot0y")

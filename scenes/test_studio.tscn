@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhs7j5s65onx3"]
+
+[ext_resource type="PackedScene" uid="uid://2mhj0gnvee3d" path="res://elements/instrument_1.tscn" id="1_woy3d"]
+
+[sub_resource type="Environment" id="Environment_yd6rx"]
+background_mode = 1
+background_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="TestStudio" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, -0.433013, 0.75, -2, 2, 4)
+
+[node name="instrument1" parent="." instance=ExtResource("1_woy3d")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yd6rx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.353553, -0.707107, 0.612372, 0.353553, 0.707107, 0.612372, -0.866025, 0, 0.5, 0, 2, 3)

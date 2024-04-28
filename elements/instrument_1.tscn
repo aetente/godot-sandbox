@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=3 uid="uid://2mhj0gnvee3d"]
+
+[ext_resource type="Script" path="res://scripts/instrument_1.gd" id="1_p3ctm"]
+[ext_resource type="Script" path="res://scripts/bell_part.gd" id="2_78yxb"]
+[ext_resource type="AudioStream" uid="uid://3i7nx8doii3x" path="res://assets/audio/tests/bloop.mp3" id="3_or0k5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3yihk"]
+size = Vector3(0.2, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gv3ub"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4djga"]
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hbvyh"]
+
+[node name="instrument1" type="Node3D"]
+script = ExtResource("1_p3ctm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_3yihk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(0.2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_gv3ub")
+skeleton = NodePath("../../..")
+
+[node name="bell1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, -1)
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("2_78yxb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bell1"]
+shape = SubResource("BoxShape3D_4djga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bell1/CollisionShape3D"]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbvyh")
+skeleton = NodePath("../..")
+
+[node name="bell2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 1)
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("2_78yxb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bell2"]
+shape = SubResource("BoxShape3D_4djga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bell2/CollisionShape3D"]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbvyh")
+skeleton = NodePath("../..")
+
+[node name="bell3" type="RigidBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1, 1.5, 0)
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("2_78yxb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bell3"]
+shape = SubResource("BoxShape3D_4djga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bell3/CollisionShape3D"]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbvyh")
+skeleton = NodePath("../..")
+
+[node name="bell4" type="RigidBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1, 1.5, 0)
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("2_78yxb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bell4"]
+shape = SubResource("BoxShape3D_4djga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bell4/CollisionShape3D"]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbvyh")
+skeleton = NodePath("../..")
+
+[node name="sb_bell1" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51398, 0)
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../bell1")
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
+
+[node name="sb_bell2" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51398, 0)
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../bell2")
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
+
+[node name="sb_bell3" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51398, 0)
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../bell3")
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
+
+[node name="sb_bell4" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51398, 0)
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../bell4")
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_or0k5")
+max_polyphony = 16
+
+[connection signal="body_entered" from="bell1" to="bell1" method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer3D" to="bell1" method="_on_audio_stream_player_3d_finished"]
