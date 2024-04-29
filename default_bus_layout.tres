@@ -1,8 +1,15 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://cjdcvf57s2kho"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cjdcvf57s2kho"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_v48xc"]
 resource_name = "Reverb"
 
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_jlnl2"]
+resource_name = "Compressor"
+threshold = -4.8
+ratio = 8.5
+
 [resource]
 bus/0/effect/0/effect = SubResource("AudioEffectReverb_v48xc")
-bus/0/effect/0/enabled = true
+bus/0/effect/0/enabled = false
+bus/0/effect/1/effect = SubResource("AudioEffectCompressor_jlnl2")
+bus/0/effect/1/enabled = true
