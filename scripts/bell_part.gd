@@ -2,7 +2,7 @@ extends RigidBody3D
 
 @onready var audio_streamer = find_child("AudioStreamPlayer3D", true, false)
 
-var audio_velocity_threshold = 0.01
+var audio_velocity_threshold = 2
 var audio_default_pitch_scale = 1
 var audio_default_volume_db = 0
 
@@ -32,6 +32,6 @@ func _body_entered(body:Node):
 		# var audio_note = notes[current_note]
 		# audio_streamer.stream = audio_note
 		# audio_streamer.set_pitch_scale(audio_default_pitch_scale + sin(linear_velocity.length() * 123123123) * 0.5 )
-		audio_streamer.set_volume_db( min(0, lerp(-40, 0, sqrt(linear_velocity.length()))) )
+		audio_streamer.set_volume_db( min(0, lerp(-80, 0, sqrt(linear_velocity.length()))) )
 		audio_streamer.play()
 	pass # Replace with function body.

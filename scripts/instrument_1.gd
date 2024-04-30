@@ -18,6 +18,8 @@ var bell_script = preload("res://scripts/bell_part.gd")
 
 var notes = [c_note, d_note, e_note, f_note, g_note, a_note, b_note]
 
+var previousMousePosition = Vector2(0,0)
+
 var rng = RandomNumberGenerator.new()
 
 func genereate_bell(i, note_number):
@@ -59,7 +61,7 @@ func generate_bells():
 			var bell_joint = Generic6DOFJoint3D.new();
 			bell_joint.node_a = static_body.get_path();
 			bell_joint.node_b = generated_bell_rigid.get_path();
-			add_child(bell_joint);
+			static_body.add_child(bell_joint);
 			# bell_joint.position = Vector3(rng.randf_range(-0.5, 0.5), rng.randf_range(-0.5, 0.5), rng.randf_range(-0.5, 0.5))
 			bell_joint.position = static_body.position + Vector3(0, static_body.scale.y / 2, 0)
 			# bell_joint.rotation = Vector3(rng.randf_range(-0.5, 0.5), rng.randf_range(-0.5, 0.5), rng.randf_range(-0.5, 0.5))
@@ -76,6 +78,10 @@ func _ready():
 	generate_bells()
 	pass # Replace with function body.
 
+func _input(event):
+	if event is InputEventMouseMotion:
+		static_body.position += Vector3(event.velocity.x, -event.velocity.y, 0) / 10000
+		print("Mouse Motion at: ", event.position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
