@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccwi5dna6ae0d"]
+
+[ext_resource type="PackedScene" uid="uid://b5o3b0mjflbs4" path="res://elements/test_blender.tscn" id="1_xfa7n"]
+
+[sub_resource type="Environment" id="Environment_slu7n"]
+background_mode = 1
+background_color = Color(0.113725, 0.541176, 0.541176, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pochq"]
+size = Vector3(18.1483, 1, 18.0239)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3b6ww"]
+size = Vector3(18.1483, 1, 18.0239)
+
+[node name="BlenderScene1" type="Node3D"]
+
+[node name="TestBlender" parent="." instance=ExtResource("1_xfa7n")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_slu7n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_pochq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_3b6ww")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53037, 4.5859)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.416285, 0.699825, -0.580475, 0.407841, 0.714314, 0.568701, 0.812633, 3.52371e-08, -0.582776, -3.41053, 4.32463, 0)

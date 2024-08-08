@@ -23,6 +23,10 @@ window/size/viewport_height=1080
 
 movie_writer/movie_file="C:/dev/video/test1.avi"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_forward={
