@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccwi5dna6ae0d"]
+[gd_scene load_steps=7 format=3 uid="uid://ccwi5dna6ae0d"]
 
 [ext_resource type="PackedScene" uid="uid://b5o3b0mjflbs4" path="res://elements/test_blender.tscn" id="1_xfa7n"]
 
 [sub_resource type="Environment" id="Environment_slu7n"]
 background_mode = 1
-background_color = Color(0.113725, 0.541176, 0.541176, 1)
+background_color = Color(0.0156863, 0.0392157, 0.129412, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pochq"]
 size = Vector3(18.1483, 1, 18.0239)
@@ -12,9 +12,22 @@ size = Vector3(18.1483, 1, 18.0239)
 [sub_resource type="BoxMesh" id="BoxMesh_3b6ww"]
 size = Vector3(18.1483, 1, 18.0239)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_xyn2d"]
+size = Vector3(1, 18.148, 18.024)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k77r6"]
+size = Vector3(1, 18.148, 18.024)
+
 [node name="BlenderScene1" type="Node3D"]
 
 [node name="TestBlender" parent="." instance=ExtResource("1_xfa7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.25093)
+
+[node name="TestBlender2" parent="." instance=ExtResource("1_xfa7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49278, 0, 5.25093)
+
+[node name="TestBlender3" parent="." instance=ExtResource("1_xfa7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78745, 0, 5.25093)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_slu7n")
@@ -28,8 +41,67 @@ shape = SubResource("BoxShape3D_pochq")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
 mesh = SubResource("BoxMesh_3b6ww")
 
+[node name="StaticBody3D6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.22428, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_pochq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D6/CollisionShape3D"]
+mesh = SubResource("BoxMesh_3b6ww")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84319, 4.58369, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_xyn2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_k77r6")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25659, 4.58369, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_xyn2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3/CollisionShape3D"]
+mesh = SubResource("BoxMesh_k77r6")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0225687, 4.58369, 2.082)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_xyn2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4/CollisionShape3D"]
+mesh = SubResource("BoxMesh_k77r6")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0225687, 4.58369, 8.03986)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
+shape = SubResource("BoxShape3D_xyn2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5/CollisionShape3D"]
+visible = false
+mesh = SubResource("BoxMesh_k77r6")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53037, 4.5859)
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 1, 1.34975, 8.43176)
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.416285, 0.699825, -0.580475, 0.407841, 0.714314, 0.568701, 0.812633, 3.52371e-08, -0.582776, -3.41053, 4.32463, 0)
+visible = false
+
+[node name="SpotLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.65626, 7.89944)
+light_color = Color(1, 0.580392, 0.101961, 1)
+light_energy = 3.979
+omni_range = 13.404

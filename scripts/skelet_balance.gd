@@ -33,7 +33,8 @@ var time_now = 0
 
 @onready var cameraPivot = $"CameraPivot"
 
-@export var has_camera = true
+@export var is_bot = true
+@export var has_camera = !is_bot and true
 # vec3(-1.546, -0.72, -2.615) - vec3(-0.085, -3.132, -0.194) = vec3(-1.461, 2.412, -2.421) 
 # vec3(-1.546, 0.72, 2.615) - vec3(-0.008, 3.126, 0.193)
 
@@ -68,6 +69,10 @@ var movingDirection = Vector2(0,0)
 var mouse_sensitivity = 0.3
 
 var canJump = true
+
+var actionIndex = randi() % 6
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -114,24 +119,21 @@ func animateWalk():
 	
 func handleCrouch():
 	if Input.is_action_pressed("CTRL"):
-		leftLeg.desired_angle.z = PI/2
-		rightLeg.desired_angle.z = PI/2
-		body.desired_angle.z = -PI/1.5
-		isWalking = true
+		crouch()
 		
 func handleJump():
 	if Input.is_action_just_pressed("jump"):
 		if canJump:
-			if rightFootRay.is_colliding() or leftFootRay.is_colliding():
-				canJump = false
-				body.apply_central_impulse(body.global_transform.basis.y*jumpForce)
-				await get_tree().create_timer(0.25).timeout
-				canJump = true
+			jump()
 	
 func handleRotation():
 	#torsoEnd.rotation.y = cameraPivot.rotation.y
 	if has_camera:
 		cameraPivotAngleDifference = cameraPivot.rotation - previousCameraPivotAngle
+	elif is_bot:
+		var change_angle = randf() > 0.9
+		if change_angle:
+			cameraPivotAngleDifference = Vector3(0, RandomNumberGenerator.new().randf_range(-PI/10, PI/10), 0)	
 	
 	leftLegDesiredAngle.y += cameraPivotAngleDifference.y
 	rightLegDesiredAngle.y += cameraPivotAngleDifference.y
@@ -172,35 +174,80 @@ func handleHands():
 	if Input.is_action_pressed("right_mouse"):
 		rightArm.enable = true
 
+func walkForward():
+	movingDirection.x += 1
+	#torsoEnd.desired_angle.z = -PI / 4
+	body.apply_central_impulse(body.global_transform.basis.z*walkForce)
+	isWalking = true
+
+func walkBackward():
+	movingDirection.x -= 1
+	body.apply_central_impulse(-body.global_transform.basis.z*walkForce)
+	isWalking = true
+
+func walkRight():
+	movingDirection.y = 1
+	body.apply_central_impulse(body.global_transform.basis.x*leanForce)
+	isWalking = true
+
+func walkLeft():
+	movingDirection.y = 1
+	body.apply_central_impulse(-body.global_transform.basis.x*leanForce)
+	isWalking = true
+
+func jump():
+	if canJump:
+		if rightFootRay.is_colliding() or leftFootRay.is_colliding():
+			canJump = false
+			body.apply_central_impulse(body.global_transform.basis.y*jumpForce)
+			await get_tree().create_timer(0.25).timeout
+			canJump = true
+
+func crouch():
+	leftLeg.desired_angle.z = PI/2
+	rightLeg.desired_angle.z = PI/2
+	body.desired_angle.z = -PI/1.5
+	isWalking = true
+
+
 func handleWalk():
 	isWalking = false
 	movingDirection = Vector2(0,0)
 	
-	#body.rotation.z = 0
-	if Input.is_action_pressed("KEY_W"):
-		movingDirection.x += 1
-		#torsoEnd.desired_angle.z = -PI / 4
-		body.apply_central_impulse(body.global_transform.basis.z*walkForce)
-		isWalking = true
-		
-	if Input.is_action_pressed("KEY_A"):
-		movingDirection.y = 1
-		body.apply_central_impulse(-body.global_transform.basis.x*leanForce)
-		isWalking = true
-		
-	if Input.is_action_pressed("KEY_D"):
-		movingDirection.y = 1
-		body.apply_central_impulse(body.global_transform.basis.x*leanForce)
-		isWalking = true
-		
-	if Input.is_action_pressed("KEY_S"):
-		movingDirection.x -= 1
-		body.apply_central_impulse(-body.global_transform.basis.z*walkForce)
-		isWalking = true
-		
-	handleCrouch()
-	handleJump()
-	handleHands()
+	if is_bot:
+		var is_change_action = randf() > 0.9
+		if is_change_action: 
+			actionIndex = randi() % 6
+		if actionIndex == 0:
+			walkForward()
+		elif actionIndex == 1:
+			walkBackward()
+		elif actionIndex == 2:
+			walkRight()
+		elif actionIndex == 3:
+			walkLeft()
+		elif actionIndex == 4:
+			handleRotation()
+		# elif actionIndex == 5:
+		# 	jump()
+
+	else:
+		#body.rotation.z = 0
+		if Input.is_action_pressed("KEY_W"):
+			walkForward()
+			
+		if Input.is_action_pressed("KEY_A"):
+			walkLeft()
+			
+		if Input.is_action_pressed("KEY_D"):
+			walkRight()
+			
+		if Input.is_action_pressed("KEY_S"):
+			walkBackward()
+			
+		handleCrouch()
+		handleJump()
+		handleHands()
 	
 	if isWalking:
 		animateWalk()
@@ -227,7 +274,7 @@ func _process(delta):
 	
 	if has_camera:
 		cameraPivot.global_transform.origin = head.global_transform.origin
-	handleRotation()
+		handleRotation()
 	handleWalk()
 	
 	
