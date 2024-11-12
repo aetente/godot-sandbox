@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://eiw3y3ki1oi4"]
+
+[ext_resource type="Script" path="res://scripts/rigid_sound_part.gd" id="1_4twka"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4u0ov"]
+albedo_color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7ju6g"]
+material = SubResource("StandardMaterial3D_4u0ov")
+size = Vector3(0.05, 2, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s8pg4"]
+material = SubResource("StandardMaterial3D_4u0ov")
+size = Vector3(0.05, 0.5, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tynfw"]
+albedo_color = Color(0.215686, 0.215686, 0.215686, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jhtm5"]
+material = SubResource("StandardMaterial3D_tynfw")
+size = Vector3(0.05, 1.5, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luyae"]
+albedo_color = Color(0.137255, 0.137255, 0.137255, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k6fdq"]
+material = SubResource("StandardMaterial3D_luyae")
+top_radius = 0.02
+bottom_radius = 0.05
+height = 0.3
+radial_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q860j"]
+albedo_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qic84"]
+material = SubResource("StandardMaterial3D_q860j")
+radius = 0.05
+height = 0.1
+radial_segments = 6
+rings = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ojpj"]
+size = Vector3(0.650391, 0.293457, 0.552979)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vef6j"]
+size = Vector3(0.05, 2, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vcph6"]
+size = Vector3(0.05, 1.5, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m5tik"]
+size = Vector3(0.355286, 0.0973511, 0.107452)
+
+[node name="mic" type="RigidBody3D"]
+script = ExtResource("1_4twka")
+audio_velocity_threshold = 0.1
+add_volume_force = 10
+adjust_volume = 5
+audio_source = "res://assets/audio/mic/mic1.mp3"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_7ju6g")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.195586, -1.1476, 0)
+mesh = SubResource("BoxMesh_s8pg4")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0.5, 0.707107, 0.707107, 0.707107, 0, -0.5, 0.5, -0.707107, -0.124003, -1.1476, -0.134621)
+mesh = SubResource("BoxMesh_s8pg4")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0.5, -0.707107, 0.707107, 0.707107, 0, 0.5, -0.5, -0.707107, -0.125627, -1.1476, 0.133997)
+mesh = SubResource("BoxMesh_s8pg4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 0.131165, 1.04553, 0)
+mesh = SubResource("BoxMesh_jhtm5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.81479, 1.41191, 0)
+mesh = SubResource("CylinderMesh_k6fdq")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.2498, 0, 0, 0, 1.2498, 0, 0, 0, 1.2498, 0.94711, 1.32933, 0.00322111)
+mesh = SubResource("SphereMesh_qic84")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00585938, -1.10252, -0.0155025)
+shape = SubResource("BoxShape3D_2ojpj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vef6j")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 0.127298, 1.04345, 0)
+shape = SubResource("BoxShape3D_vcph6")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0.845392, 1.39045, -0.00395203)
+shape = SubResource("BoxShape3D_m5tik")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.988753, 1.29707, 0)
+current = true

@@ -1,10 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccwi5dna6ae0d"]
+[gd_scene load_steps=27 format=3 uid="uid://ccwi5dna6ae0d"]
 
+[ext_resource type="PackedScene" uid="uid://ct1ilwdytmw3x" path="res://elements/rigid_table.tscn" id="1_1jrog"]
+[ext_resource type="PackedScene" uid="uid://cd6fm2d4vstco" path="res://elements/snare.tscn" id="1_2ng5c"]
+[ext_resource type="PackedScene" uid="uid://cuygay5an2shn" path="res://elements/guitar.tscn" id="1_b0apk"]
+[ext_resource type="PackedScene" uid="uid://eiw3y3ki1oi4" path="res://elements/mic.tscn" id="1_b2ux6"]
+[ext_resource type="PackedScene" uid="uid://bv3nttw07dbkm" path="res://elements/wok.tscn" id="1_j7aj6"]
+[ext_resource type="PackedScene" uid="uid://nhi2a46atjrl" path="res://elements/lamp.tscn" id="1_miaud"]
 [ext_resource type="PackedScene" uid="uid://b5o3b0mjflbs4" path="res://elements/test_blender.tscn" id="1_xfa7n"]
+[ext_resource type="PackedScene" uid="uid://cqefeoxngnetv" path="res://elements/speaker.tscn" id="1_yldxi"]
+[ext_resource type="PackedScene" uid="uid://bs7anhg1gf4rm" path="res://elements/hh_stand.tscn" id="3_fhavb"]
+[ext_resource type="AudioStream" uid="uid://4lroxn1u4ftt" path="res://assets/audio/background/ac1.mp3" id="5_to1k4"]
+[ext_resource type="Texture2D" uid="uid://deygowm7jrpay" path="res://assets/wall/Texturelabs_Concrete_127S.jpg" id="9_iwtkg"]
+[ext_resource type="Texture2D" uid="uid://bhilbkrwyaw6w" path="res://assets/floor/PersianCarpets0053_2_download600.jpg" id="11_uxf3m"]
+[ext_resource type="Texture2D" uid="uid://cxhe5bnyudd7p" path="res://assets/posters/f15.jpg" id="13_6sog0"]
+[ext_resource type="Texture2D" uid="uid://ckdc5csbjgm7f" path="res://assets/posters/Screenshot 2024-11-12 201838.png" id="14_4gx42"]
 
 [sub_resource type="Environment" id="Environment_slu7n"]
 background_mode = 1
-background_color = Color(0.0156863, 0.0392157, 0.129412, 1)
+background_color = Color(0.415686, 0.298039, 0.2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pochq"]
 size = Vector3(18.1483, 1, 18.0239)
@@ -15,13 +28,78 @@ size = Vector3(18.1483, 1, 18.0239)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xyn2d"]
 size = Vector3(1, 18.148, 18.024)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_je5kk"]
+albedo_texture = ExtResource("9_iwtkg")
+uv1_scale = Vector3(9.68, 4.105, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_k77r6"]
+material = SubResource("StandardMaterial3D_je5kk")
 size = Vector3(1, 18.148, 18.024)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3121q"]
+albedo_texture = ExtResource("11_uxf3m")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gismv"]
+material = SubResource("StandardMaterial3D_3121q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5xc5"]
+albedo_texture = ExtResource("13_6sog0")
+
+[sub_resource type="QuadMesh" id="QuadMesh_bwh4v"]
+material = SubResource("StandardMaterial3D_p5xc5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qg77"]
+albedo_texture = ExtResource("14_4gx42")
+
+[sub_resource type="QuadMesh" id="QuadMesh_o2m5k"]
+material = SubResource("StandardMaterial3D_1qg77")
 
 [node name="BlenderScene1" type="Node3D"]
 
+[node name="lamp" parent="." instance=ExtResource("1_miaud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15478, -0.289732, 4.70769)
+
+[node name="hh2" parent="." instance=ExtResource("3_fhavb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33554, 0.922978, 7.70166)
+
+[node name="snare" parent="." instance=ExtResource("1_2ng5c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.82937, 6.05565)
+
+[node name="mic" parent="." instance=ExtResource("1_b2ux6")]
+transform = Transform3D(0.754561, 0, 0.65623, 0, 1, 0, -0.65623, 0, 0.754561, -1.67963, 1.17836, 6.26605)
+
+[node name="wok" parent="." instance=ExtResource("1_j7aj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.330513, 2.53064, 6.80469)
+
+[node name="guitar" parent="." instance=ExtResource("1_b0apk")]
+transform = Transform3D(-0.0144884, 0.997752, 0.0654319, -0.0143385, -0.0656394, 0.99774, 0.999792, 0.0135175, 0.0152573, 0, 0.954454, 7.08316)
+
+[node name="guitar2" parent="." instance=ExtResource("1_b0apk")]
+transform = Transform3D(0.0143758, 0.854354, -0.519493, 0.149836, 0.511839, 0.845914, 0.988606, -0.0899987, -0.120655, 0, 1.09574, 5.75955)
+
+[node name="guitar3" parent="." instance=ExtResource("1_b0apk")]
+transform = Transform3D(0.0414733, 0.851566, -0.522605, 0.149836, 0.511839, 0.845914, 0.987841, -0.113388, -0.106367, 1.17774, 2.2507, 4.62075)
+
+[node name="Speaker" parent="." instance=ExtResource("1_yldxi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04103, 1.20423, 6.62312)
+
+[node name="Speaker3" parent="." instance=ExtResource("1_yldxi")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.7687, 2.31864, 6.55519)
+
+[node name="Speaker2" parent="." instance=ExtResource("1_yldxi")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.81391, 1.24768, 6.62312)
+
+[node name="Speaker4" parent="." instance=ExtResource("1_yldxi")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.615994, -0.128406, 5.30993)
+
+[node name="table" parent="." instance=ExtResource("1_1jrog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27954, 0.734471, 6.70878)
+
 [node name="TestBlender" parent="." instance=ExtResource("1_xfa7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.25093)
+
+[node name="TestBlender4" parent="." instance=ExtResource("1_xfa7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43475, 1.1316, 6.41952)
 
 [node name="TestBlender2" parent="." instance=ExtResource("1_xfa7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49278, 0, 5.25093)
@@ -42,7 +120,7 @@ shape = SubResource("BoxShape3D_pochq")
 mesh = SubResource("BoxMesh_3b6ww")
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.22428, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.66069, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -52,7 +130,7 @@ shape = SubResource("BoxShape3D_pochq")
 mesh = SubResource("BoxMesh_3b6ww")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84319, 4.58369, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79905, 4.58369, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -62,7 +140,7 @@ shape = SubResource("BoxShape3D_xyn2d")
 mesh = SubResource("BoxMesh_k77r6")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25659, 4.58369, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.83388, 4.58369, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -72,7 +150,7 @@ shape = SubResource("BoxShape3D_xyn2d")
 mesh = SubResource("BoxMesh_k77r6")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0225687, 4.58369, 2.082)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0225687, 4.58369, 3.79549)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -96,12 +174,27 @@ mesh = SubResource("BoxMesh_k77r6")
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 1, 1.34975, 8.43176)
 current = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.416285, 0.699825, -0.580475, 0.407841, 0.714314, 0.568701, 0.812633, 3.52371e-08, -0.582776, -3.41053, 4.32463, 0)
-visible = false
-
 [node name="SpotLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.65626, 7.89944)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.00558, 7.89944)
 light_color = Color(1, 0.580392, 0.101961, 1)
 light_energy = 3.979
-omni_range = 13.404
+shadow_enabled = true
+omni_range = 4.243
+omni_attenuation = 1.03526
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_to1k4")
+attenuation_model = 3
+autoplay = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.6208, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.335715, 5.55683)
+mesh = SubResource("PlaneMesh_gismv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.38879, 0, 0, 0, 2.4, 0, 0, 0, 2.4, -0.761732, 2.15691, 4.18941)
+mesh = SubResource("QuadMesh_bwh4v")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.983727, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 1.38271, 1.65725, 4.18941)
+mesh = SubResource("QuadMesh_o2m5k")

@@ -1,19 +1,26 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cjdcvf57s2kho"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://cjdcvf57s2kho"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_v48xc"]
 resource_name = "Reverb"
-room_size = 0.09
+room_size = 0.0
 damping = 0.07
-spread = 0.11
-wet = 0.05
+spread = 0.04
+wet = 0.7
 
-[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_jlnl2"]
-resource_name = "Compressor"
-threshold = -4.8
-ratio = 8.5
+[sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_8uf8a"]
+resource_name = "StereoEnhance"
+pan_pullout = 2.2
+surround = 0.57
+
+[sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_ugobf"]
+resource_name = "Limiter"
+ceiling_db = -6.0
+threshold_db = -21.3
 
 [resource]
 bus/0/effect/0/effect = SubResource("AudioEffectReverb_v48xc")
 bus/0/effect/0/enabled = true
-bus/0/effect/1/effect = SubResource("AudioEffectCompressor_jlnl2")
+bus/0/effect/1/effect = SubResource("AudioEffectStereoEnhance_8uf8a")
 bus/0/effect/1/enabled = true
+bus/0/effect/2/effect = SubResource("AudioEffectLimiter_ugobf")
+bus/0/effect/2/enabled = true

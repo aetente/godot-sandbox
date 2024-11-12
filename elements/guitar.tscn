@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cuygay5an2shn"]
+
+[ext_resource type="Script" path="res://scripts/rigid_sound_part.gd" id="1_l32b3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4i77j"]
+albedo_color = Color(1, 0.717647, 0.498039, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7q5eb"]
+material = SubResource("StandardMaterial3D_4i77j")
+size = Vector3(0.29, 1, 0.585)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyt83"]
+albedo_color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lvixg"]
+material = SubResource("StandardMaterial3D_lyt83")
+size = Vector3(0.065, 1.58, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8mkm"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ttvnj"]
+material = SubResource("StandardMaterial3D_d8mkm")
+size = Vector2(0.01, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kocbx"]
+material = SubResource("StandardMaterial3D_lyt83")
+size = Vector3(0.065, 0.3, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3b413"]
+albedo_color = Color(0.00784314, 0.00784314, 0.00784314, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_hvnkg"]
+material = SubResource("StandardMaterial3D_3b413")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5uqbi"]
+size = Vector3(0.29, 1, 0.585)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u7prc"]
+size = Vector3(0.065, 1.58, 0.12)
+
+[node name="guitar" type="RigidBody3D"]
+mass = 0.05
+script = ExtResource("1_l32b3")
+audio_velocity_threshold = 0.2
+transition_duration = 0.01
+add_volume_force = 10
+adjust_volume = -18
+audio_source = "res://assets/audio/guitar/guitar3.mp3"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_7q5eb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138479, 0.972483, 0)
+mesh = SubResource("BoxMesh_lvixg")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37088e-08, 0.0108383, 0.999941, 4.73756e-10, 0.999941, -0.0108383, -1, 0, -4.37114e-08, 0.19145, 0.691165, 0.030165)
+mesh = SubResource("QuadMesh_ttvnj")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37088e-08, 0.0108383, 0.999941, 4.73756e-10, 0.999941, -0.0108383, -1, 0, -4.37114e-08, 0.19145, 0.691165, -0.00368181)
+mesh = SubResource("QuadMesh_ttvnj")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37088e-08, 0.0108383, 0.999941, 4.73756e-10, 0.999941, -0.0108383, -1, 0, -4.37114e-08, 0.19145, 0.691165, -0.0389328)
+mesh = SubResource("QuadMesh_ttvnj")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.991292, -0.131685, 0, 0.131685, 0.991292, 0, 0, 0, 1, 0.138479, 1.76534, 0)
+mesh = SubResource("BoxMesh_kocbx")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.886276, -0.463157, 0, 0.463157, 0.886276, 0, 0, 0, 1, 0.101576, -0.180867, 0)
+mesh = SubResource("BoxMesh_kocbx")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.04907e-08, 0, 0.24, -0.169706, 0.169706, -7.41807e-09, -0.169706, -0.169706, -7.41807e-09, 0.151313, 0, 0)
+mesh = SubResource("QuadMesh_hvnkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5uqbi")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138479, 0.972483, 0)
+shape = SubResource("BoxShape3D_u7prc")

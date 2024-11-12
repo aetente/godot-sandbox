@@ -217,7 +217,7 @@ func handleWalk():
 	if is_bot:
 		var is_change_action = randf() > 0.9
 		if is_change_action: 
-			actionIndex = randi() % 6
+			actionIndex = randi() % 7
 		if actionIndex == 0:
 			walkForward()
 		elif actionIndex == 1:
@@ -228,8 +228,8 @@ func handleWalk():
 			walkLeft()
 		elif actionIndex == 4:
 			handleRotation()
-		# elif actionIndex == 5:
-		# 	jump()
+		elif actionIndex == 5:
+			jump()
 
 	else:
 		#body.rotation.z = 0

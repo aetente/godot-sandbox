@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqefeoxngnetv"]
+
+[ext_resource type="Texture2D" uid="uid://b3u6dqemk6exx" path="res://assets/textures/snow1.jpg" id="1_g3ss5"]
+[ext_resource type="Script" path="res://scripts/rigid_sound_part.gd" id="1_id46k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bccmp"]
+albedo_color = Color(0.552941, 0.247059, 0.027451, 1)
+albedo_texture = ExtResource("1_g3ss5")
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4npu"]
+material = SubResource("StandardMaterial3D_bccmp")
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27yq4"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_f0i3n"]
+material = SubResource("StandardMaterial3D_27yq4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cv6xh"]
+size = Vector3(0.5, 1, 0.5)
+
+[node name="Speaker" type="RigidBody3D"]
+mass = 0.07
+script = ExtResource("1_id46k")
+audio_velocity_threshold = 2.0
+audio_source = "res://assets/audio/speaker/feedback1.mp3"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_w4npu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.17652e-08, 0, 0.269156, -0.190322, 0.190322, -8.31924e-09, -0.190322, -0.190322, -8.31924e-09, 0.256548, -0.168887, 0)
+mesh = SubResource("QuadMesh_f0i3n")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-5.88259e-09, 0, 0.134578, -0.095161, 0.095161, -4.15962e-09, -0.095161, -0.095161, -4.15962e-09, 0.258454, 0.187257, -0.00463462)
+mesh = SubResource("QuadMesh_f0i3n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cv6xh")
