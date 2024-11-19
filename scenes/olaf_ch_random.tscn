@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckqgp114t1cgj"]
+[gd_scene load_steps=10 format=3 uid="uid://ckqgp114t1cgj"]
 
 [ext_resource type="PackedScene" uid="uid://vfawbn1ro2u6" path="res://elements/traveling_music_dot.tscn" id="1_7ytol"]
+[ext_resource type="Script" path="res://scripts/chords_timer.gd" id="1_71c2c"]
 [ext_resource type="Texture2D" uid="uid://deygowm7jrpay" path="res://assets/wall/Texturelabs_Concrete_127S.jpg" id="1_dxqk1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e46x4"]
@@ -24,6 +25,7 @@ size = Vector3(1, 18.148, 18.024)
 background_mode = 1
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_71c2c")
 
 [node name="Node3D" parent="." instance=ExtResource("1_7ytol")]
 
