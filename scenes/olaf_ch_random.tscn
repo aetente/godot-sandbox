@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckqgp114t1cgj"]
+[gd_scene load_steps=14 format=3 uid="uid://ckqgp114t1cgj"]
 
 [ext_resource type="PackedScene" uid="uid://vfawbn1ro2u6" path="res://elements/traveling_music_dot.tscn" id="1_7ytol"]
 [ext_resource type="Script" path="res://scripts/chords_timer.gd" id="1_71c2c"]
 [ext_resource type="Texture2D" uid="uid://deygowm7jrpay" path="res://assets/wall/Texturelabs_Concrete_127S.jpg" id="1_dxqk1"]
+[ext_resource type="Texture2D" uid="uid://c6u5foy0hfm68" path="res://assets/trees/tree_bark_covered_in_snow__texture.jpg" id="4_1ck45"]
+[ext_resource type="Texture2D" uid="uid://cfkyfv86p5fc3" path="res://assets/leaves/leaf3.png" id="5_v833y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e46x4"]
 size = Vector3(18.1483, 1, 18.0239)
@@ -23,6 +25,13 @@ size = Vector3(1, 18.148, 18.024)
 
 [sub_resource type="Environment" id="Environment_48rsx"]
 background_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6pah"]
+albedo_texture = ExtResource("4_1ck45")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqfqn"]
+transparency = 1
+albedo_texture = ExtResource("5_v833y")
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_71c2c")
@@ -65,6 +74,7 @@ mesh = SubResource("BoxMesh_hq0lt")
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.10194, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -75,6 +85,7 @@ mesh = SubResource("BoxMesh_hq0lt")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5128, 4.58369, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -85,6 +96,7 @@ mesh = SubResource("BoxMesh_iesuv")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.57388, 4.58369, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -95,6 +107,7 @@ mesh = SubResource("BoxMesh_iesuv")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0225687, 4.58369, 8.59886)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137268, -0.850555, 0.0378418)
@@ -123,3 +136,23 @@ environment = SubResource("Environment_48rsx")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.731526, 0)
 omni_range = 13.991
+
+[node name="Tree3D" type="Tree3D" parent="."]
+trunk_height = 12
+material_trunk = SubResource("StandardMaterial3D_w6pah")
+material_twig = SubResource("StandardMaterial3D_qqfqn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34521, -3.77722, 1.75625)
+
+[node name="Tree3D2" type="Tree3D" parent="."]
+seed = 234
+trunk_height = 12
+material_trunk = SubResource("StandardMaterial3D_w6pah")
+material_twig = SubResource("StandardMaterial3D_qqfqn")
+transform = Transform3D(0.835654, 7.19021e-09, 0.549256, -0.131286, 0.971013, 0.199742, -0.533335, -0.239025, 0.811431, -2.54618, -3.77722, 1.75625)
+
+[node name="Tree3D3" type="Tree3D" parent="."]
+seed = 234
+trunk_height = 12
+material_trunk = SubResource("StandardMaterial3D_w6pah")
+material_twig = SubResource("StandardMaterial3D_qqfqn")
+transform = Transform3D(0.791069, 0.198817, 0.578517, -0.0713448, 0.969243, -0.235539, -0.607553, 0.145053, 0.780922, 3.85715, -3.77722, -2.53973)
