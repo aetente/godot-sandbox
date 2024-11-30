@@ -16,6 +16,8 @@ var rng = RandomNumberGenerator.new()
 
 @export var midi_port = 1
 
+@export var relative_point: Node3D
+
 var is_playing = false
 
 var midi_out = MidiOut.new()
@@ -61,11 +63,33 @@ func _body_entered(body:Node):
 		if is_debug:
 			print("sound")
 		# turn off
-		var new_note = chord_to_note.chord_to_note()
+		var note_position = (global_position.y + 4) / 8
+		if note_position < 0:
+			note_position = 0
+		if note_position > 1:
+			note_position = 1
+		var new_note = chord_to_note.chord_to_note(note_position)
 		note_to_stop = new_note
 		midi_out.send_message([0x80, note_to_stop, 127])
 		# play sound
-		midi_out.send_message([0x90, new_note, 127])
-		midi_out.send_message([0xB0, 10, randi_range(0, 127)])
+		var note_loudness = 127
+		if relative_point:
+			note_loudness = round(5*global_position.distance_to(relative_point.global_position))
+			if note_loudness > 127:
+				note_loudness = 127
+		midi_out.send_message([0x90, new_note, note_loudness])
+		# panning
+		var pan_value = randi_range(0, 127)
+		if relative_point:
+			pan_value = round((relative_point.global_position.x - global_position.x) * 10) + 64
+			if pan_value > 127:
+				pan_value = 127
+			if pan_value < 0:
+				pan_value = 0
+			# pan_value = fmod(abs(relative_point.global_position.angle_to(global_position)), 2 * PI) * 127 / (2*PI)
+			# print(relative_point.global_position)
+			# print(global_position)
+			# print(pan_value)
+		midi_out.send_message([0xB0, 10, pan_value])
 		timer.start()
 	pass # Replace with function body.

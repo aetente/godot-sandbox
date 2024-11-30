@@ -29,7 +29,15 @@ mesh = SubResource("SphereMesh_147fs")
 [node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("the_dot")]
 script = ExtResource("1_f87ml")
 the_dot = NodePath("..")
+multiply_launch = 20
+is_stopping = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.827451, 0.439216, 1)
 shadow_enabled = true
+
+[node name="OmniLight3D2" type="SpotLight3D" parent="."]
+light_color = Color(1, 0.827451, 0.439216, 1)
+shadow_enabled = true
+spot_range = 16.609
+spot_angle = 31.08

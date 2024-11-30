@@ -8,7 +8,7 @@ var timer_works = false
 func _ready():
 	Global.reset_chord()
 	timer.one_shot = true
-	timer.wait_time = 2.0
+	timer.wait_time = 4.0
 	timer.timeout.connect(_on_timer_timeout)
 	add_child(timer)
 	pass # Replace with function body.
