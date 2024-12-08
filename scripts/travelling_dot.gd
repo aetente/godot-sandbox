@@ -45,7 +45,7 @@ func _body_entered(body):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
-	if !timer_running:
+	if is_stopping and !timer_running:
 		timer.start()
 		timer_running = true
 

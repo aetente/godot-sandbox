@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckqgp114t1cgj"]
+[gd_scene load_steps=13 format=3 uid="uid://ckqgp114t1cgj"]
 
 [ext_resource type="PackedScene" uid="uid://vfawbn1ro2u6" path="res://elements/traveling_music_dot.tscn" id="1_7ytol"]
 [ext_resource type="Script" path="res://scripts/chords_timer.gd" id="1_71c2c"]
 [ext_resource type="Texture2D" uid="uid://deygowm7jrpay" path="res://assets/wall/Texturelabs_Concrete_127S.jpg" id="1_dxqk1"]
+[ext_resource type="Script" path="res://scripts/generate_tree_better.gd" id="4_jps6p"]
+[ext_resource type="Texture2D" uid="uid://c6u5foy0hfm68" path="res://assets/trees/tree_bark_covered_in_snow__texture.jpg" id="5_g7eqd"]
+[ext_resource type="Texture2D" uid="uid://bgrfiw41qyjcx" path="res://assets/leaves/oak_leaf_png_one_side.PNG" id="6_vo75s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e46x4"]
 size = Vector3(18.1483, 1, 18.0239)
@@ -140,3 +143,42 @@ omni_range = 13.991
 
 [node name="gen_tree" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53676, -4.62444, 4.71178)
+script = ExtResource("4_jps6p")
+base_divisions = 6
+base_sections = 2
+brancnes_amount = 1
+seed = 234
+base_angle_1 = 0.05
+branch_angle_1 = 1.0
+branch_angle_2 = 1.0
+branch_start_distance = 4.0
+branch_texture = ExtResource("5_g7eqd")
+leaf_texture = ExtResource("6_vo75s")
+
+[node name="gen_tree2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2828, -4.62444, -5.57194)
+script = ExtResource("4_jps6p")
+base_divisions = 6
+base_sections = 2
+brancnes_amount = 1
+seed = 12342345
+base_angle_1 = 0.05
+branch_angle_1 = 1.0
+branch_angle_2 = 1.0
+branch_start_distance = 4.0
+branch_texture = ExtResource("5_g7eqd")
+leaf_texture = ExtResource("6_vo75s")
+
+[node name="gen_tree3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02156, -4.62444, -5.57194)
+script = ExtResource("4_jps6p")
+base_divisions = 6
+base_sections = 2
+brancnes_amount = 1
+seed = 3456
+base_angle_1 = 0.05
+branch_angle_1 = 1.0
+branch_angle_2 = 1.0
+branch_start_distance = 4.0
+branch_texture = ExtResource("5_g7eqd")
+leaf_texture = ExtResource("6_vo75s")

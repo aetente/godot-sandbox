@@ -30,7 +30,6 @@ mesh = SubResource("SphereMesh_147fs")
 script = ExtResource("1_f87ml")
 the_dot = NodePath("..")
 multiply_launch = 20
-is_stopping = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.827451, 0.439216, 1)

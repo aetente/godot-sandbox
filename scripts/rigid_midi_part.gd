@@ -18,6 +18,8 @@ var rng = RandomNumberGenerator.new()
 
 @export var relative_point: Node3D
 
+@export var is_full_chord = false
+
 var is_playing = false
 
 var midi_out = MidiOut.new()
