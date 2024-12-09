@@ -131,6 +131,7 @@ func makeATree(tx: float, ty: float, tz: float, baseBrValue: float):
 					# print("base lineSize: ", lineSize);
 					# print("branch lineSize: ", lineSize);
 					var branches_array = sizedLineUp(tx, ty, tz, lineSize, nextLineSize, 0, false);
+					print(branches_array.size())
 					for l in range(1, branches_array.size()):
 						var branch_el = branches_array[l];
 						var branch_el_previous = branches_array[l - 1];
@@ -178,6 +179,15 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 			cube.look_at(branchEndFix)
 		cube.position = Vector3((branchEnd.x + branchStart.x) / 2, (branchEnd.y + branchStart.y) / 2, (branchEnd.z + branchStart.z) / 2);
 
+	
+
+
+func drawTree(b: Array, x: float, y: float, z: float):
+	var scr: float = -1;
+	print(b.size())
+	for i in range(b.size()):
+		drawLineUpPos(b[i], x, y, z, 0, scr);
+
 	for i in range(0, leafs_array.size()):
 		var rotationPivot = Node3D.new();
 		add_child(rotationPivot);
@@ -207,12 +217,6 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 		rotationPivot.rotate(Vector3.UP, PI/4 * rng.randf_range(-1, 1));
 		rotationPivot.rotate(Vector3.RIGHT, PI/4 * rng.randf_range(-1, 1));
 		rotationPivot.rotate(Vector3.BACK, PI/4 * rng.randf_range(-1, 1));
-
-
-func drawTree(b: Array, x: float, y: float, z: float):
-	var scr: float = -1;
-	for i in range(b.size()):
-		drawLineUpPos(b[i], x, y, z, 0, scr);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

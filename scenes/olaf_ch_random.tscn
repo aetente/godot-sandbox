@@ -172,7 +172,7 @@ leaf_texture = ExtResource("6_vo75s")
 [node name="gen_tree3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02156, -4.62444, -5.57194)
 script = ExtResource("4_jps6p")
-base_divisions = 6
+base_divisions = 4
 base_sections = 2
 brancnes_amount = 1
 seed = 3456
