@@ -6,8 +6,8 @@ extends Node3D
 
 @export var base_divisions: int = 10;
 @export var branch_divisions: int = 3;
-@export var base_sections: int = 10;
-@export var brancnes_amount: int = 3;
+@export var base_sections: int = 4;
+@export var brancnes_amount: int = 2;
 @export var branch_width: float  = 0.5;
 @export var baseBrValue: float = 0.3;
 @export var seed: int = 264;
@@ -25,6 +25,8 @@ extends Node3D
 @export var base_section_height: float = 1;
 @export var branch_section_height: float = 1;
 @export var branch_start_distance : float = 1;
+
+@export var max_leafs_per_branch: int = 4;
 
 @export var branch_texture: Texture2D;
 @export var leaf_texture: Texture2D;
@@ -131,15 +133,16 @@ func makeATree(tx: float, ty: float, tz: float, baseBrValue: float):
 					# print("base lineSize: ", lineSize);
 					# print("branch lineSize: ", lineSize);
 					var branches_array = sizedLineUp(tx, ty, tz, lineSize, nextLineSize, 0, false);
-					print(branches_array.size())
-					for l in range(1, branches_array.size()):
-						var branch_el = branches_array[l];
-						var branch_el_previous = branches_array[l - 1];
-						# why is it minus?
-						var branch_el_position = Vector3(-branch_el.x, -branch_el.y, -branch_el.z);
-						var branch_el_previous_position = Vector3(-branch_el_previous.x, -branch_el_previous.y, -branch_el_previous.z);
-						var angle_between = branch_el_previous_position.angle_to(branch_el_position);
-						leafs_array.push_back([branch_el_position, branch_el_previous_position]);
+					for m in range(max_leafs_per_branch):
+						if (m == 0 or rng.randf() > 0.7):
+							for l in range(1, branches_array.size()):
+								var branch_el = branches_array[l];
+								var branch_el_previous = branches_array[l - 1];
+								# why is it minus?
+								var branch_el_position = Vector3(-branch_el.x, -branch_el.y, -branch_el.z);
+								var branch_el_previous_position = Vector3(-branch_el_previous.x, -branch_el_previous.y, -branch_el_previous.z);
+								var angle_between = branch_el_previous_position.angle_to(branch_el_position);
+								leafs_array.push_back([branch_el_position, branch_el_previous_position]);
 					tree.push_back(branches_array);
 	return tree;
 
@@ -155,11 +158,18 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 		var branchStart: Vector3 = Vector3(scr * coords[i - 1].x + x, scr * coords[i - 1].y + y, scr * coords[i - 1].z + z);
 		var branchEnd: Vector3 = Vector3(scr * coords[i].x + x, scr * coords[i].y + y, scr * coords[i].z + z);
 		var branchPointsDistance: float = branchStart.distance_to(branchEnd);
-		var branchSize: Vector3 = Vector3(lineWidth, lineWidth, branchPointsDistance);
+		var branchSize: Vector3 = Vector3(lineWidth, branchPointsDistance, lineWidth);
 		# print("branchSize: ", branchSize);
 
+		var anchor_branch = Node3D.new();
+		add_child(anchor_branch);
+		anchor_branch.position = branchStart;
+
 		var cube = MeshInstance3D.new();
-		cube.mesh = BoxMesh.new();
+		var branch_mesh = CylinderMesh.new();
+		branch_mesh.radial_segments = 5;
+		branch_mesh.rings = 1;
+		cube.mesh = branch_mesh;
 		cube.scale = branchSize;
 		var cubeMaterial = StandardMaterial3D.new();
 
@@ -169,22 +179,24 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 			cubeMaterial.albedo_color = Color(200,200,200);
 
 		cube.set_surface_override_material(0, cubeMaterial);
-		add_child(cube);
-		cube.position = branchStart;
+		anchor_branch.add_child(cube);
+		cube.rotation.x = PI/2;
+		# cube.position = branchStart;
 		var branchEndFix: Vector3 = branchEnd + transform.origin;
 		if (branchEnd.normalized().y > 0.99):
-			cube.rotation.x = PI/4;
-			cube.look_at(branchEndFix, Vector3(0,0,1))
+			# anchor_branch.rotation.x = PI/4;
+			anchor_branch.look_at(branchEndFix, Vector3(0,0,1))
 		else: 	
-			cube.look_at(branchEndFix)
-		cube.position = Vector3((branchEnd.x + branchStart.x) / 2, (branchEnd.y + branchStart.y) / 2, (branchEnd.z + branchStart.z) / 2);
+			anchor_branch.look_at(branchEndFix)
+		
+		# cube.rotate_x(PI/2);
+		anchor_branch.position = Vector3((branchEnd.x + branchStart.x) , (branchEnd.y + branchStart.y), (branchEnd.z + branchStart.z) );
 
 	
 
 
 func drawTree(b: Array, x: float, y: float, z: float):
 	var scr: float = -1;
-	print(b.size())
 	for i in range(b.size()):
 		drawLineUpPos(b[i], x, y, z, 0, scr);
 
