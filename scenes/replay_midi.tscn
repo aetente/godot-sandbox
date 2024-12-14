@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://bt5yun78672ea"]
+
+[ext_resource type="Script" path="res://scripts/midi_move_stick_v1.gd" id="2_p60ia"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_skg4j"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fbpwk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3hljh"]
+size = Vector3(4, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahxit"]
+size = Vector3(4, 0.2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w86ya"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d767v"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="Environment" id="Environment_rud7w"]
+background_mode = 1
+background_color = Color(0.544503, 0.561686, 0.705722, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RigidBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_skg4j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_fbpwk")
+
+[node name="start_stick" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84729, 1, 0)
+
+[node name="stick" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70089, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="stick"]
+mesh = SubResource("BoxMesh_3hljh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="stick"]
+shape = SubResource("BoxShape3D_ahxit")
+
+[node name="Node3D" type="Node3D" parent="stick" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("2_p60ia")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="stick_joint" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.90012, 1, 0)
+node_a = NodePath("../stick")
+node_b = NodePath("../start_stick")
+angular_limit/enable = true
+angular_limit/upper = 0.0872665
+angular_limit/lower = -0.139626
+angular_limit/bias = 0.69
+angular_limit/relaxation = 0.01
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.230442, 6.01449)
+fov = 39.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rud7w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.962772, -0.270315, -7.17321e-09, 0.239049, 0.851415, 0.46685, -0.126196, -0.44947, 0.884337, -2.43844, 1.63754, 5.26946)
+light_color = Color(1, 0.847059, 0.560784, 1)

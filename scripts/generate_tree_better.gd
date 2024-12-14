@@ -173,7 +173,7 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 		cube.scale = branchSize;
 		var cubeMaterial = StandardMaterial3D.new();
 
-		if branch_texture_value:
+		if branch_texture_value and i != 1:
 			cubeMaterial.albedo_texture = branch_texture;
 		else:
 			cubeMaterial.albedo_color = Color(200,200,200);

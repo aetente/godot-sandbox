@@ -1,0 +1,432 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxpelflvvlat2"]
+
+[ext_resource type="Script" path="res://scripts/midi_move_stick_v1.gd" id="1_bmjfb"]
+[ext_resource type="Script" path="res://scripts/shake_static_box.gd" id="2_yisdy"]
+[ext_resource type="Script" path="res://scripts/shake_rigid_box.gd" id="3_xi8ja"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpp8q"]
+emission_enabled = true
+emission = Color(0.92549, 0.682353, 0.443137, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jvqbi"]
+material = SubResource("StandardMaterial3D_vpp8q")
+radial_segments = 6
+rings = 6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ix4kj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vldq0"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.0862745)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w86ya"]
+material = SubResource("StandardMaterial3D_vldq0")
+size = Vector3(7, 1, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d767v"]
+size = Vector3(7, 1, 7)
+
+[sub_resource type="Environment" id="Environment_rud7w"]
+background_mode = 1
+background_color = Color(0.544503, 0.561686, 0.705722, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frgvb"]
+size = Vector3(20, 3, 20)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="midi_sphere" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70089, 0.328868, -0.375278)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+debug = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144205, 0.424981, 0.552725)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere2"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere2"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere2" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere2"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere3" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, 1, 1.74433)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere3"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere3"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere3" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere3"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere4" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575629, -0.562753, 0.879563)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere4"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere4"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere4" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere4"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere5" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340336, -0.562753, 1.0136)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere5"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere5"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere5" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 4
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere5"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere6" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24301, -0.562753, 0.341775)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere6"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere6"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere6" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere6"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere13" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24301, -0.562753, 0.341775)
+mass = 5.0
+gravity_scale = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere13"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere13"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere13" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("../../midi_sphere6")
+midi_port_out = 5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere13"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere7" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70089, 1, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere7"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere7"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere7" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere7"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere8" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144205, 1, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere8"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere8"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere8" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere8"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere9" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, 1, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere9"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere9"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere9" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere9"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere10" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, -0.562753, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere10"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere10"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere10" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere10"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+omni_range = 6.75
+
+[node name="midi_sphere11" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140127, -0.562753, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere11"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere11"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere11" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere11"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+light_energy = 7.383
+omni_range = 6.75
+
+[node name="midi_sphere12" type="RigidBody3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80237, -0.562753, -0.837321)
+visible = false
+mass = 13.34
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere12"]
+mesh = SubResource("SphereMesh_jvqbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere12"]
+shape = SubResource("SphereShape3D_ix4kj")
+
+[node name="Node3D" type="Node3D" parent="midi_sphere12" node_paths=PackedStringArray("rigid_element")]
+script = ExtResource("1_bmjfb")
+rigid_element = NodePath("..")
+midi_port_out = 7
+
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere12"]
+light_color = Color(1, 0.776471, 0.494118, 1)
+light_energy = 7.383
+omni_range = 6.75
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("2_yisdy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 2)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 2)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -2)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -2)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2, 0, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 2, 0, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -2, 0, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -2, 0, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="StaticBody3D2" type="RigidBody3D" parent="."]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 1000.0
+gravity_scale = 0.0
+script = ExtResource("3_xi8ja")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 4)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 4)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -4)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -4)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4, 0, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4, 0, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4, 0, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4, 0, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_w86ya")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_d767v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0243003, 19.965)
+fov = 39.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rud7w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.962772, -0.270315, -7.17321e-09, 0.239049, 0.851415, 0.46685, -0.126196, -0.44947, 0.884337, -2.43844, 1.63754, 5.26946)
+light_color = Color(1, 0.847059, 0.560784, 1)
+
+[node name="invisible_floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="invisible_floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("BoxShape3D_frgvb")
