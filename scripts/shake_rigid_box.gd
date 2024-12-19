@@ -1,5 +1,8 @@
 extends RigidBody3D
 
+@export var jumpForce = 10
+@export var fallForce = 20
+
 var t = 0
 var is_moving = false
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +16,7 @@ func _input(event):
 			if event.message == 9:
 				is_moving = true
 				if position.distance_to(Vector3.ZERO) < 0.3:
-					linear_velocity = Vector3(0, 10, 0)
+					linear_velocity = Vector3(0, jumpForce, 0)
 			elif event.message == 8:
 				is_moving = false
 
@@ -33,5 +36,5 @@ func _process(delta):
 	# else:
 	# print(position.distance_to(Vector3.ZERO))
 	if !is_moving and position.distance_to(Vector3.ZERO) > 1.5:
-		linear_velocity = position.direction_to(Vector3.ZERO)*20
+		linear_velocity = position.direction_to(Vector3.ZERO)*fallForce
 	pass

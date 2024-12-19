@@ -146,12 +146,12 @@ func makeATree(tx: float, ty: float, tz: float, baseBrValue: float):
 					tree.push_back(branches_array);
 	return tree;
 
-func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: float):
+func drawBranches(coords: Array, x: float, y: float, z: float, r: float, scr: float):
 	var lineWidth: float = 1;
 	# for i in range(0, coords.size()):
 	for i in range(1, coords.size()):
-		if (coords[i].size == 0):
-			lineWidth = 0.1;
+		if (coords[i].size <= 0.2):
+			lineWidth = 0.2;
 		else:
 			# lineWidth = lineSize / 50 * coords.size() / (i) / 10;
 			lineWidth = coords[i-1].size;
@@ -198,7 +198,7 @@ func drawLineUpPos(coords: Array, x: float, y: float, z: float, r: float, scr: f
 func drawTree(b: Array, x: float, y: float, z: float):
 	var scr: float = -1;
 	for i in range(b.size()):
-		drawLineUpPos(b[i], x, y, z, 0, scr);
+		drawBranches(b[i], x, y, z, 0, scr);
 
 	for i in range(0, leafs_array.size()):
 		var rotationPivot = Node3D.new();

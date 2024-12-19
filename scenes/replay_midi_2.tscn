@@ -36,271 +36,273 @@ size = Vector3(20, 3, 20)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="midi_sphere" type="RigidBody3D" parent="."]
+[node name="midi_port_speheres" type="Node3D" parent="."]
+
+[node name="midi_sphere" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70089, 0.328868, -0.375278)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 debug = true
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere2" type="RigidBody3D" parent="."]
+[node name="midi_sphere2" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144205, 0.424981, 0.552725)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere2"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere2"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere2" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere2" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere2"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere2"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere3" type="RigidBody3D" parent="."]
+[node name="midi_sphere3" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, 1, 1.74433)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere3"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere3"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere3" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere3" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 2
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere3"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere3"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere4" type="RigidBody3D" parent="."]
+[node name="midi_sphere4" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575629, -0.562753, 0.879563)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere4"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere4"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere4" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere4" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 3
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere4"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere4"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere5" type="RigidBody3D" parent="."]
+[node name="midi_sphere5" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340336, -0.562753, 1.0136)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere5"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere5"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere5"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere5" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere5" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 4
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere5"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere5"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere6" type="RigidBody3D" parent="."]
+[node name="midi_sphere6" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24301, -0.562753, 0.341775)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere6"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere6"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere6"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere6" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere6" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 5
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere6"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere6"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere13" type="RigidBody3D" parent="."]
+[node name="midi_sphere13" type="RigidBody3D" parent="midi_port_speheres"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24301, -0.562753, 0.341775)
 mass = 5.0
 gravity_scale = 4.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere13"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere13"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere13"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere13"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere13" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere13" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("../../midi_sphere6")
 midi_port_out = 5
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere13"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere13"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere7" type="RigidBody3D" parent="."]
+[node name="midi_sphere7" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70089, 1, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere7"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere7"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere7"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere7" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere7" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere7"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere7"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere8" type="RigidBody3D" parent="."]
+[node name="midi_sphere8" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144205, 1, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere8"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere8"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere8"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere8" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere8" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere8"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere8"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere9" type="RigidBody3D" parent="."]
+[node name="midi_sphere9" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, 1, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere9"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere9"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere9"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere9" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere9" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere9"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere9"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere10" type="RigidBody3D" parent="."]
+[node name="midi_sphere10" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14459, -0.562753, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere10"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere10"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere10"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere10" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere10" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere10"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere10"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 omni_range = 6.75
 
-[node name="midi_sphere11" type="RigidBody3D" parent="."]
+[node name="midi_sphere11" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140127, -0.562753, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere11"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere11"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere11"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere11"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere11" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere11" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere11"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere11"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 light_energy = 7.383
 omni_range = 6.75
 
-[node name="midi_sphere12" type="RigidBody3D" parent="."]
+[node name="midi_sphere12" type="RigidBody3D" parent="midi_port_speheres"]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80237, -0.562753, -0.837321)
 visible = false
 mass = 13.34
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_sphere12"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="midi_port_speheres/midi_sphere12"]
 mesh = SubResource("SphereMesh_jvqbi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_sphere12"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="midi_port_speheres/midi_sphere12"]
 shape = SubResource("SphereShape3D_ix4kj")
 
-[node name="Node3D" type="Node3D" parent="midi_sphere12" node_paths=PackedStringArray("rigid_element")]
+[node name="Node3D" type="Node3D" parent="midi_port_speheres/midi_sphere12" node_paths=PackedStringArray("rigid_element")]
 script = ExtResource("1_bmjfb")
 rigid_element = NodePath("..")
 midi_port_out = 7
 
-[node name="OmniLight3D" type="OmniLight3D" parent="midi_sphere12"]
+[node name="OmniLight3D" type="OmniLight3D" parent="midi_port_speheres/midi_sphere12"]
 light_color = Color(1, 0.776471, 0.494118, 1)
 light_energy = 7.383
 omni_range = 6.75
